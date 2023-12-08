@@ -19,7 +19,6 @@ public class App extends Application {
 
     private static Scene scene;
     
-
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("ventanalogin"), 590, 400);
@@ -27,9 +26,11 @@ public class App extends Application {
         stage.show();
         
         }
-
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+    static void cambiarVentana(Stage stage, String fxml) throws IOException{
+        Parent root = loadFXML(fxml);
+        Scene newScene = new Scene(root);
+        stage.setScene(newScene);
+        stage.show();
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

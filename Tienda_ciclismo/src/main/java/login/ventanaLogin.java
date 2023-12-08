@@ -46,11 +46,13 @@ public class ventanaLogin {
     
     
     @FXML
-    private void obtenerUsuario() {
+    private void obtenerUsuario() throws IOException {
     if (textUsuario != null && !textUsuario.getText().isEmpty() && textContrasena != null && !textContrasena.getText().isEmpty()) {
         usuario = textUsuario.getText();
         contrasenna = textContrasena.getText();
-        System.out.println(validarInformacion.loginUsuario(usuario, contrasenna,credenciales));
+        if (validarInformacion.loginUsuario(usuario, contrasenna,credenciales)){
+            sesionIniciada();
+        }
     } else {
         Alert alert = new Alert(AlertType.ERROR, "Falta información para poder ingresar al sistema.");
         alert.show();
@@ -67,5 +69,10 @@ public class ventanaLogin {
     private void salir(){
         Stage stage = (Stage) botSalir.getScene().getWindow();
         stage.close();
+    }
+    
+    private void sesionIniciada() throws IOException{
+        Stage stage = (Stage) botIngresar.getScene().getWindow();
+        App.cambiarVentana(stage,"ventanaPrincipal");
     }
 }
