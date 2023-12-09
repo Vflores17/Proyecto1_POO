@@ -5,4 +5,9 @@ module login {
 
     opens login to javafx.fxml;
     exports login;
+
+    opens controllers to javafx.fxml;
+    exports controllers;
+    
+    
 }

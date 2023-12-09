@@ -17,22 +17,22 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Button fx:id="botAccesorios" layoutX="363.0" layoutY="94.0" mnemonicParsing="false" text="Accesorios">
+      <Button fx:id="botProductos" layoutX="363.0" layoutY="94.0" mnemonicParsing="false" onAction="#opcionRegistrarProductos" text="Productos">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="botClientes" layoutX="372.0" layoutY="157.0" mnemonicParsing="false" text="Clientes">
+      <Button fx:id="botClientes" layoutX="372.0" layoutY="157.0" mnemonicParsing="false" onAction="#opcionRegistrarClientes" text="Clientes">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="botFacturacion" layoutX="361.0" layoutY="282.0" mnemonicParsing="false" text="Facturación">
+      <Button fx:id="botFacturacion" layoutX="361.0" layoutY="282.0" mnemonicParsing="false" onAction="#opcionRealizarFactura" text="Facturación">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="botServicios" layoutX="373.0" layoutY="225.0" mnemonicParsing="false" text="Servicio">
+      <Button fx:id="botServicios" layoutX="373.0" layoutY="225.0" mnemonicParsing="false" onAction="#opcionRegistrarServicios" text="Servicio">
          <font>
             <Font size="14.0" />
          </font>
