@@ -4,8 +4,10 @@
  */
 package controllers;
 
+import clases.tipoProducto;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import login.App;
+import static login.App.devolverInfo;
 
 /**
  * FXML Controller class
@@ -34,18 +37,17 @@ public class AgregarProductoController implements Initializable {
     private MenuBar menuArticulo;
     @FXML
     private Menu opcionNewArticulo;
+    
+    private ArrayList listaProductos;
 
     /**
      * Initializes the controller class.
      */
-    @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }   
+        }   
     
     @FXML
     private void mostrarVentanaAgregar() throws IOException{
-        System.out.println("entra aqui");
         App.cambiarVista(getStage(), "registroArticulos");
         
     }
@@ -57,5 +59,16 @@ public class AgregarProductoController implements Initializable {
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "registroProductos");
+    }
+    
+    
+    @FXML
+    private void nuevoProducto(){
+        String info = textProducto.getText();
+        int codigo = App.cantProductos() + 1;
+        tipoProducto newObjeto = new tipoProducto(codigo, info);
+        App.guardarProducto(newObjeto);
+        App.verProductos();
+    
     }
 }

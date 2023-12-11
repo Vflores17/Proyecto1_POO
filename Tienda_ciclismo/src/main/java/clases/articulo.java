@@ -20,7 +20,7 @@ public class articulo extends tipoProducto {
     private int precio;
     private int cantidad;
 
-    public articulo(String codigoArticulo, String nombreArticulo, String tipo, String tamanno, String marca, int precio, int cantidad, String codigo, String nombreProducto) {
+    public articulo(String codigoArticulo, String nombreArticulo, String tipo, String tamanno, String marca, int precio, int cantidad, int codigo, String nombreProducto) {
         super(codigo, nombreProducto);
         this.codigoArticulo = codigoArticulo;
         this.nombreArticulo = nombreArticulo;

@@ -14,19 +14,19 @@ import java.util.List;
  */
 public class tipoProducto {
     
-    private String codigo;
+    private int codigo;
     private String nombreProducto;
 
-    public tipoProducto(String codigo, String nombreProducto) {
+    public tipoProducto(int codigo, String nombreProducto) {
         this.codigo = codigo;
         this.nombreProducto = nombreProducto;
     }
 
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
