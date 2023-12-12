@@ -28,7 +28,7 @@ import login.App;
  * @author Personal
  */
 public class RegistroArticulosController implements Initializable {
-    
+
     @FXML
     private ComboBox<String> tipoProducto;
     @FXML
@@ -49,11 +49,11 @@ public class RegistroArticulosController implements Initializable {
     private Text tamanno;
     @FXML
     private ComboBox<String> tamannoArticulo;
-    
+
     private ArrayList<String> productosDisponibles;
-    
+
     private String tamannNuevoArticulo;
-    
+
     private String[] tipos = {"Bicicletas", "Suplementos", "Accesorios"};
     private String pTipoArticulo;
     private String pNombreArticulo;
@@ -71,32 +71,34 @@ public class RegistroArticulosController implements Initializable {
         productosDisponibles = App.verProductos();
         tipoProducto.getItems().addAll(productosDisponibles);
         tiposArticulo.getItems().addAll(tipos);
-        
+
     }
-    
+
     @FXML
     private void crearNuevoArticulo(ActionEvent event) {
         if (validarDatos()) {
-            int codigo = App.buscarCodigoProducto(pTipoArticulo); 
-            int codigoArticulo = App.cantArticulos()+1; 
-            articulo newArticulo = new articulo(codigoArticulo, pNombreArticulo,pCategoriaArticulo,pTamannoArticulo,pMarcaArticulo,pPrecioArticulo,pCantArticulo,codigo,pTipoArticulo);
+            int codigo = App.buscarCodigoProducto(pTipoArticulo);
+            int codigoArticulo = App.cantArticulos() + 1;
+            articulo newArticulo = new articulo(codigoArticulo, pNombreArticulo, pCategoriaArticulo, pTamannoArticulo, pMarcaArticulo, pPrecioArticulo, pCantArticulo, codigo, pTipoArticulo);
             borrarDatos();
-            System.out.println(newArticulo.mostrarTodo());
+            App.guardarArticulo(newArticulo);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Nuevo articulo agregado.");
+            alert.show();
         } else {
-            System.out.println("Soy un mamapichas");
+            System.out.println("No se guardó la información");
         }
     }
-    
+
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "agregarProducto");
     }
-    
+
     private Stage getStage() {
         Stage stage = (Stage) botAgregar.getScene().getWindow();
         return stage;
     }
-    
+
     @FXML
     public void habilitarComboBox() {
         if ("Bicicletas".equals(tiposArticulo.getValue())) {
@@ -109,7 +111,7 @@ public class RegistroArticulosController implements Initializable {
             tamannNuevoArticulo = "0";
         }
     }
-    
+
     public boolean validarDatos() {
         if (tipoProducto.getValue() != null) {
             pTipoArticulo = tipoProducto.getValue();
@@ -159,7 +161,7 @@ public class RegistroArticulosController implements Initializable {
             alert.show();
         }
         return false;
-        
+
     }
 
     public void borrarDatos() {
@@ -170,12 +172,20 @@ public class RegistroArticulosController implements Initializable {
         pMarcaArticulo = null;
         pPrecioArticulo = 0;
         pCantArticulo = 0;
+        tipoProducto.setValue(null);
+        nombreArticulo.setText(null);
+        tiposArticulo.setValue(null);
+        tamannoArticulo.setValue(null);
+        tamannoArticulo.setDisable(true);
+        marcaArticulo.setText(null);
+        precioArticulo.setText(null);
+        cantidadArticulo.setText(null);
     }
 
-    public boolean esNumerico(String cadena) {
+    public static boolean esNumerico(String cadena) {
         // Expresión regular que verifica si la cadena contiene solo dígitos
         String regex = "\\d+";
         return cadena.matches(regex);
     }
-    
+
 }

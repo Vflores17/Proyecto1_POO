@@ -15,13 +15,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import login.App;
+
 /**
  * FXML Controller class
  *
  * @author Personal
  */
 public class registroProductosController implements Initializable {
-
 
     @FXML
     private Button botBuscar;
@@ -33,16 +33,18 @@ public class registroProductosController implements Initializable {
     private Button botModificar;
     @FXML
     private Button botRegresar;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
     @FXML
-    private void opcionBuscarProducto(ActionEvent event) {
+    private void opcionBuscarProducto(ActionEvent event) throws IOException {
+        App.cambiarVista(getStage(), "ventanaBuscarProducto");
     }
 
     @FXML
@@ -62,7 +64,8 @@ public class registroProductosController implements Initializable {
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "ventanaPrincipal");
     }
-    private Stage getStage(){
+
+    private Stage getStage() {
         Stage stage = (Stage) botAgregar.getScene().getWindow();
         return stage;
     }

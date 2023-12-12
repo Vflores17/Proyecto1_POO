@@ -19,7 +19,7 @@
       <Text layoutX="26.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del articulo:" wrappingWidth="113.791015625" />
       <TextField fx:id="nombreArticulo" layoutX="143.0" layoutY="117.0" prefHeight="25.0" prefWidth="179.0" />
       <Text layoutX="26.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de articulo:" />
-      <ComboBox fx:id="tiposArticulo" layoutX="143.0" layoutY="165.0" onAction="#habilitarComboBox" prefHeight="25.0" prefWidth="179.0" />
+      <ComboBox fx:id="tiposArticulo" layoutX="143.0" layoutY="166.0" onAction="#habilitarComboBox" prefHeight="25.0" prefWidth="179.0" />
       <Text layoutX="375.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Marca del articulo:" />
       <TextField fx:id="marcaArticulo" layoutX="489.0" layoutY="67.0" prefHeight="25.0" prefWidth="179.0" />
       <Text layoutX="375.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Precio del articulo:" />

@@ -3,6 +3,7 @@ module login {
     requires javafx.fxml;
     requires javafx.base;
     requires javafx.graphics;
+    requires java.base;
     
     opens login to javafx.fxml;
     exports login;
