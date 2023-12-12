@@ -68,7 +68,6 @@ public class AgregarProductoController implements Initializable {
         int codigo = App.cantProductos() + 1;
         tipoProducto newObjeto = new tipoProducto(codigo, info);
         App.guardarProducto(newObjeto);
-        App.verProductos();
-    
+        
     }
 }

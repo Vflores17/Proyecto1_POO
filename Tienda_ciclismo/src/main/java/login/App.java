@@ -23,7 +23,7 @@ public class App extends Application {
 
     private static Scene scene;
     private static ArrayList<tipoProducto> infoProductos = new ArrayList();
-    private static ArrayList<tipoProducto> infoArticulos = new ArrayList();
+    private static ArrayList<articulo> infoArticulos = new ArrayList();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -53,6 +53,13 @@ public class App extends Application {
         infoProductos.add(newObjeto);
         infoProductos.add(newObjeto1);
         infoProductos.add(newObjeto2);
+        
+        articulo newarticulo = new articulo(1, "MTB","Bicicletas","27","Yamaha",12345,12,1,"Bicicletas");
+        articulo newarticulo1 = new articulo(2, "Frenos de tambor","Bicicletas","22","Triciclo",159,5,1,"Bicicletas");
+        articulo newarticulo2 = new articulo(3, "Esteroides","Suplementos","0","Anabolicos",1347,8,3,"Accesorios");
+        infoArticulos.add(newarticulo);
+        infoArticulos.add(newarticulo1);
+        infoArticulos.add(newarticulo2);
 
         launch();
 
@@ -70,16 +77,30 @@ public class App extends Application {
         infoProductos.add(objeto);
     }
 
-    public static void verProductos() {
-
+    public static ArrayList<String> verProductos() {
+        ArrayList<String> disponibles = new ArrayList<>();
         for (tipoProducto producto : infoProductos) {
-            System.out.println(producto.getNombreProducto());
+            disponibles.add(producto.getNombreProducto());
         }
+        System.out.println(disponibles);
+        return disponibles;
 
     }
     
     public static int cantProductos(){
         return infoProductos.size();
     }
-
+    
+    public static int buscarCodigoProducto(String producto){
+        for (tipoProducto elemento : infoProductos){
+            if (elemento.getNombreProducto().equals(producto)){
+                return elemento.getCodigo();
+            }
+        }
+        return -1;
+    }
+    
+    public static int cantArticulos(){
+        return infoArticulos.size();
+    }
 }

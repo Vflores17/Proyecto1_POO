@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class articulo extends tipoProducto {
     
-    private String codigoArticulo;
+    private int codigoArticulo;
     private String nombreArticulo;
     private String tipo;
     private String tamanno;
@@ -20,7 +20,7 @@ public class articulo extends tipoProducto {
     private int precio;
     private int cantidad;
 
-    public articulo(String codigoArticulo, String nombreArticulo, String tipo, String tamanno, String marca, int precio, int cantidad, int codigo, String nombreProducto) {
+    public articulo(int codigoArticulo, String nombreArticulo, String tipo, String tamanno, String marca, int precio, int cantidad, int codigo, String nombreProducto) {
         super(codigo, nombreProducto);
         this.codigoArticulo = codigoArticulo;
         this.nombreArticulo = nombreArticulo;
@@ -32,11 +32,11 @@ public class articulo extends tipoProducto {
     }
 
     
-    public String getCodigoArticulo() {
+    public int getCodigoArticulo() {
         return codigoArticulo;
     }
 
-    public void setCodigoArticulo(String codigoArticulo) {
+    public void setCodigoArticulo(int codigoArticulo) {
         this.codigoArticulo = codigoArticulo;
     }
 
