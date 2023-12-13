@@ -1,10 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package archivos;
+import clases.Cliente;
 import java.io.*;
 import java.util.Hashtable;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 
 /**
  *
@@ -41,4 +40,20 @@ public class guardarArchivo {
         }
     }
     
+    public static void guardarCliente(List<Cliente> clientes) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        // Especifica la ruta relativa del archivo (respecto al directorio de trabajo actual)
+
+        try {
+            // Guarda la lista de clientes en un archivo JSON
+            File file = new File("src/main/java/archivos/archivoscliente.json");
+            objectMapper.writeValue(file, clientes);
+
+            System.out.println("Clientes guardados en archivoscliente.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+    

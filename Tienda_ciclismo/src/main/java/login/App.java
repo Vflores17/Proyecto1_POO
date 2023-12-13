@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import clases.articulo;
 
 import java.io.*;
 import java.io.IOException;
@@ -40,6 +41,11 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
+        
+    }
+    
+    public static void cambiarVista(Stage stage,String fxml) throws IOException{
+        cambiarVentana(stage, fxml);
     }
     
     
