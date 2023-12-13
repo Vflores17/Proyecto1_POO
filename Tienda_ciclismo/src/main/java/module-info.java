@@ -9,10 +9,11 @@ module login {
     requires com.fasterxml.jackson.annotation;
     
     opens clases to com.fasterxml.jackson.databind;
-    
+
     opens login to javafx.fxml;
     exports login;
 
     opens controllers to javafx.fxml;
     exports controllers;
 }
+

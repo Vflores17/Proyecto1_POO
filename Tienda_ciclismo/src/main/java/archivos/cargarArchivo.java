@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  *
  * @author Personal
@@ -45,8 +46,8 @@ public class cargarArchivo {
         }
         return null;
     }
-    
-    public static ArrayList cargarListas(String archivo){
+
+  public static ArrayList cargarListas(String archivo){
         
     try {
             // Para poder leer utilizaremos un FileInputStream pasandole
