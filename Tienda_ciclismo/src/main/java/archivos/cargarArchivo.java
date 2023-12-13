@@ -1,11 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package archivos;
+
+import clases.Cliente;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Dictionary;
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
@@ -43,8 +46,8 @@ public class cargarArchivo {
         }
         return null;
     }
-    
-    public static ArrayList cargarListas(String archivo){
+
+  public static ArrayList cargarListas(String archivo){
         
     try {
             // Para poder leer utilizaremos un FileInputStream pasandole
@@ -76,6 +79,26 @@ public class cargarArchivo {
         }
         return null;
     }
-        
-    
+
+    public static List<Cliente> leerClientes() {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            // Lee el JSON desde el archivo y convierte a lista de clientes
+            File file = new File("src/main/java/archivos/archivoscliente.json");
+
+            if (!file.exists()) {
+                // Si el archivo no existe, devuelve una lista vacía
+                System.out.println("El archivo no existe. Devolviendo una lista vacía.");
+                return new ArrayList<>();
+            }
+
+            List<Cliente> clientes = objectMapper.readValue(file, new TypeReference<List<Cliente>>() {});
+            System.out.println("Clientes leídos desde archivoscliente.json");
+            return clientes;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
 }

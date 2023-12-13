@@ -21,8 +21,7 @@
             <Font size="14.0" />
          </font>
       </Text>
-     <Button fx:id="botAgregar" layoutX="266.0" layoutY="205.0" mnemonicParsing="false" onAction="#nuevoProducto" text="Agregar">
-
+      <Button fx:id="botAgregar" layoutX="266.0" layoutY="205.0" mnemonicParsing="false" text="Agregar">
          <font>
             <Font size="14.0" />
          </font>

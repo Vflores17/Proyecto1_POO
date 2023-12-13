@@ -31,7 +31,10 @@ public class ventanaPrincipalController {
     }
 
     @FXML
-    private void opcionRegistrarClientes(ActionEvent event) {
+
+    private void opcionRegistrarClientes(ActionEvent event) throws IOException {
+        App.cambiarVentana(getStage(), "registroCliente");
+
     }
 
     @FXML

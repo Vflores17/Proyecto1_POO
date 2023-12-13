@@ -4,10 +4,15 @@
  */
 package controllers;
 
+<<<<<<< Dylan
+import java.io.IOException;
+import java.net.URL;
+=======
 import clases.tipoProducto;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+>>>>>>> main
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +23,10 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import login.App;
+<<<<<<< Dylan
+=======
 import static login.App.devolverInfo;
+>>>>>>> main
 
 /**
  * FXML Controller class
@@ -40,6 +48,7 @@ public class AgregarProductoController implements Initializable {
     
     private ArrayList listaProductos;
 
+
     /**
      * Initializes the controller class.
      */
@@ -59,8 +68,7 @@ public class AgregarProductoController implements Initializable {
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "registroProductos");
-    }
-    
+    } 
     
     @FXML
     private void nuevoProducto(){
@@ -71,4 +79,5 @@ public class AgregarProductoController implements Initializable {
         App.verProductos();
     
     }
+
 }

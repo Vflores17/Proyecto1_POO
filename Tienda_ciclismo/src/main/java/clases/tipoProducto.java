@@ -18,15 +18,17 @@ public class tipoProducto {
     private String nombreProducto;
 
     public tipoProducto(int codigo, String nombreProducto) {
+
         this.codigo = codigo;
         this.nombreProducto = nombreProducto;
     }
 
-    public int getCodigo() {
+public int getCodigo() {
         return codigo;
     }
 
     public void setCodigo(int codigo) {
+
         this.codigo = codigo;
     }
 
