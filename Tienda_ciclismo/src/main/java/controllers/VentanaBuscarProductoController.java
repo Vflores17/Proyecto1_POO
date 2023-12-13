@@ -81,10 +81,10 @@ public class VentanaBuscarProductoController implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "No se han encontrado productos con el valor ingresado.");
                     alert.show();
                 }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debes ingresar solamente números enteros.");
+                alert.show();
             }
-            else{
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes ingresar solamente números enteros.");
-            alert.show();}
         });
     }
 
@@ -110,10 +110,10 @@ public class VentanaBuscarProductoController implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "No se han encontrado productos con el valor ingresado.");
                     alert.show();
                 }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debes el nombre del producto a buscar.");
+                alert.show();
             }
-            else{
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes el nombre del producto a buscar.");
-            alert.show();}
         });
     }
 
@@ -121,21 +121,37 @@ public class VentanaBuscarProductoController implements Initializable {
         ArrayList<String> elementos = new ArrayList<>();
         for (articulo producto : articulos) {
             if (producto.getCodigo() == filtro) {
-                elementos.add(producto.getNombreArticulo());
+                ArrayList listaInfo = producto.mostrarTodo();
+                String infoAMostrar = darFormatoString(listaInfo);
+                elementos.add(infoAMostrar);
             }
         }
         return elementos;
 
     }
+
     private static ArrayList filtrarPorNombre(ArrayList<articulo> articulos, String filtro) {
         ArrayList<String> elementos = new ArrayList<>();
         for (articulo articulo : articulos) {
             if (articulo.getNombreProducto().equals(filtro)) {
-                elementos.add(articulo.getNombreArticulo());
+                ArrayList listaInfo = articulo.mostrarTodo();
+                String infoAMostrar = darFormatoString(listaInfo);
+                elementos.add(infoAMostrar);
             }
         }
         return elementos;
 
     }
-    
+
+    public static String darFormatoString(ArrayList lista) {
+        String info = "Código artículo: " + lista.get(2) + " - Nombre: " + lista.get(3);
+        info += " - Marca: " + lista.get(6)+" - Categoria: " + lista.get(1);
+        info+= " - Precio: " + lista.get(7) + " - Cantidad: " + lista.get(8);
+        info+= " - Nombre producto: "+ lista.get(1);
+        System.out.println(lista.get(5));
+        if (!lista.get(5).equals("0")){
+            info+=" - Tamaño: "+ lista.get(5);
+        }
+        return info;
+    }
 }

@@ -57,7 +57,8 @@ public class registroProductosController implements Initializable {
     }
 
     @FXML
-    private void opcionModificarProducto(ActionEvent event) {
+    private void opcionModificarProducto(ActionEvent event) throws IOException {
+        App.cambiarVista(getStage(), "ventanaModificarProducto");
     }
 
     @FXML
