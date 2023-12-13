@@ -13,6 +13,8 @@ import javafx.scene.control.TextField;
 import validacionDatos.validarInformacion;
 import archivos.cargarArchivo;
 import java.lang.String;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.stage.Stage;
 
 
@@ -22,7 +24,7 @@ public class ventanaLogin {
     String usuario;
     String contrasenna;
     
-    private Dictionary credenciales = new Hashtable() ;
+    private Map<String, String> credenciales = new HashMap<>() ;
 
     @FXML
     private Button botLimpiar;
@@ -39,8 +41,8 @@ public class ventanaLogin {
         credenciales = infoVentanaLogin();
         System.out.println(credenciales);
     }
-    private Dictionary infoVentanaLogin(){
-        credenciales = cargarArchivo.cargarInformacion("usuarios.dat");
+    private Map infoVentanaLogin(){
+        credenciales = cargarArchivo.cargarInformacion("usuarios.csv");
         return credenciales;
     }
     
@@ -50,7 +52,7 @@ public class ventanaLogin {
     if (textUsuario != null && !textUsuario.getText().isEmpty() && textContrasena != null && !textContrasena.getText().isEmpty()) {
         usuario = textUsuario.getText();
         contrasenna = textContrasena.getText();
-        if (validarInformacion.loginUsuario(usuario, contrasenna,credenciales)){
+        if (validarInformacion.loginUsuario(usuario, contrasenna, (HashMap<String, String>) credenciales)){
             sesionIniciada();
         }
     } else {

@@ -3,6 +3,7 @@ module login {
     requires javafx.fxml;
     requires javafx.base;
     requires javafx.graphics;
+    requires java.base;
     
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
