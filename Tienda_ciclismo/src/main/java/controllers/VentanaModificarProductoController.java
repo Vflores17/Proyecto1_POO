@@ -129,18 +129,6 @@ public class VentanaModificarProductoController implements Initializable {
 
     }
 
-    private articulo obtenerObjetoEspecifico(ArrayList<articulo> articulos, String filtro) {
-        System.out.println(filtro);
-        for (articulo articulo : articulos) {
-            if (filtro.equals(String.valueOf(articulo.getCodigoArticulo())) || filtro.equals(articulo.getNombreArticulo())) {
-                return articulo;
-            }
-        }
-        Alert alert = new Alert(Alert.AlertType.ERROR, "El articulo ingresado no existe.");
-        alert.show();
-        return null;
-    }
-
     @FXML
     private void limpiar() {
         textTipoProducto.setText(" ");
@@ -281,14 +269,88 @@ public class VentanaModificarProductoController implements Initializable {
 
     @FXML
     private void cambiarMarca(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Nueva marca  para el artículo..");
+        dialog.setHeaderText("Ingrese la nueva marca del artículo:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(input -> {
+            if (!input.isEmpty()) {
+                objetoModificar.setMarca(input);
+                completarLabels(objetoModificar);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "La marca del artículo ha sido modificada exitosamente.");
+                alert.show();
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar caracteres válidos.");
+                alert.show();
+            }
+        });
     }
 
     @FXML
     private void cambiarPrecio(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Nuevo precio del artículo..");
+        dialog.setHeaderText("Ingrese el nuevo precio del artículo:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(input -> {
+            if (!input.isEmpty()) {
+                if (esNumerico(input)) {
+                    objetoModificar.setPrecio(Integer.parseInt(input));
+                    completarLabels(objetoModificar);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "La marca del artículo ha sido modificada exitosamente.");
+                    alert.show();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar solamente números.");
+                    alert.show();
+                }
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar caracteres válidos.");
+                alert.show();
+            }
+        });
     }
 
     @FXML
     private void cambiarCantidad(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Nueva cantidad de artículos.");
+        dialog.setHeaderText("Ingrese la nueva cantidad de artículos:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(input -> {
+            if (!input.isEmpty()) {
+                if (esNumerico(input)) {
+                    objetoModificar.setCantidad(Integer.parseInt(input));
+                    completarLabels(objetoModificar);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "La cantidad de artículos ha sido modificada exitosamente.");
+                    alert.show();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar solamente números.");
+                    alert.show();
+                }
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar caracteres válidos.");
+                alert.show();
+            }
+        });
     }
 
+    private articulo obtenerObjetoEspecifico(ArrayList<articulo> articulos, String filtro) {
+        for (articulo articulo : articulos) {
+            if (filtro.equals(String.valueOf(articulo.getCodigoArticulo())) || filtro.equals(articulo.getNombreArticulo())) {
+                return articulo;
+            }
+        }
+        Alert alert = new Alert(Alert.AlertType.ERROR, "El articulo ingresado no existe.");
+        alert.show();
+        return null;
+    }
 }
