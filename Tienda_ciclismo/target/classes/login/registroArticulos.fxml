@@ -7,8 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="377.0" prefWidth="698.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="controllers.RegistroArticulosController">
+<AnchorPane id="AnchorPane" prefHeight="353.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegistroArticulosController">
    <children>
       <Text layoutX="192.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menú para agregar un nuevo articulo">
          <font>
@@ -20,21 +19,21 @@
       <Text layoutX="26.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del articulo:" wrappingWidth="113.791015625" />
       <TextField fx:id="nombreArticulo" layoutX="143.0" layoutY="117.0" prefHeight="25.0" prefWidth="179.0" />
       <Text layoutX="26.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de articulo:" />
-      <ComboBox fx:id="tipoArticulo" layoutX="143.0" layoutY="165.0" prefHeight="25.0" prefWidth="179.0" />
+      <ComboBox fx:id="tiposArticulo" layoutX="143.0" layoutY="166.0" onAction="#habilitarComboBox" prefHeight="25.0" prefWidth="179.0" />
       <Text layoutX="375.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Marca del articulo:" />
       <TextField fx:id="marcaArticulo" layoutX="489.0" layoutY="67.0" prefHeight="25.0" prefWidth="179.0" />
       <Text layoutX="375.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Precio del articulo:" />
       <Text layoutX="375.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad:" />
       <TextField fx:id="precioArticulo" layoutX="488.0" layoutY="117.0" prefHeight="25.0" prefWidth="179.0" />
       <TextField fx:id="cantidadArticulo" layoutX="488.0" layoutY="172.0" prefHeight="25.0" prefWidth="179.0" />
-      <Button fx:id="botAgregar" layoutX="473.0" layoutY="236.0" mnemonicParsing="false" onAction="#crearNuevoArticulo" text="Agregar">
+      <Button fx:id="botAgregar" layoutX="189.0" layoutY="284.0" mnemonicParsing="false" onAction="#crearNuevoArticulo" text="Agregar">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="botRegresar" layoutX="313.0" layoutY="333.0" mnemonicParsing="false" onAction="#regresar" text="Regresar">
+      <Button fx:id="botRegresar" layoutX="460.0" layoutY="284.0" mnemonicParsing="false" onAction="#regresar" text="Regresar">
          <font>
-            <Font size="14.0" />
+            <Font size="18.0" />
          </font>
       </Button>
       <Text fx:id="tamanno" layoutX="26.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tamaño:" />
