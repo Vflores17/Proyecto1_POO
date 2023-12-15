@@ -58,12 +58,7 @@ public class registroClienteController implements Initializable {
 
     @FXML
     private void opcionModificarCliente(ActionEvent event) throws IOException{
-        List<Cliente> clientes = cargarArchivo.leerClientes();
-        for (Cliente cliente : clientes) {
-            System.out.println(cliente);
-            System.out.println("---------------------");
-}
-
+        App.cambiarVista(getStage(), "modificarCliente");
     }
 
     @FXML
