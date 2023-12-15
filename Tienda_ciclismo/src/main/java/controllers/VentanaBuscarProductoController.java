@@ -19,6 +19,11 @@ import javafx.stage.Stage;
 import login.App;
 import controllers.RegistroArticulosController;
 import static controllers.RegistroArticulosController.esNumerico;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 
 /**
  * FXML Controller class
@@ -32,16 +37,15 @@ public class VentanaBuscarProductoController implements Initializable {
     @FXML
     private MenuItem busqNombProducto;
     @FXML
-    private ListView<String> listViewElementos;
-    @FXML
     private Button botRegresar;
+    @FXML
+    private GridPane gridInformacion;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
 
     private Stage getStage() {
@@ -66,14 +70,14 @@ public class VentanaBuscarProductoController implements Initializable {
             if (esNumerico(codigoProducto)) {
                 ArrayList articulos = App.devolverArticulos();
                 System.out.println(articulos);
-                System.out.println(codigoProducto);
 
                 ArrayList elementosMostrar = filtrarPorCodigo(articulos, Integer.parseInt(codigoProducto));
+                gridInformacion.getChildren().clear();
                 if (!elementosMostrar.isEmpty()) {
-                    listViewElementos.getItems().clear();
-                    listViewElementos.getItems().addAll(elementosMostrar);
+                    colocarLabels();
+                    colocarInformacion(elementosMostrar);
                 } else {
-                    listViewElementos.getItems().clear();
+                    //listViewElementos.getItems().clear();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "No se han encontrado productos con el valor ingresado.");
                     alert.show();
                 }
@@ -91,7 +95,7 @@ public class VentanaBuscarProductoController implements Initializable {
         dialog.setHeaderText("Ingrese el nombre del producto:");
 
         Optional<String> result = dialog.showAndWait();
-
+        
         result.ifPresent(codigoProducto -> {
             if (!codigoProducto.isEmpty()) {
                 ArrayList productos = App.devolverArticulos();
@@ -99,10 +103,11 @@ public class VentanaBuscarProductoController implements Initializable {
 
                 ArrayList elementosMostrar = filtrarPorNombre(productos, codigoProducto);
                 if (!elementosMostrar.isEmpty()) {
-                    listViewElementos.getItems().clear();
-                    listViewElementos.getItems().addAll(elementosMostrar);
+                    colocarLabels();
+                    colocarInformacion(elementosMostrar);
+
                 } else {
-                    listViewElementos.getItems().clear();
+                    //listViewElementos.getItems().clear();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "No se han encontrado productos con el valor ingresado.");
                     alert.show();
                 }
@@ -110,44 +115,81 @@ public class VentanaBuscarProductoController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Debes el nombre del producto a buscar.");
                 alert.show();
             }
-        });
+        }
+        );
     }
 
-    private static ArrayList filtrarPorCodigo(ArrayList<articulo> articulos, int filtro) {
+    public static ArrayList filtrarPorCodigo(ArrayList<articulo> articulos, int filtro) {
         ArrayList<String> elementos = new ArrayList<>();
         for (articulo producto : articulos) {
             if (producto.getCodigo() == filtro) {
-                ArrayList listaInfo = producto.mostrarTodo();
-                String infoAMostrar = darFormatoString(listaInfo);
-                elementos.add(infoAMostrar);
+                ArrayList<String> listaInfo = producto.mostrarTodo();
+                System.out.println(listaInfo + "listainfo");
+                ArrayList<String> subLista = new ArrayList<>(listaInfo.subList(2, listaInfo.size()));
+                elementos.addAll(subLista);
+                System.out.println(subLista + "sublista");
+                //String infoAMostrar = ordenarLista(listaInfo);
+                //elementos.add(infoAMostrar);
             }
         }
         return elementos;
 
     }
 
-    private static ArrayList filtrarPorNombre(ArrayList<articulo> articulos, String filtro) {
+    public static ArrayList filtrarPorNombre(ArrayList<articulo> articulos, String filtro) {
         ArrayList<String> elementos = new ArrayList<>();
         for (articulo articulo : articulos) {
             if (articulo.getNombreProducto().equals(filtro)) {
-                ArrayList listaInfo = articulo.mostrarTodo();
-                String infoAMostrar = darFormatoString(listaInfo);
-                elementos.add(infoAMostrar);
+                ArrayList<String> listaInfo = articulo.mostrarTodo();
+                System.out.println(listaInfo + "listainfo");
+                ArrayList<String> subLista = new ArrayList<>(listaInfo.subList(2, listaInfo.size()));
+                elementos.addAll(subLista);
+                System.out.println(subLista + "sublista");
             }
         }
         return elementos;
 
     }
 
-    public static String darFormatoString(ArrayList lista) {
-        String info = "Código artículo: " + lista.get(2) + " - Nombre: " + lista.get(3);
-        info += " - Marca: " + lista.get(6)+" - Categoria: " + lista.get(1);
-        info+= " - Precio: " + lista.get(7) + " - Cantidad: " + lista.get(8);
-        info+= " - Nombre producto: "+ lista.get(1);
-        System.out.println(lista.get(5));
-        if (!lista.get(5).equals("0")){
-            info+=" - Tamaño: "+ lista.get(5);
+    private void colocarLabels() {
+        // Agregar títulos por defecto a las columnas del GridPane
+        Label art1 = new Label("Código del artículo");
+        Label art2 = new Label("Nombre del artículo");
+        Label art3 = new Label("Categoría");
+        Label art4 = new Label("Tamaño");
+        Label art5 = new Label("Marca");
+        Label art6 = new Label("Precio");
+        Label art7 = new Label("Cantidad");
+        // Agrega más títulos según sea necesario
+
+        // Configura las posiciones de las etiquetas en el GridPane
+        GridPane.setConstraints(art1, 0, 0);
+        GridPane.setConstraints(art2, 1, 0);
+        GridPane.setConstraints(art3, 2, 0);
+        GridPane.setConstraints(art4, 3, 0);
+        GridPane.setConstraints(art5, 4, 0);
+        GridPane.setConstraints(art6, 5, 0);
+        GridPane.setConstraints(art7, 6, 0);
+        // Configura más posiciones según sea necesario
+
+        // Agrega las etiquetas al GridPane
+        gridInformacion.getChildren().addAll(art1, art2, art3, art4, art5, art6, art7);
+        // Agrega más etiquetas según sea necesario
+
+    }
+
+    private void colocarInformacion(ArrayList elementos) {
+        int fila = 1;  // Empieza en la fila siguiente a los títulos
+        int columna = 0;  // Empieza en la fila siguiente a los títulos
+        for (Object elemento : elementos) {
+            Label label = new Label(elemento.toString());
+            if (columna == 7) {
+                columna = 0;
+                fila++;
+            }
+            GridPane.setConstraints(label, columna, fila);
+            gridInformacion.getChildren().add(label);
+            columna++;
         }
-        return info;
     }
 }
