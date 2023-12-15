@@ -84,6 +84,24 @@ public class ModificarClienteController implements Initializable {
 
     @FXML
     private void limpiarVentana(ActionEvent event) {
+        entryNombre.setText("");
+        entryApellido.setText("");
+        entryTelefono.setText("");
+        entryCorreo.setText("");
+        entryCanton.setText("");
+        entryDistrito.setText("");
+        comboProvincia.setValue("");
+        btLimpiar.setDisable(true);
+        btModificar.setDisable(true);
+        entryNombre.setDisable(true);
+        entryApellido.setDisable(true);
+        entryTelefono.setDisable(true);
+        entryCorreo.setDisable(true);
+        entryDistrito.setDisable(true);
+        entryCanton.setDisable(true);
+        comboProvincia.setDisable(true);
+        fechaNacimiento.setDisable(true);
+        elegirCliente.setDisable(false);
     }
 
     @FXML

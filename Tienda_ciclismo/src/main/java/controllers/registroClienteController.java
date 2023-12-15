@@ -45,6 +45,7 @@ public class registroClienteController implements Initializable {
     
     @FXML
     private void opcionBuscarCliente(ActionEvent event) throws IOException{
+        App.cambiarVista(getStage(), "buscarCliente");
     }
 
     @FXML
