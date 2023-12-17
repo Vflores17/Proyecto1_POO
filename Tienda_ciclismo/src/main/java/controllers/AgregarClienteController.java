@@ -90,7 +90,7 @@ public class AgregarClienteController implements Initializable {
                     Cliente cliente = new Cliente(contar+1,nombre,apellido,telefono,correo,provincia,canton,distrito,getFecha());
                     clientes.add(cliente);
                     guardarArchivo.guardarCliente(clientes);
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, cliente.toString());
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Se ha registrado correctamente el cliente");
                     alert.show();
                     
                 }else{
