@@ -13,11 +13,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
- * @author Personal
+ * La clase cargarArchivo proporciona métodos para cargar información desde archivos de diferentes formatos.
+ * 
+ * @author Vidal Flores
+ * @author Dylan Meza
  */
 public class cargarArchivo {
 
+    /**
+     * Carga las credenciales de un archivo CSV en un mapa.
+     *
+     * @param archivo Ruta del archivo CSV que contiene las credenciales.
+     * @return Un mapa que asocia nombres de usuario con contraseñas.
+     */
     public static Map<String, String> cargarInformacion(String archivo) {
         Map<String, String> credenciales = new HashMap<>();
 
@@ -43,8 +51,14 @@ public class cargarArchivo {
 
         return credenciales;
     }
-
-  public static ArrayList cargarListas(String archivo){
+    
+    /**
+     * Carga información de listas desde un archivo utilizando serialización.
+     *
+     * @param archivo Ruta del archivo que contiene la información serializada.
+     * @return Una lista de objetos almacenados en el archivo.
+     */
+    public static ArrayList cargarListas(String archivo){
         
     try {
             // Para poder leer utilizaremos un FileInputStream pasandole
@@ -77,25 +91,27 @@ public class cargarArchivo {
         return null;
     }
 
+    /**
+     * Lee la información de clientes desde un archivo JSON.
+     *
+     * @return Una lista de objetos Cliente leídos desde el archivo JSON.
+     */
     public static List<Cliente> leerClientes() {
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
-            // Lee el JSON desde el archivo y convierte a lista de clientes
             File file = new File("src/main/java/archivos/archivoscliente.json");
 
             if (!file.exists()) {
-                // Si el archivo no existe, devuelve una lista vacía
                 System.out.println("El archivo no existe. Devolviendo una lista vacía.");
                 return new ArrayList<>();
             }
-
             List<Cliente> clientes = objectMapper.readValue(file, new TypeReference<List<Cliente>>() {});
             System.out.println("Clientes leídos desde archivoscliente.json");
             return clientes;
         } catch (IOException e) {
             e.printStackTrace();
-            return new ArrayList<>();
-        }
+            return null;
+        }  
     }
 }
