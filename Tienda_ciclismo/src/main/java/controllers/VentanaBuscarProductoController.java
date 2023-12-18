@@ -1,5 +1,6 @@
 package controllers;
 
+//Módulo de importaciones.
 import clases.articulo;
 import clases.tipoProducto;
 import java.io.IOException;
@@ -28,12 +29,13 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 
 /**
- * FXML Controller class
+ * Definición del controlador de la ventana.
  *
- * @author Personal
+ * @author Vidal Flores
  */
 public class VentanaBuscarProductoController implements Initializable {
 
+    //Definición de variables y elementos gráficos a utilizar.
     @FXML
     private MenuItem busqCodProducto;
     @FXML
@@ -44,22 +46,41 @@ public class VentanaBuscarProductoController implements Initializable {
     private GridPane gridInformacion;
 
     /**
-     * Initializes the controller class.
+     * Inializador del controlador.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
 
+    /**
+     * *
+     * Método para obtener el stage de la ventana actual.
+     *
+     * @return Stage actual de la ventana.
+     */
     private Stage getStage() {
         Stage stage = (Stage) botRegresar.getScene().getWindow();
         return stage;
     }
 
+    /**
+     * *
+     * Método para cambiar a la ventana anterior.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "registroProductos");
     }
 
+    /**
+     * *
+     * Método para buscar un producto por el código.
+     *
+     */
     @FXML
     public void busquedaCodigoProducto() {
         TextInputDialog dialog = new TextInputDialog();
@@ -90,6 +111,11 @@ public class VentanaBuscarProductoController implements Initializable {
         });
     }
 
+    /**
+     * *
+     * Método para buscar un producto por el nombre.
+     *
+     */
     @FXML
     public void busquedaNombreProducto() {
         TextInputDialog dialog = new TextInputDialog();
@@ -97,7 +123,7 @@ public class VentanaBuscarProductoController implements Initializable {
         dialog.setHeaderText("Ingrese el nombre del producto:");
 
         Optional<String> result = dialog.showAndWait();
-        
+
         result.ifPresent(codigoProducto -> {
             if (!codigoProducto.isEmpty()) {
                 ArrayList productos = App.devolverArticulos();
@@ -121,6 +147,14 @@ public class VentanaBuscarProductoController implements Initializable {
         );
     }
 
+    /**
+     * *
+     * Método para buscar en el ArrayList por el código.
+     *
+     * @param articulos ArrayList con los objetos articulo
+     * @param filtro código del objeto a buscar
+     * @return objeto requerido.
+     */
     public static ArrayList filtrarPorCodigo(ArrayList<articulo> articulos, int filtro) {
         ArrayList<String> elementos = new ArrayList<>();
         for (articulo producto : articulos) {
@@ -138,6 +172,13 @@ public class VentanaBuscarProductoController implements Initializable {
 
     }
 
+    /**
+     * *
+     *
+     * @param articulos ArrayList con los objetos articulo.
+     * @param filtro nombre del objeto a buscar.
+     * @return objeto requerido
+     */
     public static ArrayList filtrarPorNombre(ArrayList<articulo> articulos, String filtro) {
         ArrayList<String> elementos = new ArrayList<>();
         for (articulo articulo : articulos) {
@@ -153,10 +194,15 @@ public class VentanaBuscarProductoController implements Initializable {
 
     }
 
+    /**
+     * *
+     * Método para colocar los titulos del gridPane.
+     *
+     */
     private void colocarLabels() {
-        
-         ArrayList etiquetas = new ArrayList();
-         
+
+        ArrayList etiquetas = new ArrayList();
+
         // Agregar títulos por defecto a las columnas del GridPane
         etiquetas.add("Código del artículo");
         etiquetas.add("Nombre del artículo");
@@ -174,9 +220,15 @@ public class VentanaBuscarProductoController implements Initializable {
             gridInformacion.getChildren().add(newLabel);
 
         }
-        
+
     }
 
+    /**
+     * *
+     * Método para mostrar la información en el gridPane de la interfaz gráfica.
+     *
+     * @param elementos
+     */
     private void colocarInformacion(ArrayList elementos) {
         int fila = 1;  // Empieza en la fila siguiente a los títulos
         int columna = 0;  // Empieza en la fila siguiente a los títulos

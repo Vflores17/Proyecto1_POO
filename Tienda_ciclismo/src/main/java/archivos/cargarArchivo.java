@@ -1,5 +1,6 @@
 package archivos;
 
+//Módulo de importaciones
 import clases.Cliente;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,7 +38,7 @@ public class cargarArchivo {
                 // Divide la línea en campos utilizando una coma como delimitador
                 String[] campos = linea.split(",");
 
-                // Suponiendo que el archivo CSV tiene dos columnas (usuario y contraseña)
+                // El archivo CSV tiene dos columnas (usuario y contraseña)
                 if (campos.length == 2) {
                     String usuario = campos[0].trim();
                     String contrasena = campos[1].trim();
@@ -53,10 +54,10 @@ public class cargarArchivo {
     }
     
     /**
-     * Carga información de listas desde un archivo utilizando serialización.
+     * Carga información de listas desde un archivo.
      *
-     * @param archivo Ruta del archivo que contiene la información serializada.
-     * @return Una lista de objetos almacenados en el archivo.
+     * @param archivo Ruta del archivo que contiene la información.
+     * @return Lista de objetos almacenados en el archivo.
      */
     public static ArrayList cargarListas(String archivo){
         
@@ -65,7 +66,6 @@ public class cargarArchivo {
             // como referencia el archivo de tipo File.
             FileInputStream fis = new FileInputStream(archivo);
              
-            // Declaramos una variable objeto del tipo ObjectInputStream
             ObjectInputStream leer;
              
             // Creamos un bucle para leer la información
@@ -73,12 +73,8 @@ public class cargarArchivo {
             while(fis.available()>0){
                 leer= new ObjectInputStream(fis);
                  
-                // En una variable objeto de tipo Persona almacenaremos
-                // el objeto leido de tipo Object convertido en un objeto
-                // de tipo persona
                 ArrayList informacion = (ArrayList) leer.readObject();
                  
-                // Imprimimos el objeto leido en consola
                 return informacion;   
             }
              

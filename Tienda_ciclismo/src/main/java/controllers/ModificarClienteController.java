@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controllers;
 
+//Módulo de importaciones
 import archivos.cargarArchivo;
 import archivos.guardarArchivo;
 import clases.Cliente;
@@ -18,20 +15,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import login.App;
+
 /**
- * FXML Controller class
+ * Controlador de la ventana donde se modifica un cliente.
  *
- * @author Dilan
+ * @author Dylan Meza
  */
 public class ModificarClienteController implements Initializable {
 
+    //Defición de variables y elementos gráficos a utilizar
     @FXML
     private Button btLimpiar;
     @FXML
@@ -54,15 +52,15 @@ public class ModificarClienteController implements Initializable {
     private DatePicker fechaNacimiento;
     @FXML
     private ComboBox<String> elegirCliente;
-    
+
     /**
-     * Initializes the controller class.
+     * Inicializador del controlador de la ventana.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        List<Cliente> clientes = cargarArchivo.leerClientes();
-        for(Cliente cliente : clientes){
-            elegirCliente.getItems().add("Código: "+cliente.getCodigo()+" : Cliente "+cliente.getNombre()+" "+cliente.getApellido());
+        List<Cliente> clientes = App.getClientes();
+        for (Cliente cliente : clientes) {
+            elegirCliente.getItems().add("Código: " + cliente.getCodigo() + " : Cliente " + cliente.getNombre() + " " + cliente.getApellido());
         }
         comboProvincia.getItems().addAll("San José", "Alajuela", "Cartago", "Heredia", "Guanacaste", "Puntarenas", "Limón");
         btLimpiar.setDisable(true);
@@ -75,13 +73,27 @@ public class ModificarClienteController implements Initializable {
         entryCanton.setDisable(true);
         comboProvincia.setDisable(true);
         fechaNacimiento.setDisable(true);
-    }    
-    
+    }
+
+    /**
+     * *
+     * Método para cambiar la ventana.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos.
+     */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "registroCliente");
     }
 
+    /**
+     * *
+     * Método para borrar la información ingresada sin guardarla.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void limpiarVentana(ActionEvent event) {
         entryNombre.setText("");
@@ -104,46 +116,51 @@ public class ModificarClienteController implements Initializable {
         elegirCliente.setDisable(false);
     }
 
+    /**
+     * *
+     * Método para modificar la información del cliente.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void modificarCliente(ActionEvent event) {
-        String nombre = entryNombre.getText();
-        String telefono = entryTelefono.getText();
-        String apellido = entryApellido.getText();
-        String correo = entryCorreo.getText();
-        String provincia = comboProvincia.getValue();
-        String canton = entryCanton.getText();
-        String distrito = entryDistrito.getText();
-        
-        
-        if(nombre != null && !nombre.isEmpty() && apellido != null && !apellido.isEmpty() && telefono != null && !telefono.isEmpty() && correo != null && !correo.isEmpty() && distrito != null && !distrito.isEmpty() && canton != null && !canton.isEmpty()){
-            if(validar_telefono(telefono)){
-                if(validar_espacios(nombre) && validar_espacios(apellido) && validar_espacios(correo) && validar_espacios(canton) && validar_espacios(distrito)){
-                    String codigo = elegirCliente.getValue();
-                    List<Cliente> clientes = cargarArchivo.leerClientes();
-                    for(Cliente cliente : clientes){
-                        if(cliente.getCodigo() == obtenerCodigo(codigo)){
-                            int indice = clientes.indexOf(cliente);
-                            Cliente clienteModificado = new Cliente(cliente.getCodigo(),nombre,apellido,telefono,correo,provincia,canton,distrito,getFecha());
-                            clientes.set(indice, clienteModificado);
-                            guardarArchivo.guardarCliente(clientes);
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Se ha modificado el cliente correctamente");
-                            alert.show();
-                        }
+        String nombre = entryNombre.getText().strip();
+        String telefono = entryTelefono.getText().strip();
+        String apellido = entryApellido.getText().strip();
+        String correo = entryCorreo.getText().strip();
+        String provincia = comboProvincia.getValue().strip();
+        String canton = entryCanton.getText().strip();
+        String distrito = entryDistrito.getText().strip();
+
+        if (nombre != null && !nombre.isEmpty() && apellido != null && !apellido.isEmpty() && telefono != null && !telefono.isEmpty() && correo != null && !correo.isEmpty() && distrito != null && !distrito.isEmpty() && canton != null && !canton.isEmpty()) {
+            if (validar_telefono(telefono)) {
+                String codigo = elegirCliente.getValue();
+                List<Cliente> clientes = App.getClientes();
+                for (Cliente cliente : clientes) {
+                    if (cliente.getCodigo() == obtenerCodigo(codigo)) {
+                        int indice = clientes.indexOf(cliente);
+                        Cliente clienteModificado = new Cliente(cliente.getCodigo(), nombre, apellido, telefono, correo, provincia, canton, distrito, getFecha());
+                        App.modificarCliente(indice, clienteModificado);
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Se ha modificado el cliente correctamente");
+                        alert.show();
                     }
-                }else{
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Hay espacios al inicio o al final de los textos de entrada, porfavor eliminelos.");
-                    alert.show();
-                }   
-            }else{
+                }
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "El número ingresado no es invalido.");
                 alert.show();
             }
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Falta información para poder ingresar al sistema.");
             alert.show();
         }
     }
 
+    /**
+     * *
+     * Método para colocar la información del cliente seleccionado.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void clienteElegido(ActionEvent event) {
         btLimpiar.setDisable(false);
@@ -156,67 +173,82 @@ public class ModificarClienteController implements Initializable {
         entryCanton.setDisable(false);
         comboProvincia.setDisable(false);
         fechaNacimiento.setDisable(false);
-        
+
         String codigo = elegirCliente.getValue();
-        List<Cliente> clientes = cargarArchivo.leerClientes();
-        for(Cliente cliente : clientes){
-            if(cliente.getCodigo() == obtenerCodigo(codigo)){
-            elegirCliente.setDisable(true);
-            entryNombre.setDisable(false);
-            entryNombre.setText(cliente.getNombre());
-            entryApellido.setDisable(false);
-            entryApellido.setText(cliente.getApellido());
-            entryTelefono.setDisable(false);
-            entryTelefono.setText(Integer.toString(cliente.getTelefono()));
-            entryCorreo.setDisable(false);
-            entryCorreo.setText(cliente.getCorreo());
-            entryDistrito.setDisable(false);
-            entryDistrito.setText(cliente.getDistrito());
-            entryCanton.setDisable(false);
-            entryCanton.setText(cliente.getCanton());
-            comboProvincia.setDisable(false);
-            comboProvincia.setValue(cliente.getProvincia());
-            fechaNacimiento.setDisable(false);
-            fechaNacimiento.setValue(LocalDate.parse(cliente.getFechaNacimiento(),DateTimeFormatter.ofPattern("MMMM dd, yyyy")));
-            elegirCliente.setDisable(true);
+        List<Cliente> clientes = App.getClientes();
+        for (Cliente cliente : clientes) {
+            if (cliente.getCodigo() == obtenerCodigo(codigo)) {
+                elegirCliente.setDisable(true);
+                entryNombre.setDisable(false);
+                entryNombre.setText(cliente.getNombre());
+                entryApellido.setDisable(false);
+                entryApellido.setText(cliente.getApellido());
+                entryTelefono.setDisable(false);
+                entryTelefono.setText(Integer.toString(cliente.getTelefono()));
+                entryCorreo.setDisable(false);
+                entryCorreo.setText(cliente.getCorreo());
+                entryDistrito.setDisable(false);
+                entryDistrito.setText(cliente.getDistrito());
+                entryCanton.setDisable(false);
+                entryCanton.setText(cliente.getCanton());
+                comboProvincia.setDisable(false);
+                comboProvincia.setValue(cliente.getProvincia());
+                fechaNacimiento.setDisable(false);
+                fechaNacimiento.setValue(cliente.getFechaNacimiento());
+                elegirCliente.setDisable(true);
             }
-        } 
+        }
     }
-    
-    private int obtenerCodigo(String cadenaCodigo){
-        
+
+    /**
+     * *
+     * Método para extraer el código del cliente del string mostrado al usuario.
+     *
+     * @param cadenaCodigo String del comboBox mostrado al usuario.
+     * @return El código del cliente seleccionado.
+     */
+    private int obtenerCodigo(String cadenaCodigo) {
+
         String[] partes = cadenaCodigo.split(":");
-        
+
         String codigoCliente = partes[1].trim();
 
         int codigo = Integer.parseInt(codigoCliente);
 
         return codigo;
     }
-    
-    private boolean validar_telefono(String telefono){
-        if(telefono.length() == 8 && telefono.matches("[2|4|6|8]\\d+")){
+
+    /**
+     * *
+     * Método para válida la estructura del teléfono ingresado por el usuario
+     *
+     * @param telefono El número teléfonico ingresado por el usuario.
+     * @return Booleano si la estructura es válida o no.
+     */
+    private boolean validar_telefono(String telefono) {
+        if (telefono.length() == 8 && telefono.matches("[2|4|6|8]\\d+")) {
             return true;
         }
         return false;
     }
-    
-    private boolean validar_espacios(String texto){
-        if (texto.startsWith(" ")) {
-            return false;
-        }
-        if (texto.endsWith(" ")) {
-            return false;
-        }
-        return true;
+
+    /**
+     * *
+     * Método para obtener la fecha del datePicker
+     *
+     * @return Objeto localDate con la fecha seleccionada.
+     */
+    private LocalDate getFecha() {
+        LocalDate fecha = fechaNacimiento.getValue();
+        return fecha;
     }
-    
-    private String getFecha(){
-        LocalDate localDate = fechaNacimiento.getValue();
-        String formato = localDate.format(DateTimeFormatter.ofPattern("MMMM dd, yyyy"));
-        return formato;
-    }
-    
+
+    /**
+     * *
+     * Método para obtener el stage de la ventana actual.
+     *
+     * @return Stage actual de la ventana.
+     */
     private Stage getStage() {
         Stage stage = (Stage) btLimpiar.getScene().getWindow();
         return stage;

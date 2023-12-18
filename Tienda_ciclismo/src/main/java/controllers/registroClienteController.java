@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controllers;
 
+//Módulo de importaciones
 import archivos.cargarArchivo;
 import clases.Cliente;
 import java.io.IOException;
@@ -17,14 +14,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import login.App;
+
 /**
- * FXML Controller class
+ * Defición del controlador de la ventana.
  *
- * @author Dilan
+ * @author Dylan Meza
  */
 public class registroClienteController implements Initializable {
 
-
+    //Definición de variables y elementos gráficos a utilizar.
     @FXML
     private Button botonBuscar;
     @FXML
@@ -35,39 +33,80 @@ public class registroClienteController implements Initializable {
     private Button botonModificar;
     @FXML
     private Button botRegresar;
+
     /**
-     * Initializes the controller class.
+     * Inializador del controlador.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
+    /**
+     * Método para mostrar la ventana para buscar un cliente.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
-    private void opcionBuscarCliente(ActionEvent event) throws IOException{
+    private void opcionBuscarCliente(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "buscarCliente");
     }
 
+    /**
+     * Método para mostrar la ventana para agregar un cliente.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
-    private void opcionAgregarCliente(ActionEvent event) throws IOException{
+    private void opcionAgregarCliente(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "agregarCliente");
     }
 
+    /**
+     * Método para mostrar la ventana de eliminar un cliente.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
-    private void opcionEliminarCliente(ActionEvent event) throws IOException{
+    private void opcionEliminarCliente(ActionEvent event) throws IOException {
     }
 
+    /**
+     * Método para mostrar la ventana para modificar un cliente.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
-    private void opcionModificarCliente(ActionEvent event) throws IOException{
+    private void opcionModificarCliente(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "modificarCliente");
     }
 
+    /**
+     * Método para mostrar la ventana para regresar a la ventana anterior.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
-    private void regresar(ActionEvent event) throws IOException{
+    private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "ventanaPrincipal");
     }
-    
-    private Stage getStage(){
+
+    /**
+     * Método para obtener el stage de la ventana.
+     *
+     * @return stage actual de la ventana.
+     */
+    private Stage getStage() {
         Stage stage = (Stage) botonAgregar.getScene().getWindow();
         return stage;
     }

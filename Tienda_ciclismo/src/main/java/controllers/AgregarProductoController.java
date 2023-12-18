@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controllers;
 
+//Módulo de importaciones
 import clases.tipoProducto;
 import java.io.IOException;
 import java.net.URL;
@@ -23,14 +20,14 @@ import static login.App.devolverInfo;
 import controllers.RegistroArticulosController;
 import static controllers.RegistroArticulosController.esNumerico;
 
-
 /**
- * FXML Controller class
+ * Controlador de la ventana
  *
- * @author Personal
+ * @author Vidal Flores
  */
 public class AgregarProductoController implements Initializable {
 
+    //Definicion de variables
     @FXML
     private Button botAgregar;
     @FXML
@@ -44,29 +41,53 @@ public class AgregarProductoController implements Initializable {
 
     private ArrayList listaProductos;
 
-
     /**
-     * Initializes the controller class.
+     * Inicializador del controlador.
      */
     public void initialize(URL url, ResourceBundle rb) {
     }
 
+    /**
+     * *
+     * Método para mostrar la ventana para agregar artículos.
+     *
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
     private void mostrarVentanaAgregar() throws IOException {
         App.cambiarVista(getStage(), "registroArticulos");
 
     }
 
+    /**
+     * *
+     * Método para obtener el stage de la ventana actual
+     *
+     * @return El stage actual.
+     */
     private Stage getStage() {
         Stage stage = (Stage) botAgregar.getScene().getWindow();
         return stage;
     }
 
+    /**
+     * *
+     * Método para poder salir de la ventana actual.
+     *
+     * @param event Evento que acciona el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "registroProductos");
     }
 
+    /**
+     * *
+     * Método para agregar un producto
+     */
     @FXML
     private void nuevoProducto() {
         if (!esNumerico(textProducto.getText()) && !textProducto.getText().isEmpty()) {

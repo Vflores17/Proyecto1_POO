@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controllers;
 
+//Módulo de importaciones
 import clases.articulo;
 import clases.tipoProducto;
 import java.io.IOException;
@@ -23,12 +20,13 @@ import javafx.stage.Stage;
 import login.App;
 
 /**
- * FXML Controller class
+ * Inicializador del controlador de la ventana para el registro de artículos.
  *
- * @author Personal
+ * @author Vidal Flores
  */
 public class RegistroArticulosController implements Initializable {
 
+    //Definición de variables y elementos gráficos a utilizar.
     @FXML
     private ComboBox<String> tipoProducto;
     @FXML
@@ -64,16 +62,21 @@ public class RegistroArticulosController implements Initializable {
     private int pCantArticulo;
 
     /**
-     * Initializes the controller class.
+     * Inicializador del controlador de la ventana.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         productosDisponibles = App.verProductos();
         tipoProducto.getItems().addAll(productosDisponibles);
         tiposArticulo.getItems().addAll(tipos);
-
     }
 
+    /**
+     * *
+     * Método para crear un artículo.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void crearNuevoArticulo(ActionEvent event) {
         if (validarDatos()) {
@@ -89,16 +92,36 @@ public class RegistroArticulosController implements Initializable {
         }
     }
 
+    /**
+     * *
+     * Método para regresar a la ventana actual.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "agregarProducto");
     }
 
+    /**
+     * *
+     * Método para obtener el stage de la ventana
+     *
+     * @return stage actual de la ventana.
+     */
     private Stage getStage() {
         Stage stage = (Stage) botAgregar.getScene().getWindow();
         return stage;
     }
 
+    /**
+     * *
+     * Método para habilitar las opciones de tamaño si se selecciona un valor en
+     * específico, sino se asigna un valor por default.
+     *
+     */
     @FXML
     public void habilitarComboBox() {
         if ("Bicicletas".equals(tiposArticulo.getValue())) {
@@ -112,6 +135,12 @@ public class RegistroArticulosController implements Initializable {
         }
     }
 
+    /**
+     * *
+     * Método para validar la información ingresada por el usuario
+     *
+     * @return Booleano si todos los datos son correctos.
+     */
     public boolean validarDatos() {
         if (tipoProducto.getValue() != null) {
             pTipoArticulo = tipoProducto.getValue();
@@ -164,6 +193,11 @@ public class RegistroArticulosController implements Initializable {
 
     }
 
+    /**
+     * *
+     * Método para borrar la información ingresada por el usuario sin guardar.
+     *
+     */
     public void borrarDatos() {
         pTipoArticulo = null;
         pNombreArticulo = null;
@@ -182,6 +216,13 @@ public class RegistroArticulosController implements Initializable {
         cantidadArticulo.setText(null);
     }
 
+    /**
+     * *
+     * Método para validar si un string es númerico o no.
+     *
+     * @param cadena String a válidar.
+     * @return Booleano si es númerico o no.
+     */
     public static boolean esNumerico(String cadena) {
         // Expresión regular que verifica si la cadena contiene solo dígitos
         String regex = "\\d+";

@@ -1,55 +1,31 @@
 package archivos;
+
+//Módulo de importaciones
 import clases.Cliente;
 import java.io.*;
-import java.util.Hashtable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 
 /**
- *
- * @author Personal
+ * Clase para guardar información en los archivos
+ * 
+ * @author Vidal Flores
  */
 public class guardarArchivo {
     
-    public static void guardarInformacion(Hashtable credenciales){
-    
-        File archivo = new File("usuarios.dat");
-         
-        try {
-            // Para poder escribir utilizaremos un FileOutputStream pasandole
-            // como referencia el archivo de tipo File.
-            FileOutputStream fos = new FileOutputStream(archivo);
-             
-            // Y crearemos también una instancia del tipo ObjectOutputStream
-            // al que le pasaremos por parámetro
-            // el objeto de tipo FileOutputStream
-            ObjectOutputStream escribir = new ObjectOutputStream(fos);
-             
-            // Escribimos los objetos en el archivo.
-            escribir.writeObject(credenciales);
-             
-            // Cerramos los objetos para no consumir recursos.
-            escribir.close();
-            fos.close();
-            
-            System.out.println("guardado exitoso del archivo binario");
-             
-        } catch (Exception e) {
-            System.out.println("Error al escribir en el archivo. "
-                    + e.getMessage());   
-        }
-    }
-    
+    /***
+     * Método para guardar la información de los clientes registrados en el programa.
+     * 
+     * @param clientes Lista de objetos Cliente para guardar en disco.
+     */
     public static void guardarCliente(List<Cliente> clientes) {
         ObjectMapper objectMapper = new ObjectMapper();
-        // Especifica la ruta relativa del archivo (respecto al directorio de trabajo actual)
-
+        
         try {
             // Guarda la lista de clientes en un archivo JSON
             File file = new File("src/main/java/archivos/archivoscliente.json");
             objectMapper.writeValue(file, clientes);
 
-            System.out.println("Clientes guardados en archivoscliente.json");
         } catch (IOException e) {
             e.printStackTrace();
         }

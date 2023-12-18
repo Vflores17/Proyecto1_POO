@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controllers;
 
+//Módulo de importaciones
 import clases.articulo;
 import static controllers.RegistroArticulosController.esNumerico;
 import static controllers.VentanaBuscarProductoController.filtrarPorCodigo;
@@ -27,12 +24,13 @@ import javafx.stage.Stage;
 import login.App;
 
 /**
- * FXML Controller class
+ * Definción del controlador de la ventana.
  *
- * @author Personal
+ * @author Vidal Flores
  */
 public class VentanaModificarProductoController implements Initializable {
 
+    //Definición de variables y elementos gráficos a utilizar.
     @FXML
     private Button botRegresar;
     @FXML
@@ -75,23 +73,42 @@ public class VentanaModificarProductoController implements Initializable {
     private String[] tamannos = {"12", "16", "22", "26", "27", "27.5", "29"};
 
     /**
-     * Initializes the controller class.
+     * Inializador del controlador.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
 
+    /**
+     * *
+     * Método para obtener el stage de la ventana.
+     *
+     * @return stage actual de la ventana.
+     */
     private Stage getStage() {
         Stage stage = (Stage) botRegresar.getScene().getWindow();
         return stage;
     }
 
+    /**
+     * *
+     * Método para poder regresar a la ventana anterior.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos.
+     */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "registroProductos");
     }
 
+    /**
+     * *
+     * Método para mostrar la información del objeto producto a modificar.
+     *
+     */
     @FXML
     private void mostrar() {
         TextInputDialog dialog = new TextInputDialog();
@@ -118,6 +135,12 @@ public class VentanaModificarProductoController implements Initializable {
 
     }
 
+    /**
+     * *
+     * Método completar los label de la GUI.
+     *
+     * @param articulo objeto articulo para mostrar la información.
+     */
     private void completarLabels(articulo articulo) {
         textTipoProducto.setText(articulo.getNombreProducto());
         textNombreArticulo.setText(articulo.getNombreArticulo());
@@ -129,6 +152,11 @@ public class VentanaModificarProductoController implements Initializable {
 
     }
 
+    /**
+     * *
+     * Método para borrar la información mostrada.
+     *
+     */
     @FXML
     private void limpiar() {
         textTipoProducto.setText(" ");
@@ -142,6 +170,12 @@ public class VentanaModificarProductoController implements Initializable {
 
     }
 
+    /**
+     * *
+     * Método para cambiar el tipo de producto del artículo.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void cambiarTipoProducto(ActionEvent event) {
         productosDisponibles = App.verProductos();
@@ -167,6 +201,12 @@ public class VentanaModificarProductoController implements Initializable {
         });
     }
 
+    /**
+     * *
+     * Método para cambiar el nombre del artículo.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void cambiarNombre(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
@@ -191,6 +231,12 @@ public class VentanaModificarProductoController implements Initializable {
         });
     }
 
+    /**
+     * *
+     * Método para cambiar la categoría del artículo.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void cambiarCategoria(ActionEvent event) {
         ChoiceDialog<String> dialog = new ChoiceDialog<>("Categorias disponibles", categorias);
@@ -244,6 +290,12 @@ public class VentanaModificarProductoController implements Initializable {
         });
     }
 
+    /**
+     * *
+     * Método para cambiar el tamaño del artículo.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void cambiarTamanno(ActionEvent event) {
         if (objetoModificar.getTipo().equals("Bicicletas")) {
@@ -267,6 +319,12 @@ public class VentanaModificarProductoController implements Initializable {
         }
     }
 
+    /**
+     * *
+     * Método para cambiar la marca del artículo.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void cambiarMarca(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
@@ -289,6 +347,12 @@ public class VentanaModificarProductoController implements Initializable {
         });
     }
 
+    /**
+     * *
+     * Método para cambiar el precio del artículo.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void cambiarPrecio(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
@@ -316,6 +380,12 @@ public class VentanaModificarProductoController implements Initializable {
         });
     }
 
+    /**
+     * *
+     * Método para cambiar la cantida de artículos.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void cambiarCantidad(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
@@ -343,6 +413,14 @@ public class VentanaModificarProductoController implements Initializable {
         });
     }
 
+    /**
+     * *
+     * Método para obtener un objeto específico.
+     *
+     * @param articulos ArrayList con los objetos articulo
+     * @param filtro código o nombre del artículo a buscar.
+     * @return objeto artículo requerido.
+     */
     private articulo obtenerObjetoEspecifico(ArrayList<articulo> articulos, String filtro) {
         for (articulo articulo : articulos) {
             if (filtro.equals(String.valueOf(articulo.getCodigoArticulo())) || filtro.equals(articulo.getNombreArticulo())) {

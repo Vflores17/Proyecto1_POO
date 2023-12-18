@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controllers;
 
+//Módulo de importaciones.
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,12 +14,13 @@ import javafx.stage.Stage;
 import login.App;
 
 /**
- * FXML Controller class
+ * Definición del controlador de la ventana.
  *
- * @author Personal
+ * @author Vidal Flores
  */
 public class registroProductosController implements Initializable {
 
+    //Definición de variables y elementos gráficos a utilizar.
     @FXML
     private Button botBuscar;
     @FXML
@@ -35,37 +33,75 @@ public class registroProductosController implements Initializable {
     private Button botRegresar;
 
     /**
-     * Initializes the controller class.
+     * Inializador del controlador.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
 
+    /**
+     * Método para mostrar la ventana para buscar un producto.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
     private void opcionBuscarProducto(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "ventanaBuscarProducto");
     }
 
+    /**
+     * Método para mostrar la ventana para agregar un producto.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
     private void opcionAgregarProducto(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "agregarProducto");
     }
 
+    /**
+     * Método para mostrar la ventana para eliminar un producto.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void opcionEliminarProducto(ActionEvent event) {
     }
 
+    /**
+     * Método para mostrar la ventana para modificar un producto.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
     private void opcionModificarProducto(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "ventanaModificarProducto");
     }
 
+    /**
+     * Método para mostrar la ventana anterior.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "ventanaPrincipal");
     }
 
+    /**
+     * Método para obtener el stage de la ventana.
+     *
+     * @return stage actual de la ventana.
+     */
     private Stage getStage() {
         Stage stage = (Stage) botAgregar.getScene().getWindow();
         return stage;

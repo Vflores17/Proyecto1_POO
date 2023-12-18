@@ -1,5 +1,6 @@
 package controllers;
 
+//Módulo de importaciones
 import archivos.cargarArchivo;
 import archivos.guardarArchivo;
 import clases.Cliente;
@@ -21,12 +22,13 @@ import javafx.stage.Stage;
 import login.App;
 
 /**
- * FXML Controller class
+ * Controlador para la ventana de agregar cliente.
  *
- * @author Dilan
+ * @author Dylan Meza
  */
 public class AgregarClienteController implements Initializable {
 
+    //Definición de variables y elementos gráficos a utilizar.
     @FXML
     private Button btAgregar;
     @FXML
@@ -38,28 +40,34 @@ public class AgregarClienteController implements Initializable {
     @FXML
     private TextField entryCorreo;
     @FXML
-    private TextField entryDistrito;    
+    private TextField entryDistrito;
     @FXML
     private TextField entryCanton;
     @FXML
     private ComboBox<String> comboProvincia;
     @FXML
     private DatePicker fechaNacimiento;
-    
+
     /**
-     * Initializes the controller class.
+     * Inicializador del controlador.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         comboProvincia.getItems().addAll("San José", "Alajuela", "Cartago", "Heredia", "Guanacaste", "Puntarenas", "Limón");
         comboProvincia.setValue("San José");
         fechaNacimiento.setValue(LocalDate.now());
 
     }
 
+    /**
+     * *
+     * Método para borrar toda la informacíon ingresa por el usuario sin
+     * guardarla.
+     *
+     * @param event Evento que acciona el método.
+     */
     @FXML
-    private void limpiarVentana(ActionEvent event){
+    private void limpiarVentana(ActionEvent event) {
         entryNombre.clear();
         entryApellido.clear();
         entryTelefono.clear();
@@ -70,9 +78,19 @@ public class AgregarClienteController implements Initializable {
         fechaNacimiento.setValue(LocalDate.now());
     }
 
+    /**
+     * *
+     * Método para obtener la información ingresada por el usuario y registrar
+     * la cliente
+     *
+     * @param event Evento para accionar cuando se presione el botón
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     *
+     */
     @FXML
-    private void agregarCliente(ActionEvent event) throws IOException{
-        
+    private void agregarCliente(ActionEvent event) throws IOException {
+
         String nombre = entryNombre.getText();
         String telefono = entryTelefono.getText();
         String apellido = entryApellido.getText();
@@ -80,63 +98,74 @@ public class AgregarClienteController implements Initializable {
         String provincia = comboProvincia.getValue();
         String canton = entryCanton.getText();
         String distrito = entryDistrito.getText();
-        
-        List<Cliente> clientes = cargarArchivo.leerClientes();
+
+        List<Cliente> clientes = App.getClientes();
         int contar = clientes.size();
-        
-        if(nombre != null && !nombre.isEmpty() && apellido != null && !apellido.isEmpty() && telefono != null && !telefono.isEmpty() && correo != null && !correo.isEmpty() && distrito != null && !distrito.isEmpty() && canton != null && !canton.isEmpty()){
-            if(validar_telefono(telefono)){
-                if(validar_espacios(nombre) && validar_espacios(apellido) && validar_espacios(correo) && validar_espacios(canton) && validar_espacios(distrito)){
-                    Cliente cliente = new Cliente(contar+1,nombre,apellido,telefono,correo,provincia,canton,distrito,getFecha());
-                    clientes.add(cliente);
-                    guardarArchivo.guardarCliente(clientes);
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Se ha registrado correctamente el cliente");
-                    alert.show();
-                    
-                }else{
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Hay espacios al inicio o al final de los textos de entrada, porfavor eliminelos.");
-                    alert.show();
-                }   
-            }else{
+
+        //validar que la información este de forma correcta para crear el objeto.
+        if (nombre != null && !nombre.isEmpty() && apellido != null && !apellido.isEmpty() && telefono != null && !telefono.isEmpty() && correo != null && !correo.isEmpty() && distrito != null && !distrito.isEmpty() && canton != null && !canton.isEmpty()) {
+            if (validar_telefono(telefono)) {
+
+                Cliente cliente = new Cliente(contar + 1, nombre.strip(), apellido.strip(), telefono.strip(), correo.strip(), provincia.strip(), canton.strip(), distrito.strip(), getFecha());
+                App.guardarCliente(cliente);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Se ha registrado correctamente el cliente");
+                alert.show();
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "El número ingresado no es invalido.");
                 alert.show();
             }
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Falta información para poder ingresar al sistema.");
             alert.show();
         }
     }
-    
+
+    /**
+     * *
+     * Método para poder regresar a la ventana anterior a la actual
+     *
+     * @param event Evento para ejecutar cuando se accione el botón
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "registroCliente");
     }
-    
-    private Stage getStage(){
+
+    /**
+     * *
+     * Método para obtener el stage actual de la ventana.
+     *
+     * @return stage de la ventana actual
+     */
+    private Stage getStage() {
         Stage stage = (Stage) btAgregar.getScene().getWindow();
         return stage;
     }
-    
-    private boolean validar_telefono(String telefono){
-        if(telefono.length() == 8 && telefono.matches("[2|4|6|8]\\d+")){
+
+    /**
+     * *
+     * Método para validar el formato del número de teléfono
+     *
+     * @param telefono Número de teléfono a validar
+     * @return Booleano si el formato es correcto o no.
+     */
+    private boolean validar_telefono(String telefono) {
+        if (telefono.length() == 8 && telefono.matches("[2|4|6|8]\\d+")) {
             return true;
         }
         return false;
     }
-    
-    private boolean validar_espacios(String texto){
-        if (texto.startsWith(" ")) {
-            return false;
-        }
-        if (texto.endsWith(" ")) {
-            return false;
-        }
-        return true;
-    }
-    
-    private String getFecha(){
-        LocalDate localDate = fechaNacimiento.getValue();
-        String formato = localDate.format(DateTimeFormatter.ofPattern("MMMM dd, yyyy"));
-        return formato;
+
+    /**
+     * *
+     * Método para obtener el objeto localDate de la fecha
+     *
+     * @return La fecha de nacimiento del cliente.
+     */
+    private LocalDate getFecha() {
+        LocalDate fecha = fechaNacimiento.getValue();;
+        return fecha;
     }
 }

@@ -1,5 +1,6 @@
 package login;
 
+//Módulo de importaciones
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +12,7 @@ import login.App;
  * El controlador de la ventana principal proporciona métodos para manejar eventos y acciones en la interfaz de usuario.
  * Controla la navegación entre ventanas y las acciones asociadas a los botones.
  * 
- * @author Personal
+ * @author Vidal Flores
  */
 public class ventanaPrincipalController {
 

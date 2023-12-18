@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controllers;
 
+//Módulo de importaciones.
 import clases.Cliente;
 import clases.servicio;
 import static controllers.RegistroArticulosController.esNumerico;
@@ -28,12 +25,13 @@ import javafx.stage.Stage;
 import login.App;
 
 /**
- * FXML Controller class
+ * Inicializador del controlador de la ventana.
  *
- * @author Personal
+ * @author Vidal Flores
  */
 public class VentanaAgregarServicioController implements Initializable {
 
+    //Definición de variables y elementos gráficos a utilizar.
     @FXML
     private Button botAgregar;
     @FXML
@@ -59,7 +57,7 @@ public class VentanaAgregarServicioController implements Initializable {
     private ComboBox<String> codClientes;
 
     /**
-     * Initializes the controller class.
+     * Inializador del controlador.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -70,16 +68,38 @@ public class VentanaAgregarServicioController implements Initializable {
 
     }
 
+    /**
+     * *
+     * Método para devolver a la ventana anterior.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "menuServicios");
     }
 
+    /**
+     * *
+     * Método para obtener el stage de la ventana.
+     *
+     * @return Stage actual de la ventana.
+     */
     private Stage getStage() {
         Stage stage = (Stage) botAgregar.getScene().getWindow();
         return stage;
     }
 
+    /**
+     * *
+     * Método para cambiar el formato del ArrayList de los clientes para
+     * mostrarlo al usuario.
+     *
+     * @param lista ArrayList con los objetos "Cliente".
+     * @return ArrayList con el formato para mostrar al usuario.
+     */
     private ArrayList formatoClientes(ArrayList<Cliente> lista) {
         ArrayList<String> info = new ArrayList();
         for (Cliente cliente : lista) {
@@ -89,6 +109,13 @@ public class VentanaAgregarServicioController implements Initializable {
 
     }
 
+    /**
+     * *
+     * Método para validar las fechas ingresadas por el usuario, que la de
+     * ingreso sea una fecha anterior a la de entrega.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void validarFecha(ActionEvent event) {
         try {
@@ -110,13 +137,19 @@ public class VentanaAgregarServicioController implements Initializable {
 
     }
 
+    /**
+     * *
+     * Método para agregar un nuevo servicio.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void agregar(ActionEvent event) {
         if (codClientes.getValue() != null) {
             int codigoCliente = buscarCliente(String.valueOf(codClientes.getValue()));
-            String marca = textMarca.getText();
-            String descripcion = textDescripcion.getText();
-            String observaciones = textObservaciones.getText();
+            String marca = textMarca.getText().strip();
+            String descripcion = textDescripcion.getText().strip();
+            String observaciones = textObservaciones.getText().strip();
             LocalDate ingreso = dateRecibido.getValue();
             LocalDate entrega = dateEntrega.getValue();
             if (validarTexto(marca) && validarTexto(descripcion) && validarTexto(observaciones)) {
@@ -140,6 +173,13 @@ public class VentanaAgregarServicioController implements Initializable {
 
     }
 
+    /**
+     * Método para válidar que el precio ingresado por el usuario sea
+     * exclusivamente númerico
+     *
+     * @param precio String ingresado por el usuario.
+     * @return Booleano de si es válido o no la información es correcta.
+     */
     private boolean validarPrecio(String precio) {
         if (!esNumerico(precio)) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Debes ingresar solamente números enteros para el precio.");
@@ -149,6 +189,13 @@ public class VentanaAgregarServicioController implements Initializable {
         return true;
     }
 
+    /**
+     * *
+     * Método para válidar el texto ingresado por el usuario.
+     *
+     * @param texto String ingresado por el usuario.
+     * @return Booleano de si es válido o no la información.
+     */
     private boolean validarTexto(String texto) {
         if (texto != null) {
             return true;
@@ -156,6 +203,13 @@ public class VentanaAgregarServicioController implements Initializable {
         return false;
     }
 
+    /**
+     * *
+     * Método para buscar un cliente en específico en el ArrayList
+     *
+     * @param nombre Nombre del cliente
+     * @return objeto cliente requerido.
+     */
     private int buscarCliente(String nombre) {
         for (Cliente cliente : clientes) {
             if (cliente.getNombre().equals(nombre)) {
@@ -165,6 +219,11 @@ public class VentanaAgregarServicioController implements Initializable {
         return -1;
     }
 
+    /**
+     * *
+     * Método para borrar la información ingresada por el usuario sin guardarla.
+     *
+     */
     private void limpiar() {
         textDescripcion.setText(null);
         dateRecibido.setValue(null);

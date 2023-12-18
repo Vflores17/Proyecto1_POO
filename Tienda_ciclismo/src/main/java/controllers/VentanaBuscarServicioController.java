@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controllers;
 
+//Módulo de importaciones.
 import clases.Cliente;
 import clases.articulo;
 import clases.servicio;
@@ -33,12 +30,13 @@ import javafx.stage.Stage;
 import login.App;
 
 /**
- * FXML Controller class
+ * Definición del controlador de la ventana.
  *
- * @author Personal
+ * @author Vidal Flores
  */
 public class VentanaBuscarServicioController implements Initializable {
 
+    //Definición de las variables y elementos gráficos a utilizar.
     @FXML
     private Button botRegresar;
     @FXML
@@ -51,13 +49,19 @@ public class VentanaBuscarServicioController implements Initializable {
     private MenuItem busqNombCliente;
 
     /**
-     * Initializes the controller class.
+     * Inializador del controlador.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         clientes = App.devolverClientes();
     }
 
+    /**
+     * *
+     * Método para realizar la búsqueda por el código del cliente.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void busquedaCodigoCliente(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
@@ -86,6 +90,12 @@ public class VentanaBuscarServicioController implements Initializable {
         });
     }
 
+    /**
+     * *
+     * Método para realizar la búsqueda por el nombre del cliente.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void busquedaNombreCliente(ActionEvent event) {
 
@@ -117,21 +127,38 @@ public class VentanaBuscarServicioController implements Initializable {
         );
     }
 
+    /**
+     * *
+     * Método para poder volver a la ventana anterior.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "menuServicios");
     }
 
+    /**
+     * *
+     * Método para obtener el stage de la ventana
+     *
+     * @return Stage actual de la ventana.
+     */
     private Stage getStage() {
         Stage stage = (Stage) botRegresar.getScene().getWindow();
         return stage;
     }
 
+    /**
+     * *
+     * Método para colocar los titulos del gridPane
+     *
+     */
     private void colocarLabels() {
         ArrayList etiquetas = new ArrayList();
         etiquetas.add("Código");
-        // Agregar títulos por defecto a las columnas del GridPane
-        Label art1 = new Label("Código");
         etiquetas.add("Marca de bicicleta");
         etiquetas.add("Descripción de bicicleta");
         etiquetas.add("Precio");
@@ -140,7 +167,6 @@ public class VentanaBuscarServicioController implements Initializable {
         etiquetas.add("Observaciones");
         etiquetas.add("Estado");
 
-        // Configura las RowConstraints para la fila de títulos
         RowConstraints rowConstraints = new RowConstraints();
         gridInformacion.getRowConstraints().add(0, rowConstraints);
 
@@ -153,13 +179,16 @@ public class VentanaBuscarServicioController implements Initializable {
         }
     }
 
+    /**
+     * *
+     * Método para mostrar la información del servicio seleccionado.
+     *
+     * @param elementos ArraList con la información a mostrar.
+     */
     private void colocarInformacion(ArrayList elementos) {
-        int fila = 1;  // Empieza en la fila siguiente a los títulos
-        int columna = 0;  // Empieza en la fila siguiente a los títulos
+        int fila = 1;
+        int columna = 0;
         int contador = 0;
-
-        // Configura las RowConstraints para cada fila
-        //int cantFilas=Math.round(elementos.size());
 
         for (int i = 0; i < elementos.size(); i++) {
             if (columna == 8) {
@@ -169,13 +198,13 @@ public class VentanaBuscarServicioController implements Initializable {
             }
             Node elementoNode;
             if (contador == 2 || contador == 6) {
-                // Utiliza un TextArea para los elementos en las posiciones 2 y 6
+
                 TextArea textArea = new TextArea(elementos.get(i).toString());
-                textArea.setWrapText(true); // Permite que el texto se envuelva en varias líneas
-                textArea.setEditable(false); // Hace que el TextArea sea de solo lectura
+                textArea.setWrapText(true);
+                textArea.setEditable(false);
                 elementoNode = textArea;
             } else if (contador == 7) {
-                // Cambia el texto del último elemento booleano
+
                 if (elementos.get(i).equals("true")) {
                     elementoNode = new Label("Abierto");
                 } else {
@@ -187,18 +216,24 @@ public class VentanaBuscarServicioController implements Initializable {
 
             GridPane.setHalignment(elementoNode, HPos.CENTER);
             GridPane.setValignment(elementoNode, VPos.CENTER);
-            GridPane.setRowIndex(elementoNode, fila); // Establece la posición de la fila directamente
+            GridPane.setRowIndex(elementoNode, fila);
             GridPane.setColumnIndex(elementoNode, columna);
 
-            
-
-            gridInformacion.getChildren().add(elementoNode); // Mueve esta línea aquí
+            gridInformacion.getChildren().add(elementoNode);
             contador++;
             columna++;
         }
 
     }
 
+    /**
+     * *
+     * Método para filtrar el ArrayList de los objetos
+     *
+     * @param servicios ArrayList con los objetos servicio
+     * @param filtro código del servicio a buscar.
+     * @return ArrayList con la información requerida.
+     */
     public static ArrayList filtrarPorCodigo(ArrayList<servicio> servicios, int filtro) {
         ArrayList<String> elementos = new ArrayList<>();
         for (servicio servicio : servicios) {
@@ -212,6 +247,15 @@ public class VentanaBuscarServicioController implements Initializable {
 
     }
 
+    /**
+     * *
+     * Método para filtrar el ArrayLisr de los objetos.
+     *
+     * @param servicios ArrayList con los objetos servicio.
+     * @param filtro nombre del cliente a quien se le realizó el servicio.
+     * @param clientes ArrayList con los objetos cliente
+     * @return ArrayList con la información requerida.
+     */
     public static ArrayList filtrarPorNombre(ArrayList<servicio> servicios, String filtro, ArrayList<Cliente> clientes) {
         ArrayList<String> elementos = new ArrayList<>();
         int codigo = buscarCodigoCliente(clientes, filtro);
@@ -219,6 +263,14 @@ public class VentanaBuscarServicioController implements Initializable {
 
     }
 
+    /**
+     * *
+     * Método para buscar por el código del cliente.
+     *
+     * @param clientes ArrayList con los objetos cliente.
+     * @param filtro Código del cliente a buscar el servicio.
+     * @return código del cliente requerido.
+     */
     private static int buscarCodigoCliente(ArrayList<Cliente> clientes, String filtro) {
         for (Cliente cliente : clientes) {
             if (cliente.getNombre().equals(filtro)) {

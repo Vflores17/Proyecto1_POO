@@ -1,5 +1,6 @@
 package login;
 
+//Módulo de importaciones
 import archivos.cargarArchivo;
 import java.io.IOException;
 import java.util.Dictionary;
@@ -20,10 +21,11 @@ import javafx.stage.Stage;
 /**
  * La clase VentanaLogin controla la lógica y la interacción de la ventana de inicio de sesión.
  * 
- * @author Personal
+ * @author Vidal Flores
  */
 public class ventanaLogin {
     
+    //Definición de variables y elementos gráficos a utilizar.
     String usuario;
     String contrasenna;
     

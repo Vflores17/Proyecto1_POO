@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controllers;
 
+//Módulo de importaciones
 import clases.Cliente;
 import clases.articulo;
 import clases.servicio;
@@ -36,12 +33,13 @@ import javafx.stage.Stage;
 import login.App;
 
 /**
- * FXML Controller class
+ * Definición del controlador de la ventana.
  *
- * @author Personal
+ * @author Vidal Flores
  */
 public class VentanaModificarServicioController implements Initializable {
 
+    //Definción de variables y elementos gráficos a utilizar.
     @FXML
     private Button botRegresar;
     @FXML
@@ -85,7 +83,7 @@ public class VentanaModificarServicioController implements Initializable {
     private DatePicker datePicker;
 
     /**
-     * Initializes the controller class.
+     * Inicializador del controlador.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -93,11 +91,24 @@ public class VentanaModificarServicioController implements Initializable {
         servicios = App.getServicios();
     }
 
+    /**
+     * *
+     * Método para regresar a la ventana anterior.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     * @throws IOException Excepciones en el caso de que falle alguna llamada a
+     * otros métodos
+     */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(getStage(), "menuServicios");
     }
 
+    /**
+     * Método para cambiar la marca del servicio
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void cambiarMarca(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
@@ -120,6 +131,12 @@ public class VentanaModificarServicioController implements Initializable {
         });
     }
 
+    /**
+     * *
+     * Método para cambiar la descripción del servicio.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void cambiarDescripcion(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
@@ -142,6 +159,12 @@ public class VentanaModificarServicioController implements Initializable {
         });
     }
 
+    /**
+     * *
+     * Método para cambiar el precio del servicio.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void cambiarPrecio(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
@@ -164,6 +187,12 @@ public class VentanaModificarServicioController implements Initializable {
         });
     }
 
+    /**
+     * *
+     * Método para cambiar la fecha de recibido del servicio.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void cambiarFechaRecibido(ActionEvent event) {
         // Crear un diálogo personalizado con un DatePicker
@@ -201,6 +230,12 @@ public class VentanaModificarServicioController implements Initializable {
         dialogStage.show();
     }
 
+    /**
+     * *
+     * Método para cambiar la fecha de entrega del servicio.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void cambiarFechaEntrega(ActionEvent event) {
         Stage dialogStage = new Stage();
@@ -237,6 +272,12 @@ public class VentanaModificarServicioController implements Initializable {
         dialogStage.show();
     }
 
+    /**
+     * *
+     * Método para cambiar las observaciones del servicio.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void cambiarObservaciones(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
@@ -259,6 +300,12 @@ public class VentanaModificarServicioController implements Initializable {
         });
     }
 
+    /**
+     * *
+     * Método para borrar la informacion mostrada.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void limpiar(ActionEvent event) {
         textCodigoServicio.setText(null);
@@ -272,6 +319,12 @@ public class VentanaModificarServicioController implements Initializable {
         objetoModificar = null;
     }
 
+    /**
+     * *
+     * Método para mostrar un servicio en específico.
+     *
+     * @param event Evento para accionar el método cuando se presione el botón.
+     */
     @FXML
     private void mostrar(ActionEvent event) {
         ChoiceDialog<String> serviciosDisponibles = new ChoiceDialog<>("Servicios", serviciosString);
@@ -289,11 +342,25 @@ public class VentanaModificarServicioController implements Initializable {
 
     }
 
+    /**
+     * *
+     * Método para obtener el stage de la ventana.
+     *
+     * @return stage actual de la ventana.
+     */
     private Stage getStage() {
         Stage stage = (Stage) botRegresar.getScene().getWindow();
         return stage;
     }
 
+    /**
+     * *
+     * Método para obtener un servicio específico
+     *
+     * @param servicios ArrayList con los objectos servicio
+     * @param filtro codigo del servicio a buscar
+     * @return servicio en especifico.
+     */
     private servicio obtenerServicioEspecifico(ArrayList<servicio> servicios, int filtro) {
         for (servicio servicio : servicios) {
             if (servicio.getCodigoServicio() == filtro) {
@@ -303,6 +370,13 @@ public class VentanaModificarServicioController implements Initializable {
         return null;
     }
 
+    /**
+     * *
+     * Método para dar formato a los clientes para mostrarlos en el combobox
+     *
+     * @param clientes ArrayList con los objetos cliente.
+     * @return ArrayList con los strings para el comboBox.
+     */
     private ArrayList<String> formatoClientes(ArrayList<Cliente> clientes) {
         ArrayList<String> clientesComboBox = new ArrayList();
         for (Cliente cliente : clientes) {
@@ -314,6 +388,12 @@ public class VentanaModificarServicioController implements Initializable {
         return clientesComboBox;
     }
 
+    /**
+     * *
+     * Método para completar los labels con la información.
+     *
+     * @param objetoModificar objeto servicio para extraer la información.
+     */
     private void mostrarLabel(servicio objetoModificar) {
         textCodigoServicio.setText(String.valueOf(objetoModificar.getCodigoServicio()));
         textMarca.setText(objetoModificar.getMarcaBici());
