@@ -23,7 +23,9 @@ import javafx.stage.Stage;
 import login.App;
 import controllers.RegistroArticulosController;
 import static controllers.RegistroArticulosController.esNumerico;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
@@ -156,30 +158,27 @@ public class VentanaBuscarProductoController implements Initializable {
     }
 
     private void colocarLabels() {
+        
+         ArrayList etiquetas = new ArrayList();
+         
         // Agregar títulos por defecto a las columnas del GridPane
-        Label art1 = new Label("Código del artículo");
-        Label art2 = new Label("Nombre del artículo");
-        Label art3 = new Label("Categoría");
-        Label art4 = new Label("Tamaño");
-        Label art5 = new Label("Marca");
-        Label art6 = new Label("Precio");
-        Label art7 = new Label("Cantidad");
+        etiquetas.add("Código del artículo");
+        etiquetas.add("Nombre del artículo");
+        etiquetas.add("Categoría");
+        etiquetas.add("Tamaño");
+        etiquetas.add("Marca");
+        etiquetas.add("Precio");
+        etiquetas.add("Cantidad");
         // Agrega más títulos según sea necesario
+        for (int i = 0; i < 7; i++) {
+            Label newLabel = new Label(etiquetas.get(i).toString());
+            GridPane.setConstraints(newLabel, i, 0);
+            GridPane.setHalignment(newLabel, HPos.CENTER);
+            GridPane.setValignment(newLabel, VPos.CENTER);
+            gridInformacion.getChildren().add(newLabel);
 
-        // Configura las posiciones de las etiquetas en el GridPane
-        GridPane.setConstraints(art1, 0, 0);
-        GridPane.setConstraints(art2, 1, 0);
-        GridPane.setConstraints(art3, 2, 0);
-        GridPane.setConstraints(art4, 3, 0);
-        GridPane.setConstraints(art5, 4, 0);
-        GridPane.setConstraints(art6, 5, 0);
-        GridPane.setConstraints(art7, 6, 0);
-        // Configura más posiciones según sea necesario
-
-        // Agrega las etiquetas al GridPane
-        gridInformacion.getChildren().addAll(art1, art2, art3, art4, art5, art6, art7);
-        // Agrega más etiquetas según sea necesario
-
+        }
+        
     }
 
     private void colocarInformacion(ArrayList elementos) {
@@ -191,6 +190,8 @@ public class VentanaBuscarProductoController implements Initializable {
                 columna = 0;
                 fila++;
             }
+            GridPane.setHalignment(label, HPos.CENTER);
+            GridPane.setValignment(label, VPos.CENTER);
             GridPane.setConstraints(label, columna, fila);
             gridInformacion.getChildren().add(label);
             columna++;
