@@ -1,6 +1,7 @@
 package login;
 
 import archivos.cargarArchivo;
+import clases.Cliente;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,9 +13,12 @@ import java.io.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import clases.articulo;
+import clases.servicio;
 import clases.tipoProducto;
+import java.time.LocalDate;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * JavaFX App
@@ -24,6 +28,7 @@ public class App extends Application {
     private static Scene scene;
     private static ArrayList<tipoProducto> infoProductos = new ArrayList();
     private static ArrayList<articulo> infoArticulos = new ArrayList();
+    private static ArrayList<servicio> infoServicios = new ArrayList();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -68,6 +73,17 @@ public class App extends Application {
         infoArticulos.add(newarticulo2);
         infoArticulos.add(newarticulo3);
         infoArticulos.add(newarticulo4);
+
+        servicio newServicio = new servicio(1, 1, "shimano", "bici casi nueva", 12500, LocalDate.now(),LocalDate.now(), "Sin observaciones", true);
+        servicio newServicio1 = new servicio(2, 2, "totem", "bici vieja", 159700, LocalDate.now(),LocalDate.now(), "Bici toda rallada", true);
+        servicio newServicio2 = new servicio(3, 1, "trek", "bici color azul", 13240,LocalDate.now(),LocalDate.now(), "Sin observaciones", true);
+        servicio newServicio3 = new servicio(4, 1, "giant", "bici color naranja", 74915, LocalDate.now(),LocalDate.now(), "Sin observaciones", true);
+        servicio newServicio4 = new servicio(5, 2, "scott", "bici recien estrenada", 25000, LocalDate.now(),LocalDate.now(), "Sin observaciones", true);
+        infoServicios.add(newServicio);
+        infoServicios.add(newServicio1);
+        infoServicios.add(newServicio2);
+        infoServicios.add(newServicio3);
+        infoServicios.add(newServicio4);
 
         launch();
 
@@ -118,5 +134,22 @@ public class App extends Application {
 
     public static ArrayList devolverArticulos() {
         return infoArticulos;
+    }
+
+    public static ArrayList devolverClientes() {
+        List<Cliente> clientes = cargarArchivo.leerClientes();
+        return (ArrayList) clientes;
+    }
+
+    public static ArrayList getServicios() {
+        return infoServicios;
+    }
+
+    public static int cantServicios() {
+        return infoServicios.size();
+    }
+    
+    public static void guardarServicio(servicio newServicio){
+        infoServicios.add(newServicio);
     }
 }

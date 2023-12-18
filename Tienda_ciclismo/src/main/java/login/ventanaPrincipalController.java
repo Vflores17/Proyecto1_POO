@@ -56,7 +56,6 @@ public class ventanaPrincipalController {
     @FXML
     private void opcionRegistrarClientes(ActionEvent event) throws IOException {
         App.cambiarVentana(getStage(), "registroCliente");
-
     }
 
     /**
@@ -65,7 +64,8 @@ public class ventanaPrincipalController {
      * @param event El evento de clic.
      */
     @FXML
-    private void opcionRealizarFactura(ActionEvent event) {
+    private void opcionRealizarFactura(ActionEvent event) throws IOException {
+        
     }
 
     /**
@@ -74,7 +74,8 @@ public class ventanaPrincipalController {
      * @param event El evento de clic.
      */
     @FXML
-    private void opcionRegistrarServicios(ActionEvent event) {
+    private void opcionRegistrarServicios(ActionEvent event) throws IOException {
+        App.cambiarVentana(getStage(), "menuServicios");
     }
     
     /**

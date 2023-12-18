@@ -18,7 +18,7 @@
             <Font name="System Bold Italic" size="24.0" />
          </font>
       </Text>
-      <MenuBar prefHeight="25.0" prefWidth="617.0">
+      <MenuBar prefHeight="25.0" prefWidth="623.0">
          <menus>
             <Menu mnemonicParsing="false" text="Buscar producto">
               <items>
