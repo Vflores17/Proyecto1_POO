@@ -2,6 +2,7 @@ package login;
 
 //Módulo de importaciones
 import archivos.cargarArchivo;
+import archivos.guardarArchivo;
 import clases.Cliente;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +31,7 @@ public class App extends Application {
     private static ArrayList<tipoProducto> infoProductos = new ArrayList();
     private static ArrayList<articulo> infoArticulos = new ArrayList();
     private static ArrayList<servicio> infoServicios = new ArrayList();
-    private static ArrayList<Cliente> infoClientes = new ArrayList();
+    private static List<Cliente> infoClientes = new ArrayList();
 
     /**
      * Método para iniciar la aplicación.
@@ -82,7 +83,7 @@ public class App extends Application {
      */
     public static void main(String[] args) {
 
-        infoClientes = (ArrayList<Cliente>) cargarArchivo.leerClientes();
+        infoClientes = cargarArchivo.leerClientes();
 
         tipoProducto newObjeto = new tipoProducto(1, "Zapatos");
         tipoProducto newObjeto1 = new tipoProducto(2, "Frenos");
@@ -260,6 +261,8 @@ public class App extends Application {
      */
     public static void guardarCliente(Cliente newCliente) {
         infoClientes.add(newCliente);
+        System.out.println(newCliente.toString());
+        guardarArchivo.guardarCliente(infoClientes);
     }
 
     /**
@@ -267,7 +270,7 @@ public class App extends Application {
      *
      * @return ArrayList con los objetos cliente
      */
-    public static ArrayList<Cliente> getClientes() {
+    public static List<Cliente> getClientes() {
         return infoClientes;
     }
 
@@ -279,5 +282,6 @@ public class App extends Application {
      */
     public static void modificarCliente(int indice, Cliente newCliente) {
         infoClientes.set(indice, newCliente);
+        archivos.guardarArchivo.guardarCliente(infoClientes);
     }
 }

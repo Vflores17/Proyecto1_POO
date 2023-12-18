@@ -2,10 +2,12 @@ controllers\VentanaModificarServicioController.class
 controllers\VentanaModificarProductoController.class
 archivos\cargarArchivo.class
 validacionDatos\validarInformacion.class
+controllers\ModificarClienteController.class
 controllers\AgregarClienteController.class
 controllers\VentanaEliminarServicioController.class
 module-info.class
 controllers\AgregarProductoController.class
+controllers\BuscarClienteController.class
 archivos\cargarArchivo$1.class
 clases\Cliente.class
 controllers\VentanaAgregarServicioController.class

@@ -165,7 +165,7 @@ public class AgregarClienteController implements Initializable {
      * @return La fecha de nacimiento del cliente.
      */
     private LocalDate getFecha() {
-        LocalDate fecha = fechaNacimiento.getValue();;
+        LocalDate fecha = fechaNacimiento.getValue();
         return fecha;
     }
 }

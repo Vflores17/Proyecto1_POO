@@ -22,6 +22,9 @@ public class Cliente {
     private String distrito;
     private LocalDate fechaNacimiento;
 
+    public Cliente() {
+    }
+
     /**
      * *
      * Método contructor del objeto Cliente.
