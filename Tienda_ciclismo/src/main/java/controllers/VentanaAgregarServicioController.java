@@ -55,6 +55,8 @@ public class VentanaAgregarServicioController implements Initializable {
     private ArrayList<Cliente> clientes;
     @FXML
     private ComboBox<String> codClientes;
+    @FXML
+    private Button botLimpiar;
 
     /**
      * Inializador del controlador.
@@ -113,7 +115,6 @@ public class VentanaAgregarServicioController implements Initializable {
             LocalDate entrega = dateEntrega.getValue();
             if (ingreso != null && entrega != null) {
                 if (ingreso.isBefore(entrega)) {
-                    System.out.println("Ok ok si se validaron las fechas");
                 } else {
                     dateRecibido.setValue(null);
                     dateEntrega.setValue(null);
@@ -214,6 +215,7 @@ public class VentanaAgregarServicioController implements Initializable {
      * Método para borrar la información ingresada por el usuario sin guardarla.
      *
      */
+    @FXML
     private void limpiar() {
         textDescripcion.setText(null);
         dateRecibido.setValue(null);
@@ -222,5 +224,6 @@ public class VentanaAgregarServicioController implements Initializable {
         textPrecio.setText(null);
         textEstado.setText(null);
         textObservaciones.setText(null);
+        codClientes.setValue(null);
     }
 }

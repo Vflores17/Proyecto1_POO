@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="386.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.VentanaAgregarServicioController">
+<AnchorPane id="AnchorPane" prefHeight="396.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.VentanaAgregarServicioController">
    <children>
-      <Text layoutX="171.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menú para agregar un servicio">
+      <Text layoutX="175.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menú para agregar un servicio">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
@@ -24,14 +24,14 @@
       <Text layoutX="332.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha de entrega:" />
       <Text layoutX="71.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Observaciones:" />
       <Text layoutX="388.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado:" />
-      <Button fx:id="botAgregar" layoutX="142.0" layoutY="341.0" mnemonicParsing="false" onAction="#agregar" text="Agregar">
+      <Button fx:id="botAgregar" layoutX="263.0" layoutY="341.0" mnemonicParsing="false" onAction="#agregar" text="Agregar">
          <font>
-            <Font size="14.0" />
+            <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="botRegresar" layoutX="381.0" layoutY="341.0" mnemonicParsing="false" onAction="#regresar" text="Regresar">
+      <Button fx:id="botRegresar" layoutX="379.0" layoutY="341.0" mnemonicParsing="false" onAction="#regresar" text="Regresar">
          <font>
-            <Font size="14.0" />
+            <Font size="18.0" />
          </font>
       </Button>
       <DatePicker fx:id="dateRecibido" editable="false" layoutX="165.0" layoutY="177.0" onAction="#validarFecha" prefHeight="25.0" prefWidth="140.0" />
@@ -42,5 +42,10 @@
       <TextArea fx:id="textObservaciones" layoutX="164.0" layoutY="257.0" prefHeight="75.0" prefWidth="423.0" />
       <ComboBox fx:id="codClientes" layoutX="167.0" layoutY="80.0" prefHeight="25.0" prefWidth="140.0" />
       <TextArea fx:id="textDescripcion" layoutX="164.0" layoutY="118.0" prefHeight="50.0" prefWidth="423.0" />
+      <Button fx:id="botLimpiar" layoutX="144.0" layoutY="341.0" mnemonicParsing="false" onAction="#limpiar" text="Limpiar">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

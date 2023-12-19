@@ -52,10 +52,15 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <Button fx:id="botRegresar" layoutX="356.0" layoutY="350.0" mnemonicParsing="false" onAction="#regresar" text="Regresar">
+      <Button fx:id="botRegresar" layoutX="299.0" layoutY="324.0" mnemonicParsing="false" onAction="#regresar" prefHeight="21.0" prefWidth="92.0" text="Regresar">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
+      <Text layoutX="59.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; Salir del submenú">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="357.0" prefWidth="628.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.VentanaModificarServicioController">
    <children>
-      <Text layoutX="41.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menú para modificar un articulo.">
+      <Text layoutX="143.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menú para modificar un servicio">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
@@ -21,7 +21,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <MenuBar prefHeight="25.0" prefWidth="628.0">
+      <MenuBar fx:id="menuOpciones" disable="true" prefHeight="25.0" prefWidth="628.0">
          <menus>
             <Menu mnemonicParsing="false" text="Modificar servicio">
                <items>
@@ -37,7 +37,7 @@
       </MenuBar>
       <Text layoutX="41.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código de servicio:" />
       <Text layoutX="41.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Marca de bicicleta:" />
-      <Text layoutX="41.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripcion de bicicleta:" />
+      <Text layoutX="41.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción de bicicleta:" />
       <Text layoutX="43.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Precio del servicio:" />
       <Text layoutX="340.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha de recibido:" />
       <Text layoutX="338.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Observaciones:" />

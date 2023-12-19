@@ -23,6 +23,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
@@ -80,7 +81,7 @@ public class VentanaModificarServicioController implements Initializable {
     private ArrayList<String> serviciosString;
     private ArrayList<servicio> servicios;
     @FXML
-    private DatePicker datePicker;
+    private MenuBar menuOpciones;
 
     /**
      * Inicializador del controlador.
@@ -118,10 +119,10 @@ public class VentanaModificarServicioController implements Initializable {
         Optional<String> result = dialog.showAndWait();
 
         result.ifPresent(input -> {
-            if (input != null) {
+            if (input != null && !input.isEmpty()) {
                 objetoModificar.setMarcaBici(input);
                 mostrarLabel(objetoModificar);
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "La marca ha sido modificada exitosamene.");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "La marca ha sido modificada exitosamente.");
                 alert.show();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar una marca válida.");
@@ -146,13 +147,13 @@ public class VentanaModificarServicioController implements Initializable {
         Optional<String> result = dialog.showAndWait();
 
         result.ifPresent(input -> {
-            if (input != null) {
+            if (input != null && !input.isEmpty()) {
                 objetoModificar.setDescripcion(input.strip());
                 mostrarLabel(objetoModificar);
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "La descripción ha sido modificada exitosamene.");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "La descripción ha sido modificada exitosamente.");
                 alert.show();
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar una descripció válida.");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar una descripción válida.");
                 alert.show();
             }
 
@@ -177,7 +178,7 @@ public class VentanaModificarServicioController implements Initializable {
             if (input != null && esNumerico(input)) {
                 objetoModificar.setPrecio(Integer.parseInt(input));
                 mostrarLabel(objetoModificar);
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "El precio ha sido modificada exitosamene.");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "El precio ha sido modificado exitosamente.");
                 alert.show();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar un precio válido.");
@@ -195,7 +196,7 @@ public class VentanaModificarServicioController implements Initializable {
      */
     @FXML
     private void cambiarFechaRecibido(ActionEvent event) {
-        // Crear un diálogo personalizado con un DatePicker
+        
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.WINDOW_MODAL);
 
@@ -287,13 +288,13 @@ public class VentanaModificarServicioController implements Initializable {
         Optional<String> result = dialog.showAndWait();
 
         result.ifPresent(input -> {
-            if (input != null) {
+            if (input != null && !input.isEmpty()) {
                 objetoModificar.setObservaciones(input);
                 mostrarLabel(objetoModificar);
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Las observaciones han sido modificadas exitosamene.");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Las observaciones han sido modificadas exitosamente.");
                 alert.show();
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Debe unas observaciones válidas.");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar observaciones válidas.");
                 alert.show();
             }
 
@@ -317,6 +318,8 @@ public class VentanaModificarServicioController implements Initializable {
         textDescripcion.setText(null);
         textObservaciones.setText(null);
         objetoModificar = null;
+        menuOpciones.setDisable(true);
+       
     }
 
     /**
@@ -327,7 +330,7 @@ public class VentanaModificarServicioController implements Initializable {
      */
     @FXML
     private void mostrar(ActionEvent event) {
-        ChoiceDialog<String> serviciosDisponibles = new ChoiceDialog<>("Servicios", serviciosString);
+        ChoiceDialog<String> serviciosDisponibles = new ChoiceDialog<>(" ", serviciosString);
         serviciosDisponibles.setTitle("Servicios disponibles");
         serviciosDisponibles.setHeaderText("Seleccione el servicio a modificar:");
 
@@ -336,8 +339,14 @@ public class VentanaModificarServicioController implements Initializable {
 
         // Maneja la opción seleccionada (si el usuario hizo una elección)
         input.ifPresent(opcionUser -> {
-            objetoModificar = obtenerServicioEspecifico(servicios, Integer.parseInt(opcionUser.substring(0, 1)));
-            mostrarLabel(objetoModificar);
+            if (!opcionUser.equals(" ")) {
+                objetoModificar = obtenerServicioEspecifico(servicios, Integer.parseInt(opcionUser.substring(0, 1)));
+                mostrarLabel(objetoModificar);
+                menuOpciones.setDisable(false);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una opción.");
+                alert.show();
+            }
         });
 
     }

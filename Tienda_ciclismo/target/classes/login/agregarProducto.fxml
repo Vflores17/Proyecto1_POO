@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="323.0" prefWidth="626.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AgregarProductoController">
+<AnchorPane id="AnchorPane" prefHeight="290.0" prefWidth="626.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AgregarProductoController">
    <children>
       <Text layoutX="129.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menú para agregar un producto">
          <font>
@@ -21,23 +21,23 @@
             <Font size="14.0" />
          </font>
       </Text>
-     <Button fx:id="botAgregar" layoutX="266.0" layoutY="205.0" mnemonicParsing="false" onAction="#nuevoProducto" text="Agregar">
+     <Button fx:id="botAgregar" layoutX="166.0" layoutY="216.0" mnemonicParsing="false" onAction="#nuevoProducto" text="Agregar">
 
          <font>
-            <Font size="14.0" />
+            <Font size="18.0" />
          </font>
       </Button>
       <TextField fx:id="textProducto" layoutX="338.0" layoutY="143.0" prefHeight="25.0" prefWidth="264.0" />
-      <Button fx:id="botRegresar" layoutX="497.0" layoutY="271.0" mnemonicParsing="false" onAction="#regresar" text="Regresar">
+      <Button fx:id="botRegresar" layoutX="401.0" layoutY="216.0" mnemonicParsing="false" onAction="#regresar" text="Regresar">
          <font>
-            <Font size="14.0" />
+            <Font size="18.0" />
          </font>
       </Button>
       <MenuBar fx:id="menuArticulo" layoutY="8.0" prefHeight="25.0" prefWidth="626.0">
         <menus>
           <Menu fx:id="opcionNewArticulo" mnemonicParsing="false" text="Registro">
                <items>
-                  <CheckMenuItem mnemonicParsing="false" onAction="#mostrarVentanaAgregar" text="Registrar nuevo articulo" />
+                  <CheckMenuItem mnemonicParsing="false" onAction="#mostrarVentanaAgregar" text="Registrar nuevo artículo" />
                </items></Menu>
         </menus>
       </MenuBar>

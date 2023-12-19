@@ -80,7 +80,6 @@ public class VentanaModificarProductoController implements Initializable {
 
     }
 
-
     /**
      * *
      * Método para poder regresar a la ventana anterior.
@@ -117,7 +116,7 @@ public class VentanaModificarProductoController implements Initializable {
                 completarLabels(infoMostrar);
             } else {
                 objetoModificar = null;
-                Alert alert = new Alert(Alert.AlertType.ERROR, "El articulo ingresado no existe.");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo ingresado no existe.");
                 alert.show();
             }
 
@@ -169,7 +168,7 @@ public class VentanaModificarProductoController implements Initializable {
     @FXML
     private void cambiarTipoProducto(ActionEvent event) {
         productosDisponibles = App.verProductos();
-        ChoiceDialog<String> dialog = new ChoiceDialog<>("Productos disponibles", productosDisponibles);
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(" ", productosDisponibles);
         dialog.setTitle("Nuevo tipo de producto");
         dialog.setHeaderText("Seleccione el nuevo tipo de producto:");
 
@@ -178,14 +177,13 @@ public class VentanaModificarProductoController implements Initializable {
 
         // Maneja la opción seleccionada (si el usuario hizo una elección)
         result.ifPresent(opcion -> {
-            System.out.println(objetoModificar);
-            if (objetoModificar != null) {
+            if (objetoModificar != null && !opcion.equals(" ")) {
                 objetoModificar.setNombreProducto(opcion);
                 completarLabels(objetoModificar);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Se cambió exitosamente el tipo de producto.");
                 alert.show();
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar algun artículo primero.");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar alguna opción.");
                 alert.show();
             }
         });
@@ -200,7 +198,7 @@ public class VentanaModificarProductoController implements Initializable {
     @FXML
     private void cambiarNombre(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Nuevo nombre para el artículo..");
+        dialog.setTitle("Nuevo nombre para el artículo.");
         dialog.setHeaderText("Ingrese el nuevo nombre del artículo:");
 
         Optional<String> result = dialog.showAndWait();
@@ -208,13 +206,15 @@ public class VentanaModificarProductoController implements Initializable {
         ArrayList<articulo> articulos = App.devolverArticulos();
 
         result.ifPresent(input -> {
-            articulo infoMostrar = obtenerObjetoEspecifico(articulos, input);
+            articulo infoMostrar = obtenerObjetoEspecifico(articulos, objetoModificar.getNombreArticulo());
             if (infoMostrar != null) {
                 objetoModificar.setNombreArticulo(input);
                 completarLabels(infoMostrar);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "El nombre del artículo ha sido modificado satisfactoriamente.");
+                alert.show();
             } else {
                 objetoModificar = null;
-                Alert alert = new Alert(Alert.AlertType.ERROR, "El articulo ingresado no existe.");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo ingresado no existe.");
                 alert.show();
             }
 
@@ -229,52 +229,57 @@ public class VentanaModificarProductoController implements Initializable {
      */
     @FXML
     private void cambiarCategoria(ActionEvent event) {
-        ChoiceDialog<String> dialog = new ChoiceDialog<>("Categorias disponibles", categorias);
-        dialog.setTitle("Nueva categoria para el artículo");
-        dialog.setHeaderText("Seleccione la nueva categoria:");
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(" ", categorias);
+        dialog.setTitle("Nueva categoría para el artículo");
+        dialog.setHeaderText("Seleccione la nueva categoría:");
 
         // Muestra el diálogo y espera que el usuario haga una elección
         Optional<String> result = dialog.showAndWait();
 
         // Maneja la opción seleccionada (si el usuario hizo una elección)
         result.ifPresent(opcion -> {
-            System.out.println(objetoModificar);
-            if (objetoModificar != null) {
-                System.out.println(objetoModificar.getTipo());
-                System.out.println(opcion);
-                System.out.println(objetoModificar.getTipo().equals("Bicicletas"));
-                System.out.println(opcion.equals("Bicicletas"));
+            if (objetoModificar != null && !opcion.equals(" ")) {
                 if (opcion.equals("Bicicletas") && objetoModificar.getTipo().equals("Bicicletas")) {
 
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo ya tiene esa categoria asignada.");
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo ya tiene esa categoría asignada.");
                     alert.show();
                 } else if (opcion.equals("Bicicletas") && !objetoModificar.getTipo().equals("Bicicletas")) {
 
-                    objetoModificar.setTipo(opcion);
-                    ChoiceDialog<String> tamanno = new ChoiceDialog<>("Tamaños", tamannos);
+                    ChoiceDialog<String> tamanno = new ChoiceDialog<>(" ", tamannos);
                     tamanno.setTitle("Tamaños disponibles");
-                    tamanno.setHeaderText("Seleccione el tamaño de la categoria:");
+                    tamanno.setHeaderText("Seleccione el tamaño de la categoría:");
 
                     // Muestra el diálogo y espera que el usuario haga una elección
                     Optional<String> input = tamanno.showAndWait();
 
                     // Maneja la opción seleccionada (si el usuario hizo una elección)
                     input.ifPresent(opcionUser -> {
-                        objetoModificar.setTamanno(opcionUser);
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "La categoria y el tamaño han sido modificados exitosamente.");
-                        alert.show();
+                        if (!opcionUser.equals(" ")) {
+                            objetoModificar.setTipo(opcion);
+                            objetoModificar.setTamanno(opcionUser);
+                            completarLabels(objetoModificar);
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION, "La categoría y el tamaño han sido modificados exitosamente.");
+                            alert.show();
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una opción.");
+                            alert.show();
+                        }
 
                     });
+                } else if (objetoModificar.getTipo().equals(opcion)) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo ya tiene esa categoría asignada.");
+                    alert.show();
                 } else {
 
                     objetoModificar.setTipo(opcion);
                     objetoModificar.setTamanno("0");
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "La categoria ha sido modificada exitosamente.");
+                    completarLabels(objetoModificar);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "La categoría ha sido modificada exitosamente.");
                     alert.show();
                 }
-                completarLabels(objetoModificar);
+
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar algun artículo primero.");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar alguna opción.");
                 alert.show();
             }
         });
@@ -289,22 +294,27 @@ public class VentanaModificarProductoController implements Initializable {
     @FXML
     private void cambiarTamanno(ActionEvent event) {
         if (objetoModificar.getTipo().equals("Bicicletas")) {
-            ChoiceDialog<String> tamanno = new ChoiceDialog<>("Tamaños", tamannos);
+            ChoiceDialog<String> tamanno = new ChoiceDialog<>(" ", tamannos);
             tamanno.setTitle("Tamaños disponibles");
-            tamanno.setHeaderText("Seleccione el tamaño de la categoria:");
+            tamanno.setHeaderText("Seleccione el tamaño de la categoría:");
 
             // Muestra el diálogo y espera que el usuario haga una elección
             Optional<String> input = tamanno.showAndWait();
 
             // Maneja la opción seleccionada (si el usuario hizo una elección)
             input.ifPresent(opcionUser -> {
-                objetoModificar.setTamanno(opcionUser);
-                completarLabels(objetoModificar);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "El tamaño del artículo ha sido modificado exitosamente.");
-                alert.show();
+                if (!opcionUser.equals(" ")) {
+                    objetoModificar.setTamanno(opcionUser);
+                    completarLabels(objetoModificar);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "El tamaño del artículo ha sido modificado exitosamente.");
+                    alert.show();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una opción.");
+                    alert.show();
+                }
             });
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "El artículo seleccionado no cuenta con esta caracteristica disponible.");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "El artículo seleccionado no cuenta con esta característica disponible.");
             alert.show();
         }
     }
@@ -331,7 +341,7 @@ public class VentanaModificarProductoController implements Initializable {
                 alert.show();
 
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar caracteres válidos.");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar carácteres válidos.");
                 alert.show();
             }
         });
@@ -356,7 +366,7 @@ public class VentanaModificarProductoController implements Initializable {
                 if (esNumerico(input)) {
                     objetoModificar.setPrecio(Integer.parseInt(input));
                     completarLabels(objetoModificar);
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "La marca del artículo ha sido modificada exitosamente.");
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "El precio del artículo ha sido modificado exitosamente.");
                     alert.show();
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar solamente números.");
@@ -364,7 +374,7 @@ public class VentanaModificarProductoController implements Initializable {
                 }
 
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar caracteres válidos.");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar carácteres válidos.");
                 alert.show();
             }
         });
@@ -417,7 +427,7 @@ public class VentanaModificarProductoController implements Initializable {
                 return articulo;
             }
         }
-        Alert alert = new Alert(Alert.AlertType.ERROR, "El articulo ingresado no existe.");
+        Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo ingresado no existe.");
         alert.show();
         return null;
     }

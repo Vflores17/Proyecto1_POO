@@ -28,9 +28,9 @@
             </Menu>
          </menus>
       </MenuBar>
-      <Button fx:id="botRegresar" layoutX="324.0" layoutY="271.0" mnemonicParsing="false" onAction="#regresar" text="Regresar">
+      <Button fx:id="botRegresar" layoutX="277.0" layoutY="262.0" mnemonicParsing="false" onAction="#regresar" text="Regresar">
          <font>
-            <Font size="14.0" />
+            <Font size="18.0" />
          </font>
       </Button>
       <GridPane fx:id="gridInformacion" layoutX="14.0" layoutY="90.0" prefHeight="90.0" prefWidth="599.0">

@@ -105,11 +105,16 @@ public class AgregarClienteController implements Initializable {
         //validar que la información este de forma correcta para crear el objeto.
         if (nombre != null && !nombre.isEmpty() && apellido != null && !apellido.isEmpty() && telefono != null && !telefono.isEmpty() && correo != null && !correo.isEmpty() && distrito != null && !distrito.isEmpty() && canton != null && !canton.isEmpty()) {
             if (validar_telefono(telefono)) {
+                if (validarCorreo(correo)) {
 
-                Cliente cliente = new Cliente(contar + 1, nombre.strip(), apellido.strip(), telefono.strip(), correo.strip(), provincia.strip(), canton.strip(), distrito.strip(), getFecha());
-                App.guardarCliente(cliente);
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Se ha registrado correctamente el cliente");
-                alert.show();
+                    Cliente cliente = new Cliente(contar + 1, nombre.strip(), apellido.strip(), telefono.strip(), correo.strip(), provincia.strip(), canton.strip(), distrito.strip(), getFecha());
+                    App.guardarCliente(cliente);
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Se ha registrado correctamente el cliente");
+                    alert.show();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "El formato del correo eletrónico ingresado es incorrecto.");
+                    alert.show();
+                }
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "El número ingresado no es invalido.");
                 alert.show();
@@ -132,8 +137,6 @@ public class AgregarClienteController implements Initializable {
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(App.getStage(btAgregar), "registroCliente");
     }
-
-  
 
     /**
      * *
@@ -158,5 +161,14 @@ public class AgregarClienteController implements Initializable {
     private LocalDate getFecha() {
         LocalDate fecha = fechaNacimiento.getValue();
         return fecha;
+    }
+
+    public static boolean validarCorreo(String correo) {
+        if (correo.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$")) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

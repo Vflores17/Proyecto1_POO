@@ -134,17 +134,23 @@ public class ModificarClienteController implements Initializable {
 
         if (nombre != null && !nombre.isEmpty() && apellido != null && !apellido.isEmpty() && telefono != null && !telefono.isEmpty() && correo != null && !correo.isEmpty() && distrito != null && !distrito.isEmpty() && canton != null && !canton.isEmpty()) {
             if (validar_telefono(telefono)) {
-                String codigo = elegirCliente.getValue();
-                List<Cliente> clientes = App.getClientes();
-                for (Cliente cliente : clientes) {
-                    if (cliente.getCodigo() == obtenerCodigo(codigo)) {
-                        int indice = clientes.indexOf(cliente);
-                        Cliente clienteModificado = new Cliente(cliente.getCodigo(), nombre, apellido, telefono, correo, provincia, canton, distrito, getFecha());
-                        App.modificarCliente(indice, clienteModificado);
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Se ha modificado el cliente correctamente");
-                        alert.show();
+                if (AgregarClienteController.validarCorreo(correo)) {
+                    String codigo = elegirCliente.getValue();
+                    List<Cliente> clientes = App.getClientes();
+                    for (Cliente cliente : clientes) {
+                        if (cliente.getCodigo() == obtenerCodigo(codigo)) {
+                            int indice = clientes.indexOf(cliente);
+                            Cliente clienteModificado = new Cliente(cliente.getCodigo(), nombre, apellido, telefono, correo, provincia, canton, distrito, getFecha());
+                            App.modificarCliente(indice, clienteModificado);
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Se ha modificado el cliente correctamente");
+                            alert.show();
+                        }
                     }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "El formato del correo eletrónico es incorrecto.");
+                    alert.show();
                 }
+
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "El número ingresado no es invalido.");
                 alert.show();
