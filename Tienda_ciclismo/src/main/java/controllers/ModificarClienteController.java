@@ -106,29 +106,25 @@ public class ModificarClienteController implements Initializable {
 
     @FXML
     private void modificarCliente(ActionEvent event) {
-        String nombre = entryNombre.getText();
-        String telefono = entryTelefono.getText();
-        String apellido = entryApellido.getText();
-        String correo = entryCorreo.getText();
-        String provincia = comboProvincia.getValue();
-        String canton = entryCanton.getText();
-        String distrito = entryDistrito.getText();
-        
-        
-        if(nombre != null && !nombre.isEmpty() && apellido != null && !apellido.isEmpty() && telefono != null && !telefono.isEmpty() && correo != null && !correo.isEmpty() && distrito != null && !distrito.isEmpty() && canton != null && !canton.isEmpty()){
-            if(validar_telefono(telefono)){
-                if(validar_espacios(nombre) && validar_espacios(apellido) && validar_espacios(correo) && validar_espacios(canton) && validar_espacios(distrito)){
-                    String codigo = elegirCliente.getValue();
-                    List<Cliente> clientes = cargarArchivo.leerClientes();
-                    for(Cliente cliente : clientes){
-                        if(cliente.getCodigo() == obtenerCodigo(codigo)){
-                            int indice = clientes.indexOf(cliente);
-                            Cliente clienteModificado = new Cliente(cliente.getCodigo(),nombre,apellido,telefono,correo,provincia,canton,distrito,getFecha());
-                            clientes.set(indice, clienteModificado);
-                            guardarArchivo.guardarCliente(clientes);
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Se ha modificado el cliente correctamente");
-                            alert.show();
-                        }
+        String nombre = entryNombre.getText().strip();
+        String telefono = entryTelefono.getText().strip();
+        String apellido = entryApellido.getText().strip();
+        String correo = entryCorreo.getText().strip();
+        String provincia = comboProvincia.getValue().strip();
+        String canton = entryCanton.getText().strip();
+        String distrito = entryDistrito.getText().strip();
+
+        if (nombre != null && !nombre.isEmpty() && apellido != null && !apellido.isEmpty() && telefono != null && !telefono.isEmpty() && correo != null && !correo.isEmpty() && distrito != null && !distrito.isEmpty() && canton != null && !canton.isEmpty()) {
+            if (validar_telefono(telefono)) {
+                String codigo = elegirCliente.getValue();
+                List<Cliente> clientes = App.getClientes();
+                for (Cliente cliente : clientes) {
+                    if (cliente.getCodigo() == App.obtenerCodigoCliente(codigo)) {
+                        int indice = clientes.indexOf(cliente);
+                        Cliente clienteModificado = new Cliente(cliente.getCodigo(), nombre, apellido, telefono, correo, provincia, canton, distrito, getFecha());
+                        App.modificarCliente(indice, clienteModificado);
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Se ha modificado el cliente correctamente");
+                        alert.show();
                     }
                 }else{
                     Alert alert = new Alert(Alert.AlertType.ERROR, "Hay espacios al inicio o al final de los textos de entrada, porfavor eliminelos.");
@@ -158,63 +154,48 @@ public class ModificarClienteController implements Initializable {
         fechaNacimiento.setDisable(false);
         
         String codigo = elegirCliente.getValue();
-        List<Cliente> clientes = cargarArchivo.leerClientes();
-        for(Cliente cliente : clientes){
-            if(cliente.getCodigo() == obtenerCodigo(codigo)){
-            elegirCliente.setDisable(true);
-            entryNombre.setDisable(false);
-            entryNombre.setText(cliente.getNombre());
-            entryApellido.setDisable(false);
-            entryApellido.setText(cliente.getApellido());
-            entryTelefono.setDisable(false);
-            entryTelefono.setText(Integer.toString(cliente.getTelefono()));
-            entryCorreo.setDisable(false);
-            entryCorreo.setText(cliente.getCorreo());
-            entryDistrito.setDisable(false);
-            entryDistrito.setText(cliente.getDistrito());
-            entryCanton.setDisable(false);
-            entryCanton.setText(cliente.getCanton());
-            comboProvincia.setDisable(false);
-            comboProvincia.setValue(cliente.getProvincia());
-            fechaNacimiento.setDisable(false);
-            fechaNacimiento.setValue(LocalDate.parse(cliente.getFechaNacimiento(),DateTimeFormatter.ofPattern("MMMM dd, yyyy")));
-            elegirCliente.setDisable(true);
+        List<Cliente> clientes = App.getClientes();
+        for (Cliente cliente : clientes) {
+            if (cliente.getCodigo() == App.obtenerCodigoCliente(codigo)) {
+                elegirCliente.setDisable(true);
+                entryNombre.setDisable(false);
+                entryNombre.setText(cliente.getNombre());
+                entryApellido.setDisable(false);
+                entryApellido.setText(cliente.getApellido());
+                entryTelefono.setDisable(false);
+                entryTelefono.setText(Integer.toString(cliente.getTelefono()));
+                entryCorreo.setDisable(false);
+                entryCorreo.setText(cliente.getCorreo());
+                entryDistrito.setDisable(false);
+                entryDistrito.setText(cliente.getDistrito());
+                entryCanton.setDisable(false);
+                entryCanton.setText(cliente.getCanton());
+                comboProvincia.setDisable(false);
+                comboProvincia.setValue(cliente.getProvincia());
+                fechaNacimiento.setDisable(false);
+                fechaNacimiento.setValue(cliente.getFechaNacimiento());
+                elegirCliente.setDisable(true);
             }
         } 
     }
-    
-    private int obtenerCodigo(String cadenaCodigo){
-        
-        String[] partes = cadenaCodigo.split(":");
-        
-        String codigoCliente = partes[1].trim();
 
-        int codigo = Integer.parseInt(codigoCliente);
-
-        return codigo;
-    }
-    
-    private boolean validar_telefono(String telefono){
-        if(telefono.length() == 8 && telefono.matches("[2|4|6|8]\\d+")){
+    /**
+     * *
+     * Método para válida la estructura del teléfono ingresado por el usuario
+     *
+     * @param telefono El número teléfonico ingresado por el usuario.
+     * @return Booleano si la estructura es válida o no.
+     */
+    private boolean validar_telefono(String telefono) {
+        if (telefono.length() == 8 && telefono.matches("[2|4|6|8]\\d+")) {
             return true;
         }
         return false;
     }
-    
-    private boolean validar_espacios(String texto){
-        if (texto.startsWith(" ")) {
-            return false;
-        }
-        if (texto.endsWith(" ")) {
-            return false;
-        }
-        return true;
-    }
-    
-    private String getFecha(){
+       
+    private LocalDate getFecha(){
         LocalDate localDate = fechaNacimiento.getValue();
-        String formato = localDate.format(DateTimeFormatter.ofPattern("MMMM dd, yyyy"));
-        return formato;
+        return localDate;
     }
     
     private Stage getStage() {

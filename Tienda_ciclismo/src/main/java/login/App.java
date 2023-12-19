@@ -1,6 +1,9 @@
 package login;
 
 import archivos.cargarArchivo;
+import archivos.guardarArchivo;
+import clases.Cliente;
+import clases.Factura;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +18,7 @@ import clases.articulo;
 import clases.tipoProducto;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * JavaFX App
@@ -24,6 +28,10 @@ public class App extends Application {
     private static Scene scene;
     private static ArrayList<tipoProducto> infoProductos = new ArrayList();
     private static ArrayList<articulo> infoArticulos = new ArrayList();
+    private static ArrayList<servicio> infoServicios = new ArrayList();
+    private static List<Cliente> infoClientes = new ArrayList();
+    private static List<Factura> infoFactura = new ArrayList();
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -47,6 +55,9 @@ public class App extends Application {
 
     public static void main(String[] args) {
 
+        infoClientes = cargarArchivo.leerClientes();
+        infoFactura = cargarArchivo.leerFactura();
+        
         tipoProducto newObjeto = new tipoProducto(1, "Zapatos");
         tipoProducto newObjeto1 = new tipoProducto(2, "Frenos");
         tipoProducto newObjeto2 = new tipoProducto(3, "Transmisiones");
@@ -99,10 +110,33 @@ public class App extends Application {
 
     }
 
+
+    /**
+     * Método para devolver la cantidad de productos
+     *
+     * @return infoProductos el largo de la lista Productos
+     */
+
     public static int cantProductos() {
         return infoProductos.size();
     }
 
+
+    /**
+     * Método para devolver la cantidad de productos
+     *
+     * @return infoFactura el largo de la lista de facturas
+     */
+    public static int cantFactura() {
+        return infoFactura.size();
+    }
+    
+    /**
+     * Método para buscar el código de un producto.
+     *
+     * @param producto el nombre del producto
+     * @return código del producto.
+     */
     public static int buscarCodigoProducto(String producto) {
         for (tipoProducto elemento : infoProductos) {
             if (elemento.getNombreProducto().equals(producto)) {
@@ -119,4 +153,116 @@ public class App extends Application {
     public static ArrayList devolverArticulos() {
         return infoArticulos;
     }
+
+    /**
+     * Método para devolver el ArrayList de los clientes.
+     *
+     * @return ArrayList con los objetos cliente.
+     */
+    public static ArrayList devolverClientes() {
+        List<Cliente> clientes = cargarArchivo.leerClientes();
+        return (ArrayList) clientes;
+    }
+
+    /**
+     * Método para obtener el ArrayList con los servicios.
+     *
+     * @return ArrayList con los objetos servicio.
+     */
+    public static ArrayList getServicios() {
+        return infoServicios;
+    }
+
+    /**
+     * Método para devolver la cantidad de servicios.
+     *
+     * @return la cantidad de servicios.
+     */
+    public static int cantServicios() {
+        return infoServicios.size();
+    }
+
+    /**
+     * Método para guardar un servicio nuevo
+     *
+     * @param newServicio objeto servicio a guardar
+     */
+    public static void guardarServicio(servicio newServicio) {
+        infoServicios.add(newServicio);
+    }
+
+    /**
+     * Método para guardar un nuevo cliente.
+     *
+     * @param newCliente objeto cliente a guardar
+     */
+    public static void guardarCliente(Cliente newCliente) {
+        infoClientes.add(newCliente);
+        System.out.println(newCliente.toString());
+        guardarArchivo.guardarCliente(infoClientes);
+    }
+    
+    /**
+     * Método para guardar una nueva factura.
+     *
+     * @param newFactura objeto Factura a guardar
+     */
+    public static void guardarFactura(Factura newFactura) {
+        infoFactura.add(newFactura);
+        System.out.println(newFactura.toString());
+        guardarArchivo.guardarFactura(infoFactura);
+    }
+
+    /**
+     * Método devolver el ArrayList de los clientes
+     *
+     * @return ArrayList con los objetos cliente
+     */
+    public static List<Cliente> getClientes() {
+        return infoClientes;
+    }
+
+    /**
+     * Método para modificar un cliente.
+     *
+     * @param indice posicion del objeto en el ArrayList.
+     * @param newCliente nuevo objeto cliente a modificar.
+     */
+    public static void modificarCliente(int indice, Cliente newCliente) {
+        infoClientes.set(indice, newCliente);
+        archivos.guardarArchivo.guardarCliente(infoClientes);
+    }
+    
+    /**
+     * *
+     * Método para extraer el código del cliente del string mostrado al usuario.
+     *
+     * @param cadenaCodigo String del comboBox mostrado al usuario.
+     * @return El código del cliente seleccionado.
+     */
+    public static int obtenerCodigoCliente(String cadenaCodigo) {
+
+        String[] partes = cadenaCodigo.split(":");
+        String codigoCliente = partes[1].trim();
+        int codigo = Integer.parseInt(codigoCliente);
+
+        return codigo;
+    }
+    
+    /**
+     * *
+     * Método para extraer el nombre de un producto o servicio del cliente del string mostrado al usuario.
+     *
+     * @param cadenaCodigo String del comboBox mostrado al usuario.
+     * @param i entero con la posicion del nnombre
+     * @return El nombre buscado.
+     */
+    public static String obtenerNombre(String cadenaCodigo, int i) {
+
+        String[] partes = cadenaCodigo.split(":");
+        String nombreBuscado = partes[i].trim();
+
+        return nombreBuscado;
+    }
+
 }

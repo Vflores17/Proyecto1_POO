@@ -1,2 +1,6 @@
 /Tienda_Ciclismo/target/
 /Tienda_ciclismo/target/
+Tienda_ciclismo/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+Tienda_ciclismo/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+Tienda_ciclismo/target/classes/login/ventanaPrincipalController.class
+*.lst

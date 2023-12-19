@@ -44,6 +44,7 @@ public class BuscarClienteController implements Initializable {
     private Button btBuscar;
     @FXML
     private TextField obtenerDato;
+
     /**
      * Initializes the controller class.
      */

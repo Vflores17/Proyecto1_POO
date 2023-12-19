@@ -1,8 +1,10 @@
 package archivos;
 
 import clases.Cliente;
+import clases.Factura;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.util.Dictionary;
 import java.io.*;
 import java.lang.reflect.Type;
@@ -98,6 +100,7 @@ public class cargarArchivo {
      */
     public static List<Cliente> leerClientes() {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
 
         try {
             File file = new File("src/main/java/archivos/archivoscliente.json");
@@ -109,6 +112,31 @@ public class cargarArchivo {
             List<Cliente> clientes = objectMapper.readValue(file, new TypeReference<List<Cliente>>() {});
             System.out.println("Clientes leídos desde archivoscliente.json");
             return clientes;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }  
+    }
+    
+    /**
+     * Lee la información de clientes desde un archivo JSON.
+     *
+     * @return Una lista de objetos Factura leídos desde el archivo JSON.
+     */
+    public static List<Factura> leerFactura() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        try {
+            File file = new File("src/main/java/archivos/archivosfacturas.json");
+
+            if (!file.exists()) {
+                System.out.println("El archivo no existe. Devolviendo una lista vacía.");
+                return new ArrayList<>();
+            }
+            List<Factura> factura = objectMapper.readValue(file, new TypeReference<List<Factura>>() {});
+            System.out.println("Clientes leídos desde archivosfacturas.json");
+            return factura;
         } catch (IOException e) {
             e.printStackTrace();
             return null;

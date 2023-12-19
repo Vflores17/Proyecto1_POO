@@ -1,5 +1,6 @@
 package archivos;
 import clases.Cliente;
+import clases.Factura;
 import java.io.*;
 import java.util.Hashtable;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,6 +51,25 @@ public class guardarArchivo {
             objectMapper.writeValue(file, clientes);
 
             System.out.println("Clientes guardados en archivoscliente.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /***
+     * Método para guardar la información de las facturas registradas en el programa.
+     * 
+     * @param factura Lista de objetos Factura para guardar en disco.
+     */
+    public static void guardarFactura(List<Factura> factura) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        try {
+            File file = new File("src/main/java/archivos/archivosfacturas.json");
+            System.out.println(factura);
+            objectMapper.writeValue(file, factura);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
