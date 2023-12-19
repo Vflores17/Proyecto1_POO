@@ -4,6 +4,7 @@ package archivos;
 import clases.Cliente;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.util.Dictionary;
 import java.io.*;
 import java.lang.reflect.Type;
@@ -94,7 +95,7 @@ public class cargarArchivo {
      */
     public static List<Cliente> leerClientes() {
         ObjectMapper objectMapper = new ObjectMapper();
-
+        objectMapper.registerModule(new JavaTimeModule());
         try {
             File file = new File("src/main/java/archivos/archivoscliente.json");
 

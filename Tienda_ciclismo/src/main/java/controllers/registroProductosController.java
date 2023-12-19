@@ -49,7 +49,7 @@ public class registroProductosController implements Initializable {
      */
     @FXML
     private void opcionBuscarProducto(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "ventanaBuscarProducto");
+        App.cambiarVista(App.getStage(botAgregar), "ventanaBuscarProducto");
     }
 
     /**
@@ -61,7 +61,7 @@ public class registroProductosController implements Initializable {
      */
     @FXML
     private void opcionAgregarProducto(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "agregarProducto");
+        App.cambiarVista(App.getStage(botAgregar), "agregarProducto");
     }
 
     /**
@@ -82,7 +82,7 @@ public class registroProductosController implements Initializable {
      */
     @FXML
     private void opcionModificarProducto(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "ventanaModificarProducto");
+        App.cambiarVista(App.getStage(botAgregar), "ventanaModificarProducto");
     }
 
     /**
@@ -94,17 +94,6 @@ public class registroProductosController implements Initializable {
      */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "ventanaPrincipal");
+        App.cambiarVista(App.getStage(botAgregar), "ventanaPrincipal");
     }
-
-    /**
-     * Método para obtener el stage de la ventana.
-     *
-     * @return stage actual de la ventana.
-     */
-    private Stage getStage() {
-        Stage stage = (Stage) botAgregar.getScene().getWindow();
-        return stage;
-    }
-
 }

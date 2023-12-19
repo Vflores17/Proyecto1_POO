@@ -85,7 +85,7 @@ public class ModificarClienteController implements Initializable {
      */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "registroCliente");
+        App.cambiarVista(App.getStage(btLimpiar), "registroCliente");
     }
 
     /**
@@ -241,16 +241,5 @@ public class ModificarClienteController implements Initializable {
     private LocalDate getFecha() {
         LocalDate fecha = fechaNacimiento.getValue();
         return fecha;
-    }
-
-    /**
-     * *
-     * Método para obtener el stage de la ventana actual.
-     *
-     * @return Stage actual de la ventana.
-     */
-    private Stage getStage() {
-        Stage stage = (Stage) btLimpiar.getScene().getWindow();
-        return stage;
     }
 }

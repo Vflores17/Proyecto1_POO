@@ -51,7 +51,7 @@ public class menuServiciosController implements Initializable {
      */
     @FXML
     private void opcionBuscarServicio(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "VentanaBuscarServicio");
+        App.cambiarVista(App.getStage(botRegresar), "VentanaBuscarServicio");
     }
 
     /**
@@ -64,7 +64,7 @@ public class menuServiciosController implements Initializable {
      */
     @FXML
     private void opcionAgregarServicio(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "ventanaAgregarServicio");
+        App.cambiarVista(App.getStage(botRegresar), "ventanaAgregarServicio");
     }
 
     /**
@@ -88,7 +88,7 @@ public class menuServiciosController implements Initializable {
      */
     @FXML
     private void opcionModificarServicio(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "ventanaModificarServicio");
+        App.cambiarVista(App.getStage(botRegresar), "ventanaModificarServicio");
     }
 
     /**
@@ -101,17 +101,7 @@ public class menuServiciosController implements Initializable {
      */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "ventanaPrincipal");
-    }
-
-    /**
-     * Método para obtener el stage de la ventana
-     *
-     * @return stage actual de la ventana.
-     */
-    private Stage getStage() {
-        Stage stage = (Stage) botonAgregar.getScene().getWindow();
-        return stage;
+        App.cambiarVista(App.getStage(botRegresar), "ventanaPrincipal");
     }
 
 }

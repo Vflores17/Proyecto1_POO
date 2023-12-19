@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
+import javafx.scene.control.Button;
 
 /**
  * Inicizalidor de la aplicación
@@ -283,5 +284,10 @@ public class App extends Application {
     public static void modificarCliente(int indice, Cliente newCliente) {
         infoClientes.set(indice, newCliente);
         archivos.guardarArchivo.guardarCliente(infoClientes);
+    }
+    
+    public static Stage getStage(Button boton){
+    Stage stage = (Stage)boton.getScene().getWindow();
+    return stage;
     }
 }

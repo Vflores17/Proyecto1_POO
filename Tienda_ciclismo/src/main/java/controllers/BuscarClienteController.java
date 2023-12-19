@@ -65,7 +65,7 @@ public class BuscarClienteController implements Initializable {
      */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "registroCliente");
+        App.cambiarVista(App.getStage(btBuscar), "registroCliente");
     }
 
     /**
@@ -114,16 +114,5 @@ public class BuscarClienteController implements Initializable {
             }
 
         }
-    }
-
-    /**
-     * *
-     * Método para obtener el stage de la ventana actual.
-     *
-     * @return Stage actual.
-     */
-    private Stage getStage() {
-        Stage stage = (Stage) btBuscar.getScene().getWindow();
-        return stage;
     }
 }

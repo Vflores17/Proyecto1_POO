@@ -130,19 +130,10 @@ public class AgregarClienteController implements Initializable {
      */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "registroCliente");
+        App.cambiarVista(App.getStage(btAgregar), "registroCliente");
     }
 
-    /**
-     * *
-     * Método para obtener el stage actual de la ventana.
-     *
-     * @return stage de la ventana actual
-     */
-    private Stage getStage() {
-        Stage stage = (Stage) btAgregar.getScene().getWindow();
-        return stage;
-    }
+  
 
     /**
      * *

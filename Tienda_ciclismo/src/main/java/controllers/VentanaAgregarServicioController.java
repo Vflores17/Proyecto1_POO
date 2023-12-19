@@ -78,19 +78,9 @@ public class VentanaAgregarServicioController implements Initializable {
      */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "menuServicios");
+        App.cambiarVista(App.getStage(botAgregar), "menuServicios");
     }
 
-    /**
-     * *
-     * Método para obtener el stage de la ventana.
-     *
-     * @return Stage actual de la ventana.
-     */
-    private Stage getStage() {
-        Stage stage = (Stage) botAgregar.getScene().getWindow();
-        return stage;
-    }
 
     /**
      * *

@@ -51,7 +51,7 @@ public class registroClienteController implements Initializable {
      */
     @FXML
     private void opcionBuscarCliente(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "buscarCliente");
+        App.cambiarVista(App.getStage(botRegresar), "buscarCliente");
     }
 
     /**
@@ -63,7 +63,7 @@ public class registroClienteController implements Initializable {
      */
     @FXML
     private void opcionAgregarCliente(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "agregarCliente");
+        App.cambiarVista(App.getStage(botRegresar), "agregarCliente");
     }
 
     /**
@@ -86,7 +86,7 @@ public class registroClienteController implements Initializable {
      */
     @FXML
     private void opcionModificarCliente(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "modificarCliente");
+        App.cambiarVista(App.getStage(botRegresar), "modificarCliente");
     }
 
     /**
@@ -98,17 +98,7 @@ public class registroClienteController implements Initializable {
      */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "ventanaPrincipal");
-    }
-
-    /**
-     * Método para obtener el stage de la ventana.
-     *
-     * @return stage actual de la ventana.
-     */
-    private Stage getStage() {
-        Stage stage = (Stage) botonAgregar.getScene().getWindow();
-        return stage;
+        App.cambiarVista(App.getStage(botRegresar), "ventanaPrincipal");
     }
 
 }

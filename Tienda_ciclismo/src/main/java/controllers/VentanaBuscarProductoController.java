@@ -54,17 +54,6 @@ public class VentanaBuscarProductoController implements Initializable {
 
     /**
      * *
-     * Método para obtener el stage de la ventana actual.
-     *
-     * @return Stage actual de la ventana.
-     */
-    private Stage getStage() {
-        Stage stage = (Stage) botRegresar.getScene().getWindow();
-        return stage;
-    }
-
-    /**
-     * *
      * Método para cambiar a la ventana anterior.
      *
      * @param event Evento para accionar el método cuando se presione el botón.
@@ -73,7 +62,7 @@ public class VentanaBuscarProductoController implements Initializable {
      */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "registroProductos");
+        App.cambiarVista(App.getStage(botRegresar), "registroProductos");
     }
 
     /**

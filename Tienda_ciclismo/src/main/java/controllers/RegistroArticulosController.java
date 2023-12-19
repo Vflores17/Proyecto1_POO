@@ -102,19 +102,9 @@ public class RegistroArticulosController implements Initializable {
      */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "agregarProducto");
+        App.cambiarVista(App.getStage(botAgregar), "agregarProducto");
     }
 
-    /**
-     * *
-     * Método para obtener el stage de la ventana
-     *
-     * @return stage actual de la ventana.
-     */
-    private Stage getStage() {
-        Stage stage = (Stage) botAgregar.getScene().getWindow();
-        return stage;
-    }
 
     /**
      * *
