@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.buscarFacturaController">
+   <children>
+      <Text layoutX="31.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECCIONE EL MÉTODO PARA BUSCAR LA FACTURA">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="botBuscarNumeroFactura" layoutX="317.0" layoutY="100.0" mnemonicParsing="false" onAction="#opcionBuscarNumeroFactura" text="  Buscar  ">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="botBuscarFechaFactura" layoutX="316.0" layoutY="151.0" mnemonicParsing="false" onAction="#opcionBuscarFechaFactura" text="  Buscar">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+     
+      <Button fx:id="botBuscarNombreCliente" layoutX="316.0" layoutY="209.0" mnemonicParsing="false" onAction="#opcionBuscarNombreCliente" text="Buscar">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      
+      <Text layoutX="60.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; Buscar por numero de Factura">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="59.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; Buscar por fecha">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="60.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; Buscar por nombre del cliente">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      
+      <Button fx:id="botRegresar" layoutX="513.0" layoutY="356.0" mnemonicParsing="false" onAction="#regresar" text="Regresar">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

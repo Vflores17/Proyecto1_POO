@@ -35,7 +35,7 @@ public class tipoProducto {
     }
 
     public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
+         this.nombreProducto = nombreProducto;
     }
     
     

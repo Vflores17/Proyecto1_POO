@@ -31,11 +31,13 @@ public class ventanaPrincipalController {
     }
 
     @FXML
-    private void opcionRegistrarClientes(ActionEvent event) {
+    private void opcionRegistrarClientes(ActionEvent event) throws IOException {
+        
     }
 
     @FXML
-    private void opcionRealizarFactura(ActionEvent event) {
+    private void opcionRealizarFactura(ActionEvent event) throws IOException {
+        App.cambiarVentana(getStage(), "facturacion");
     }
 
     @FXML
