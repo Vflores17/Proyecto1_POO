@@ -4,6 +4,7 @@ package login;
 import archivos.cargarArchivo;
 import archivos.guardarArchivo;
 import clases.Cliente;
+import clases.Factura;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,6 +34,7 @@ public class App extends Application {
     private static ArrayList<articulo> infoArticulos = new ArrayList();
     private static ArrayList<servicio> infoServicios = new ArrayList();
     private static List<Cliente> infoClientes = new ArrayList();
+    private static List<Factura> infoFactura = new ArrayList();
 
     /**
      * Método para iniciar la aplicación.
@@ -85,6 +87,7 @@ public class App extends Application {
     public static void main(String[] args) {
 
         infoClientes = cargarArchivo.leerClientes();
+        infoFactura = cargarArchivo.leerFactura();
 
         tipoProducto newObjeto = new tipoProducto(1, "Zapatos");
         tipoProducto newObjeto1 = new tipoProducto(2, "Frenos");
@@ -186,6 +189,15 @@ public class App extends Application {
     }
 
     /**
+     * Método para devolver la cantidad de productos
+     *
+     * @return infoFactura el largo de la lista de facturas
+     */
+    public static int cantFactura() {
+        return infoFactura.size();
+    }
+
+    /**
      * Método para buscar el código de un producto.
      *
      * @param producto el nombre del producto
@@ -267,12 +279,32 @@ public class App extends Application {
     }
 
     /**
+     * Método para guardar una nueva factura.
+     *
+     * @param newFactura objeto Factura a guardar
+     */
+    public static void guardarFactura(Factura newFactura) {
+        infoFactura.add(newFactura);
+        System.out.println(newFactura.toString());
+        guardarArchivo.guardarFactura(infoFactura);
+    }
+
+    /**
      * Método devolver el ArrayList de los clientes
      *
      * @return ArrayList con los objetos cliente
      */
     public static List<Cliente> getClientes() {
         return infoClientes;
+    }
+
+    /**
+     * Método devolver el ArrayList de los clientes
+     *
+     * @return ArrayList con los objetos cliente
+     */
+    public static List<Factura> getFactura() {
+        return infoFactura;
     }
 
     /**
@@ -285,9 +317,76 @@ public class App extends Application {
         infoClientes.set(indice, newCliente);
         archivos.guardarArchivo.guardarCliente(infoClientes);
     }
-    
-    public static Stage getStage(Button boton){
-    Stage stage = (Stage)boton.getScene().getWindow();
-    return stage;
+
+    /**
+     * *
+     * Método para extraer el código del cliente del string mostrado al usuario.
+     *
+     * @param cadenaCodigo String del comboBox mostrado al usuario.
+     * @return El código del cliente seleccionado.
+     */
+    public static int obtenerCodigoCliente(String cadenaCodigo) {
+
+        String[] partes = cadenaCodigo.split(":");
+        String codigoCliente = partes[1].trim();
+        int codigo = Integer.parseInt(codigoCliente);
+
+        return codigo;
+    }
+
+    /**
+     * *
+     * Método para extraer el nombre de un producto o servicio del cliente del
+     * string mostrado al usuario.
+     *
+     * @param cadenaCodigo String del comboBox mostrado al usuario.
+     * @param i entero con la posicion del nnombre
+     * @return El nombre buscado.
+     */
+    public static String obtenerNombre(String cadenaCodigo, int i) {
+
+        String[] partes = cadenaCodigo.split(":");
+        String nombreBuscado = partes[i].trim();
+
+        return nombreBuscado;
+    }
+
+    public static Stage getStage(Button boton) {
+        Stage stage = (Stage) boton.getScene().getWindow();
+        return stage;
+    }
+
+    public static ArrayList getArticulosCodFacturados() {
+        ArrayList facturados = new ArrayList();
+        for (Factura factura : infoFactura) {
+            for (int codigo : factura.getCodigoArticulo()) {
+                facturados.add(codigo);
+            }
+        }
+        return facturados;
+    }
+    public static ArrayList getNombArticulosFacturados() {
+        ArrayList<Integer> facturados = getArticulosCodFacturados();
+        for (int codigo : facturados) {
+            
+        }
+        return facturados;
+    }
+
+    public static ArrayList getCodigosArticulos() {
+        ArrayList codigos = new ArrayList();
+        for (articulo articulo : infoArticulos) {
+            codigos.add(articulo.getCodigoArticulo());
+        }
+        return codigos;
+    }
+
+    public static ArrayList getNombresArticulos() {
+        ArrayList nombres = new ArrayList();
+        for (articulo articulo : infoArticulos) {
+            nombres.add(articulo.getNombreArticulo());
+        }
+        return nombres;
+
     }
 }

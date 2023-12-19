@@ -2,6 +2,7 @@ package archivos;
 
 //Módulo de importaciones
 import clases.Cliente;
+import clases.Factura;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -27,6 +28,7 @@ public class cargarArchivo {
      *
      * @param archivo Ruta del archivo CSV que contiene las credenciales.
      * @return Un mapa que asocia nombres de usuario con contraseñas.
+     * 
      */
     public static Map<String, String> cargarInformacion(String archivo) {
         Map<String, String> credenciales = new HashMap<>();
@@ -59,6 +61,7 @@ public class cargarArchivo {
      *
      * @param archivo Ruta del archivo que contiene la información.
      * @return Lista de objetos almacenados en el archivo.
+     * 
      */
     public static ArrayList cargarListas(String archivo){
         
@@ -106,6 +109,26 @@ public class cargarArchivo {
             List<Cliente> clientes = objectMapper.readValue(file, new TypeReference<List<Cliente>>() {});
             System.out.println("Clientes leídos desde archivoscliente.json");
             return clientes;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }  
+    }
+    
+    public static List<Factura> leerFactura() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        try {
+            File file = new File("src/main/java/archivos/archivosfacturas.json");
+
+            if (!file.exists()) {
+                System.out.println("El archivo no existe. Devolviendo una lista vacía.");
+                return new ArrayList<>();
+            }
+            List<Factura> factura = objectMapper.readValue(file, new TypeReference<List<Factura>>() {});
+            System.out.println("Facturas leídas desde archivosfacturas.json");
+            return factura;
         } catch (IOException e) {
             e.printStackTrace();
             return null;

@@ -24,6 +24,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -44,6 +45,12 @@ public class VentanaBuscarProductoController implements Initializable {
     private Button botRegresar;
     @FXML
     private GridPane gridInformacion;
+    @FXML
+    private MenuItem botElimArticuloCodigo;
+    @FXML
+    private MenuItem botElimNombreArticulo;
+    @FXML
+    private Menu menuEliminar;
 
     /**
      * Inializador del controlador.
@@ -86,8 +93,10 @@ public class VentanaBuscarProductoController implements Initializable {
                 ArrayList elementosMostrar = filtrarPorCodigo(articulos, Integer.parseInt(codigoProducto));
                 gridInformacion.getChildren().clear();
                 if (!elementosMostrar.isEmpty()) {
+                    limpiar();
                     colocarLabels();
                     colocarInformacion(elementosMostrar);
+                    menuEliminar.setDisable(false);
                 } else {
                     //listViewElementos.getItems().clear();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "No se han encontrado productos con el valor ingresado.");
@@ -120,8 +129,10 @@ public class VentanaBuscarProductoController implements Initializable {
 
                 ArrayList elementosMostrar = filtrarPorNombre(productos, codigoProducto);
                 if (!elementosMostrar.isEmpty()) {
+                    limpiar();
                     colocarLabels();
                     colocarInformacion(elementosMostrar);
+                    menuEliminar.setDisable(false);
 
                 } else {
                     //listViewElementos.getItems().clear();
@@ -233,5 +244,57 @@ public class VentanaBuscarProductoController implements Initializable {
             gridInformacion.getChildren().add(label);
             columna++;
         }
+    }
+
+    private void limpiar() {
+        gridInformacion.getChildren().clear();
+    }
+
+    @FXML
+    private void eliminarPorCodigo(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Eliminar artículo con el código.");
+        dialog.setHeaderText("Ingrese el código del artículo a eliminar:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(input -> {
+            ArrayList codigos = App.getCodigosArticulos();
+            if (codigos.contains(Integer.parseInt(input))) {
+                ArrayList facturados = App.getArticulosCodFacturados();
+                System.out.println(facturados);
+                if (facturados.contains(Integer.parseInt(input))) {
+                    
+                    System.out.println("No se puede eliminar porq esta facturado");
+                    
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo no se puede eliminar, porque se encuentra facturado.");
+                    alert.show();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "No hay ningun artículo con el código ingresado.");
+                alert.show();
+            }
+
+        });
+    }
+
+    @FXML
+    private void eliminarPorNombre(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Eliminar artículo con el nombre.");
+        dialog.setHeaderText("Ingrese el nombre del artículo a eliminar:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(input -> {
+            ArrayList nombres = App.getNombresArticulos();
+            if (nombres.contains(input)) {
+                System.out.println("entra");
+            } else {
+                System.out.println("No existe el artículo ingresado");
+            }
+
+        });
     }
 }

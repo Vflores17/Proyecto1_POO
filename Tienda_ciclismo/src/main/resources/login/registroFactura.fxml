@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.registroFacturaController">
+   <children>
+      <Text layoutX="31.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Facturación">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="botonBuscar" layoutX="300.0" layoutY="89.0" mnemonicParsing="false" onAction="#opcionBuscarFactura" prefHeight="30.0" prefWidth="92.0" text="  Buscar  ">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="botonAgregar" layoutX="300.0" layoutY="151.0" mnemonicParsing="false" onAction="#opcionAgregarFactura" prefHeight="30.0" prefWidth="92.0" text="  Agregar">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Text layoutX="60.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; Buscar factura">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="59.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; Agregar factura">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Button fx:id="botRegresar" layoutX="299.0" layoutY="324.0" mnemonicParsing="false" onAction="#regresar" prefHeight="21.0" prefWidth="92.0" text="Regresar">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Text layoutX="59.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; Salir del submenú">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

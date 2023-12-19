@@ -2,6 +2,7 @@ package archivos;
 
 //Módulo de importaciones
 import clases.Cliente;
+import clases.Factura;
 import java.io.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
@@ -32,6 +33,25 @@ public class guardarArchivo {
             File file = new File("src/main/java/archivos/archivoscliente.json");
             System.out.println(clientes);
             objectMapper.writeValue(file, clientes);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /***
+     * Método para guardar la información de las facturas registradas en el programa.
+     * 
+     * @param factura Lista de objetos Factura para guardar en disco.
+     */
+    public static void guardarFactura(List<Factura> factura) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        try {
+            File file = new File("src/main/java/archivos/archivosfacturas.json");
+            System.out.println(factura);
+            objectMapper.writeValue(file, factura);
 
         } catch (IOException e) {
             e.printStackTrace();
