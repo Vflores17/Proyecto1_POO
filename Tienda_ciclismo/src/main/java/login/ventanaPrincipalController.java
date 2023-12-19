@@ -66,7 +66,7 @@ public class ventanaPrincipalController {
      */
     @FXML
     private void opcionRealizarFactura(ActionEvent event) throws IOException {
-        
+        App.cambiarVentana(getStage(),"registroFactura");
     }
 
     /**
