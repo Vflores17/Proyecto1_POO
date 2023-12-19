@@ -22,11 +22,14 @@ public class Cliente {
     private String distrito;
     private LocalDate fechaNacimiento;
 
+     /**
+      * Constructor vacio para objeto cliente.
+      */
     public Cliente() {
     }
 
     /**
-     * *
+     * 
      * Método contructor del objeto Cliente.
      *
      * @param codigo Código único asignado a cada cliente.
@@ -52,7 +55,7 @@ public class Cliente {
     }
 
     /**
-     * *
+     * 
      * Método para devolver el código del cliente.
      *
      * @return Código del cliente.
@@ -62,7 +65,7 @@ public class Cliente {
     }
 
     /**
-     * *
+     * 
      * Método para colocar un nuevo código al cliente.
      *
      * @param codigo Nuevo código a colocar al objeto.
@@ -80,7 +83,7 @@ public class Cliente {
         return nombre;
     }
 
-    /***
+    /**
      * Método para cambiar el nombre al objeto
      * 
      * @param nombre El nuevo nombre del cliente.
@@ -89,7 +92,7 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    /***
+    /**
      * Método para obtener el apellido del cliente.
      * 
      * @return El apellido del cliente.
@@ -98,7 +101,7 @@ public class Cliente {
         return apellido;
     }
 
-    /***
+    /**
      * Método para colocar un nuevo apellido al objeto.
      * 
      * @param apellido Nuevo apellido del cliente.
@@ -107,7 +110,7 @@ public class Cliente {
         this.apellido = apellido;
     }
 
-    /***
+    /**
      * Método para obtener el teléfono del cliente.
      * 
      * @return El número telefónico del cliente.
@@ -116,7 +119,7 @@ public class Cliente {
         return telefono;
     }
 
-    /***
+    /**
      * Método para cambiar el número de telefóno del objeto.
      * 
      * @param telefono El nuevo número telefónico.
@@ -125,7 +128,7 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    /***
+    /**
      * Método para obtener el correo electrónico asignado.
      * 
      * @return El correo electrónico del cliente.
@@ -134,7 +137,7 @@ public class Cliente {
         return correo;
     }
 
-    /***
+    /**
      * Método para cambiar el correo electrónico del cliente.
      * 
      * @param correo El nuevo correo eletrónico a asignar.
@@ -143,7 +146,7 @@ public class Cliente {
         this.correo = correo;
     }
 
-    /***
+    /**
      * Método para obtener la provincia del cliente.
      * 
      * @return Provincia del cliente.
@@ -152,7 +155,7 @@ public class Cliente {
         return provincia;
     }
 
-    /***
+    /**
      * Método para cambiar la provincia del cliente.
      * 
      * @param provincia Nueva provincia a colocar para el cliente.
@@ -161,7 +164,7 @@ public class Cliente {
         this.provincia = provincia;
     }
 
-    /***
+    /**
      * Método para obtener el cantón del cliente.
      * 
      * @return Cantón asignado al cliente.
@@ -170,7 +173,7 @@ public class Cliente {
         return canton;
     }
 
-    /***
+    /**
      * Método para cambiar el cantón del cliente.
      * 
      * @param canton Nuevo cantón del cliente.
@@ -179,7 +182,7 @@ public class Cliente {
         this.canton = canton;
     }
 
-    /***
+    /**
      * Método para obtener el distrito del cliente.
      * 
      * @return El distrito asignado al cliente.
@@ -188,7 +191,7 @@ public class Cliente {
         return distrito;
     }
 
-    /***
+    /**
      * Método para cambiar el distrito del cliente.
      * 
      * @param distrito Nuevo distrito a colocar para el cliente.
@@ -197,7 +200,7 @@ public class Cliente {
         this.distrito = distrito;
     }
 
-    /***
+    /**
      * Método para obtener la fecha de nacimiento 
      * 
      * @return La fecha de nacimiento del cliente.
@@ -206,7 +209,7 @@ public class Cliente {
         return fechaNacimiento;
     }
 
-    /***
+    /**
      * Método para cambiar la fecha de nacimiento del cliente.
      * 
      * @param fechaNacimiento Nueva fecha de nacimiento del objeto.
@@ -215,7 +218,7 @@ public class Cliente {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    /***
+    /**
      * Sobreescritura del método toSTring para mostrar correctamente la información.
      * 
      * @return Información con el formato correcto.

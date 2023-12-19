@@ -147,7 +147,7 @@ public class AgregarFacturaController implements Initializable {
                     total = iva + subtotal;
                     labelSubTotal.setText("Subtotal:" + subtotal);
                     IVA.setText("IVA:" + iva);
-                    labelTotal.setText("Total:" + subtotal + iva);
+                    labelTotal.setText("Total:" + total);
                     for (int i = 0; i < 4; i++) {
                         Label newLabel = new Label(mostrar.get(i).toString());
                         GridPane.setConstraints(newLabel, i, j);
@@ -179,7 +179,7 @@ public class AgregarFacturaController implements Initializable {
                         mostrar.add(Servicio.getPrecio());
                         labelSubTotal.setText("Subtotal:" + subtotal);
                         IVA.setText("IVA:" + iva);
-                        labelTotal.setText("Total:" + subtotal + iva);
+                        labelTotal.setText("Total:" + total);
                         for (int i = 0; i < 4; i++) {
                             Label newLabel = new Label(mostrar.get(i).toString());
                             GridPane.setConstraints(newLabel, i, j);

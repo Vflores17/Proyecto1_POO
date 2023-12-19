@@ -28,6 +28,7 @@ public class cargarArchivo {
      *
      * @param archivo Ruta del archivo CSV que contiene las credenciales.
      * @return Un mapa que asocia nombres de usuario con contraseñas.
+     * 
      */
     public static Map<String, String> cargarInformacion(String archivo) {
         Map<String, String> credenciales = new HashMap<>();
@@ -60,6 +61,7 @@ public class cargarArchivo {
      *
      * @param archivo Ruta del archivo que contiene la información.
      * @return Lista de objetos almacenados en el archivo.
+     * 
      */
     public static ArrayList cargarListas(String archivo){
         

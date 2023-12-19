@@ -20,11 +20,17 @@
       </Text>
       <MenuBar prefHeight="25.0" prefWidth="623.0">
          <menus>
-            <Menu mnemonicParsing="false" text="Buscar producto">
+            <Menu mnemonicParsing="false" text="Buscar artículos">
               <items>
-                <MenuItem fx:id="busqCodProducto" mnemonicParsing="false" onAction="#busquedaCodigoProducto" text="Buscar por código" />
-                  <MenuItem fx:id="busqNombProducto" mnemonicParsing="false" onAction="#busquedaNombreProducto" text="Buscar por nombre" />
+                <MenuItem fx:id="busqCodProducto" mnemonicParsing="false" onAction="#busquedaCodigoProducto" text="Buscar por código de producto" />
+                  <MenuItem fx:id="busqNombProducto" mnemonicParsing="false" onAction="#busquedaNombreProducto" text="Buscar por nombre de producto" />
               </items>
+            </Menu>
+            <Menu fx:id="menuEliminar" disable="true" mnemonicParsing="false" text="Eliminar artículo">
+               <items>
+                  <MenuItem fx:id="botElimArticuloCodigo" mnemonicParsing="false" onAction="#eliminarPorCodigo" text="Eliminar con el código del articulo" />
+                  <MenuItem fx:id="botElimNombreArticulo" mnemonicParsing="false" onAction="#eliminarPorNombre" text="Eliminar con el nombre del artículo" />
+               </items>
             </Menu>
          </menus>
       </MenuBar>

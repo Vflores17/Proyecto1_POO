@@ -11,11 +11,18 @@ module login {
     requires com.fasterxml.jackson.datatype.jsr310;
     
     opens clases to com.fasterxml.jackson.databind;
+    exports clases;
     
     opens login to javafx.fxml;
     exports login;
 
     opens controllers to javafx.fxml;
     exports controllers;
+    
+    opens archivos to javafx.fxml;
+    exports archivos;        
+    
+    opens validacionDatos to javafx.fxml;
+    exports validacionDatos;
 }
 
