@@ -25,6 +25,11 @@
                   <MenuItem fx:id="busqNombCliente" mnemonicParsing="false" onAction="#busquedaNombreCliente" text="Buscar por nombre de cliente" />
                </items>
             </Menu>
+            <Menu fx:id="menuEliminar" disable="true" mnemonicParsing="false" text="Eliminar servicio">
+               <items>
+                  <MenuItem fx:id="botEliminar" mnemonicParsing="false" onAction="#eliminarServicio" text="Eliminar por código del servicio" />
+               </items>
+            </Menu>
          </menus>
       </MenuBar>
       <Button fx:id="botRegresar" layoutX="348.0" layoutY="261.0" mnemonicParsing="false" onAction="#regresar" text="Regresar">

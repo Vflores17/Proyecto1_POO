@@ -10,6 +10,7 @@ import java.util.List;
 public class Factura {
     private int numeroFactura;
     private int codigoCliente;
+    private List<Integer> codigoServicio;
     private LocalDate fechaFactura;
     private String estado; //Valido Anulado
     private int total;
@@ -18,13 +19,22 @@ public class Factura {
     public Factura() {
     }
 
-    public Factura(int numeroFactura, int codigoCliente, LocalDate fechaFactura, String estado, int total, List<Integer> codigoArticulo) {
+    public Factura(int numeroFactura, int codigoCliente, LocalDate fechaFactura, String estado, int total, List<Integer> codigoArticulo,List<Integer> codigoServicios) {
         this.numeroFactura = numeroFactura;
         this.codigoCliente = codigoCliente;
         this.fechaFactura = fechaFactura;
         this.estado = estado;
         this.total = total;
         this.codigoArticulo = (List<Integer>) codigoArticulo;
+        this.codigoServicio= (List<Integer>) codigoServicios;
+    }
+
+    public List<Integer> getCodigoServicio() {
+        return codigoServicio;
+    }
+
+    public void setCodigoServicio(List<Integer> codigoServicio) {
+        this.codigoServicio = codigoServicio;
     }
 
     public int getNumeroFactura() {
@@ -77,7 +87,7 @@ public class Factura {
 
     @Override
     public String toString() {
-        return "Factura{" + "numeroFactura=" + numeroFactura + ", codigoCliente=" + codigoCliente + ", fechaFactura=" + fechaFactura + ", estado=" + estado + ", total=" + total + ", codigoArticulo=" + codigoArticulo + '}';
+        return "Factura{" + "numeroFactura=" + numeroFactura + ", codigoCliente=" + codigoCliente + ", fechaFactura=" + fechaFactura + ", estado=" + estado + ", total=" + total + ", codigoArticulo=" + codigoArticulo +"codigoServicio:"+ codigoServicio+'}';
     }
     
 }

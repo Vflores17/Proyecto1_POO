@@ -27,8 +27,6 @@ public class menuServiciosController implements Initializable {
     @FXML
     private Button botonAgregar;
     @FXML
-    private Button botonEliminar;
-    @FXML
     private Button botonModificar;
     @FXML
     private Button botRegresar;
@@ -67,16 +65,6 @@ public class menuServiciosController implements Initializable {
         App.cambiarVista(App.getStage(botRegresar), "ventanaAgregarServicio");
     }
 
-    /**
-     * *
-     * Método para mostrar la ventana para eliminar un servicio.
-     *
-     * @param event Excepciones en el caso de que falle alguna llamada a otros
-     * métodos
-     */
-    @FXML
-    private void opcionEliminarServicio(ActionEvent event) {
-    }
 
     /**
      * *

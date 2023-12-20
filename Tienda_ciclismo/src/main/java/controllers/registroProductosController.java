@@ -26,8 +26,6 @@ public class registroProductosController implements Initializable {
     @FXML
     private Button botAgregar;
     @FXML
-    private Button botEliminar;
-    @FXML
     private Button botModificar;
     @FXML
     private Button botRegresar;
@@ -64,14 +62,6 @@ public class registroProductosController implements Initializable {
         App.cambiarVista(App.getStage(botAgregar), "agregarProducto");
     }
 
-    /**
-     * Método para mostrar la ventana para eliminar un producto.
-     *
-     * @param event Evento para accionar el método cuando se presione el botón.
-     */
-    @FXML
-    private void opcionEliminarProducto(ActionEvent event) {
-    }
 
     /**
      * Método para mostrar la ventana para modificar un producto.

@@ -5,6 +5,7 @@ import archivos.cargarArchivo;
 import clases.Cliente;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -46,6 +47,11 @@ public class BuscarClienteController implements Initializable {
     private Button btBuscar;
     @FXML
     private TextField obtenerDato;
+    @FXML
+    private Button botEliminar;
+    @FXML
+    private Button botLimpiar;
+    private Cliente clienteSeleccionado;
 
     /**
      * Inicizalidor del controlador.
@@ -93,6 +99,8 @@ public class BuscarClienteController implements Initializable {
                         distrito.setText("Distrito: " + cliente.getDistrito());
                         fechaN.setText("Fecha de nacimiento: " + cliente.getFechaNacimiento());
                         existe = true;
+                        botEliminar.setDisable(false);
+                        clienteSeleccionado = cliente;
                     }
                 } catch (NumberFormatException e) {
                     if (cliente.getNombre().equals(dato.strip())) {
@@ -105,6 +113,8 @@ public class BuscarClienteController implements Initializable {
                         distrito.setText("Distrito: " + cliente.getDistrito());
                         fechaN.setText("Fecha de nacimiento: " + cliente.getFechaNacimiento());
                         existe = true;
+                        botEliminar.setDisable(false);
+                        clienteSeleccionado = cliente;
                     }
                 }
             }
@@ -116,5 +126,32 @@ public class BuscarClienteController implements Initializable {
         }
     }
 
-    
+    @FXML
+    private void eliminar(ActionEvent event) {
+        ArrayList codigos = App.getArticulosCodFacturados();
+        System.out.println(codigos);
+        System.out.println(clienteSeleccionado.getCodigo());
+        if (!codigos.contains(clienteSeleccionado.getCodigo())) {
+            System.out.println("Se elimina satisfactoriamente.");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "El cliente no se puede eliminar, porque ya está facturado.");
+            alert.show();
+        }
+    }
+
+    @FXML
+    private void limpiar(ActionEvent event) {
+        nombre.setText("Nombre: ");
+        apellido.setText("Apellido: ");
+        telefono.setText("Telefono: ");
+        correo.setText("Correo electronico: ");
+        provincia.setText("Provincia: ");
+        canton.setText("Cantón: ");
+        distrito.setText("Distrito: ");
+        fechaN.setText("Fecha de nacimiento: ");
+        botEliminar.setDisable(false);
+        clienteSeleccionado = null;
+
+    }
+
 }

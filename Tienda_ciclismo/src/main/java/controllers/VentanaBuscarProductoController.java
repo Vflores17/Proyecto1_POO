@@ -263,7 +263,7 @@ public class VentanaBuscarProductoController implements Initializable {
             if (codigos.contains(Integer.parseInt(input))) {
                 ArrayList facturados = App.getArticulosCodFacturados();
                 System.out.println(facturados);
-                if (facturados.contains(Integer.parseInt(input))) {
+                if (!facturados.contains(Integer.parseInt(input))) {
                     
                     System.out.println("No se puede eliminar porq esta facturado");
                     
@@ -272,7 +272,7 @@ public class VentanaBuscarProductoController implements Initializable {
                     alert.show();
                 }
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "No hay ningun artículo con el código ingresado.");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "No hay ningún artículo con el código ingresado.");
                 alert.show();
             }
 
@@ -288,11 +288,21 @@ public class VentanaBuscarProductoController implements Initializable {
         Optional<String> result = dialog.showAndWait();
 
         result.ifPresent(input -> {
-            ArrayList nombres = App.getNombresArticulos();
-            if (nombres.contains(input)) {
-                System.out.println("entra");
+            ArrayList codigos = App.getNombresArticulos();
+            if (codigos.contains(input)) {
+                ArrayList facturados = App.getNombArticulosFacturados();
+                System.out.println(facturados);
+                if (!facturados.contains(input)) {
+                    
+                    System.out.println("Yeap");
+                    
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo no se puede eliminar, porque se encuentra facturado.");
+                    alert.show();
+                }
             } else {
-                System.out.println("No existe el artículo ingresado");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "No hay ningún artículo con el código ingresado.");
+                alert.show();
             }
 
         });

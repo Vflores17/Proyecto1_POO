@@ -21,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
@@ -47,6 +48,10 @@ public class VentanaBuscarServicioController implements Initializable {
     private MenuItem busqCodCliente;
     @FXML
     private MenuItem busqNombCliente;
+    @FXML
+    private MenuItem botEliminar;
+    @FXML
+    private Menu menuEliminar;
 
     /**
      * Inializador del controlador.
@@ -79,6 +84,7 @@ public class VentanaBuscarServicioController implements Initializable {
                 if (!elementosMostrar.isEmpty()) {
                     colocarLabels();
                     colocarInformacion(elementosMostrar);
+                    menuEliminar.setDisable(false);
                 } else {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "No se han encontrado productos con el valor ingresado.");
                     alert.show();
@@ -109,11 +115,11 @@ public class VentanaBuscarServicioController implements Initializable {
             if (!nombreCliente.isEmpty()) {
                 ArrayList servicios = App.getServicios();
 
-                ArrayList elementosMostrar = filtrarPorNombre(servicios, nombreCliente, clientes);
+                ArrayList elementosMostrar = filtrarPorNombre(servicios, nombreCliente.strip(), clientes);
                 if (!elementosMostrar.isEmpty()) {
                     colocarLabels();
                     colocarInformacion(elementosMostrar);
-
+                    menuEliminar.setDisable(false);
                 } else {
                     //listViewElementos.getItems().clear();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "No se han encontrado servicios asociados al cliente ingresado.");
@@ -139,7 +145,6 @@ public class VentanaBuscarServicioController implements Initializable {
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(App.getStage(botRegresar), "menuServicios");
     }
-
 
     /**
      * *
@@ -268,5 +273,27 @@ public class VentanaBuscarServicioController implements Initializable {
             }
         }
         return -1;
+    }
+
+    @FXML
+    private void eliminarServicio(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Eliminar servicio con el código.");
+        dialog.setHeaderText("Ingrese el código del servicio a eliminar:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(input -> {
+            ArrayList facturados = App.getCodigosServiciosFacturados();
+            if (esNumerico(input) && input != null) {
+                if (!facturados.contains(Integer.parseInt(input))) {
+                    System.out.println("Se elimina el servicio");
+                } else {
+                    System.out.println("No se elimina.");
+                }
+            } else {
+                System.out.println("Debes ingresa valores validos.");
+            }
+        });
     }
 }

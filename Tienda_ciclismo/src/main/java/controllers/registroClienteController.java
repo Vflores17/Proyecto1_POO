@@ -28,8 +28,6 @@ public class registroClienteController implements Initializable {
     @FXML
     private Button botonAgregar;
     @FXML
-    private Button botonEliminar;
-    @FXML
     private Button botonModificar;
     @FXML
     private Button botRegresar;
@@ -66,16 +64,6 @@ public class registroClienteController implements Initializable {
         App.cambiarVista(App.getStage(botRegresar), "agregarCliente");
     }
 
-    /**
-     * Método para mostrar la ventana de eliminar un cliente.
-     *
-     * @param event Evento para accionar el método cuando se presione el botón.
-     * @throws IOException Excepciones en el caso de que falle alguna llamada a
-     * otros métodos
-     */
-    @FXML
-    private void opcionEliminarCliente(ActionEvent event) throws IOException {
-    }
 
     /**
      * Método para mostrar la ventana para modificar un cliente.

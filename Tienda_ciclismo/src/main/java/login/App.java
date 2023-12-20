@@ -365,10 +365,18 @@ public class App extends Application {
         }
         return facturados;
     }
+
     public static ArrayList getNombArticulosFacturados() {
-        ArrayList<Integer> facturados = getArticulosCodFacturados();
-        for (int codigo : facturados) {
-            
+
+        ArrayList<Integer> facturadosCod = getArticulosCodFacturados();
+        ArrayList<String> facturados = new ArrayList<>();
+        for (articulo articulo : infoArticulos) {
+            for (int codigo : facturadosCod) {
+                if (articulo.getCodigoArticulo() == codigo) {
+                    facturados.add(articulo.getNombreArticulo());
+                }
+
+            }
         }
         return facturados;
     }
@@ -388,5 +396,22 @@ public class App extends Application {
         }
         return nombres;
 
+    }
+
+    public static ArrayList getCodigosClientesFacturados() {
+        ArrayList codigos = new ArrayList();
+        for (Factura factura : infoFactura) {
+            codigos.add(factura.getCodigoCliente());
+        }
+        return codigos;
+
+    }
+
+    public static ArrayList getCodigosServiciosFacturados() {
+        ArrayList codigos = new ArrayList();
+        for (Factura factura : infoFactura) {
+            codigos.add(factura.getCodigoServicio());
+        }
+        return codigos;
     }
 }

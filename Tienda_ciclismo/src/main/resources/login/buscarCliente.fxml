@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BuscarClienteController">
    <children>
-      <Button layoutX="332.0" layoutY="491.0" mnemonicParsing="false" onAction="#regresar" prefHeight="39.0" prefWidth="96.0" text="Regresar">
+      <Button layoutX="332.0" layoutY="495.0" mnemonicParsing="false" onAction="#regresar" prefHeight="39.0" prefWidth="96.0" text="Regresar">
          <font>
             <Font size="18.0" />
          </font></Button>
@@ -66,5 +66,15 @@
             <Font size="14.0" />
          </font>
       </TextField>
+      <Button fx:id="botEliminar" disable="true" layoutX="195.0" layoutY="495.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="39.0" prefWidth="96.0" text="Eliminar">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="botLimpiar" layoutX="69.0" layoutY="495.0" mnemonicParsing="false" onAction="#limpiar" prefHeight="39.0" prefWidth="96.0" text="Limpiar">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
