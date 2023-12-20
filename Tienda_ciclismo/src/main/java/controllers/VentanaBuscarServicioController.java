@@ -287,12 +287,16 @@ public class VentanaBuscarServicioController implements Initializable {
             ArrayList facturados = App.getCodigosServiciosFacturados();
             if (esNumerico(input) && input != null) {
                 if (!facturados.contains(Integer.parseInt(input))) {
-                    System.out.println("Se elimina el servicio");
+                    App.eliminarServicio(Integer.parseInt(input));
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "El servicio se ha eliminado satisfactoriamente.");
+                    alert.show();
                 } else {
-                    System.out.println("No se elimina.");
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "El servicio no se puede eliminar, porque ya está facturado.");
+                    alert.show();
                 }
             } else {
-                System.out.println("Debes ingresa valores validos.");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar carácteres válidos.");
+                alert.show();
             }
         });
     }

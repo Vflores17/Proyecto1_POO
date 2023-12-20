@@ -82,7 +82,7 @@ public class RegistroArticulosController implements Initializable {
         if (validarDatos()) {
             int codigo = App.buscarCodigoProducto(pTipoArticulo);
             int codigoArticulo = App.cantArticulos() + 1;
-            articulo newArticulo = new articulo(codigoArticulo, pNombreArticulo, pCategoriaArticulo, pTamannoArticulo, pMarcaArticulo, pPrecioArticulo, pCantArticulo, codigo, pTipoArticulo);
+            articulo newArticulo = new articulo(App.buscarCodigoDisponible(App.devolverArticulos()), pNombreArticulo, pCategoriaArticulo, pTamannoArticulo, pMarcaArticulo, pPrecioArticulo, pCantArticulo, codigo, pTipoArticulo);
             borrarDatos();
             App.guardarArticulo(newArticulo);
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Nuevo articulo agregado.");

@@ -264,9 +264,10 @@ public class VentanaBuscarProductoController implements Initializable {
                 ArrayList facturados = App.getArticulosCodFacturados();
                 System.out.println(facturados);
                 if (!facturados.contains(Integer.parseInt(input))) {
-                    
-                    System.out.println("No se puede eliminar porq esta facturado");
-                    
+
+                    App.eliminarArticuloCodigo(Integer.parseInt(input));
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "El artículo ha sido eliminado satisfactoriamente.");
+                    alert.show();
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo no se puede eliminar, porque se encuentra facturado.");
                     alert.show();
@@ -293,9 +294,11 @@ public class VentanaBuscarProductoController implements Initializable {
                 ArrayList facturados = App.getNombArticulosFacturados();
                 System.out.println(facturados);
                 if (!facturados.contains(input)) {
-                    
-                    System.out.println("Yeap");
-                    
+
+                    App.eliminarArticuloNombre(input);
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo ha sido eliminado satisfactoriamente.");
+                    alert.show();
+
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo no se puede eliminar, porque se encuentra facturado.");
                     alert.show();

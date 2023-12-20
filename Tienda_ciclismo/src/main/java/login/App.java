@@ -236,8 +236,7 @@ public class App extends Application {
      * @return ArrayList con los objetos cliente.
      */
     public static ArrayList devolverClientes() {
-        List<Cliente> clientes = cargarArchivo.leerClientes();
-        return (ArrayList) clientes;
+        return (ArrayList) infoClientes;
     }
 
     /**
@@ -414,4 +413,96 @@ public class App extends Application {
         }
         return codigos;
     }
+
+    public static int buscarCodigoDisponible(ArrayList lista) {
+        ArrayList<Integer> codigos = new ArrayList<>();
+        Object objeto = lista.get(0);
+        if (objeto instanceof Cliente) {
+            for (Object objetoCliente : lista) {
+                Cliente cliente = (Cliente) objetoCliente;
+                codigos.add(cliente.getCodigo());
+            }
+            return siguienteCodigoDisponible(codigos);
+
+        } else if (objeto instanceof Factura) {
+            for (Object objetoFactura : lista) {
+                Factura factura = (Factura) objetoFactura;
+                codigos.add(factura.getNumeroFactura());
+            }
+            return siguienteCodigoDisponible(codigos);
+
+        } else if (objeto instanceof articulo) {
+            for (Object objetoArticulo : lista) {
+                articulo articulo = (articulo) objetoArticulo;
+                codigos.add(articulo.getCodigoArticulo());
+            }
+            return siguienteCodigoDisponible(codigos);
+        } else {
+            for (Object objetoServicio : lista) {
+                servicio servicio = (servicio) objetoServicio;
+                codigos.add(servicio.getCodigoServicio());
+            }
+            return siguienteCodigoDisponible(codigos);
+        }
+    }
+
+    private static int siguienteCodigoDisponible(ArrayList<Integer> codigos) {
+        int mayor = codigos.get(0);
+        for (Integer num:codigos){
+            if(num>mayor){
+            mayor=num;
+            }
+        }
+        return mayor + 1;
+    }
+    
+    public static void eliminarCliente(int codigo){
+        int indice=0;
+        for(Cliente cliente: infoClientes){
+            if (cliente.getCodigo() == codigo){
+                infoClientes.remove(indice);
+                break;
+            }
+            indice++;
+        }
+    }
+    public static void eliminarArticuloCodigo(int codigo){
+        int indice=0;
+        for(articulo articulo: infoArticulos){
+            if (articulo.getCodigoArticulo() == codigo){
+                infoArticulos.remove(indice);
+                break;
+            }
+            indice++;
+        }
+    }
+    public static void eliminarArticuloNombre(String nombre){
+        int indice=0;
+        System.out.println(nombre);
+        for(articulo articulo: infoArticulos){
+            if (articulo.getNombreArticulo().equals(nombre)){
+                System.out.println(articulo.getNombreArticulo());
+                System.out.println(infoArticulos);
+                infoArticulos.remove(indice);
+                break;
+            }
+            indice++;
+        }
+    }
+    public static void eliminarServicio(int codigo){
+        int indice=0;
+        System.out.println(codigo);
+        for(servicio servicio: infoServicios){
+            if (servicio.getCodigoServicio() == codigo){
+                System.out.println((char) servicio.getCodigoServicio());
+                System.out.println(infoServicios);
+                infoServicios.remove(indice);
+                break;
+            }
+            indice++;
+        }
+    }
+    
+    
+
 }

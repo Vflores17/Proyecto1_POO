@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -90,7 +91,7 @@ public class AgregarClienteController implements Initializable {
      */
     @FXML
     private void agregarCliente(ActionEvent event) throws IOException {
-
+        
         String nombre = entryNombre.getText();
         String telefono = entryTelefono.getText();
         String apellido = entryApellido.getText();
@@ -100,7 +101,7 @@ public class AgregarClienteController implements Initializable {
         String distrito = entryDistrito.getText();
 
         List<Cliente> clientes = App.getClientes();
-        int contar = clientes.size();
+        int contar = App.buscarCodigoDisponible((ArrayList) clientes);
 
         //validar que la información este de forma correcta para crear el objeto.
         if (nombre != null && !nombre.isEmpty() && apellido != null && !apellido.isEmpty() && telefono != null && !telefono.isEmpty() && correo != null && !correo.isEmpty() && distrito != null && !distrito.isEmpty() && canton != null && !canton.isEmpty()) {

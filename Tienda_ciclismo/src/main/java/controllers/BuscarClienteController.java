@@ -132,7 +132,10 @@ public class BuscarClienteController implements Initializable {
         System.out.println(codigos);
         System.out.println(clienteSeleccionado.getCodigo());
         if (!codigos.contains(clienteSeleccionado.getCodigo())) {
-            System.out.println("Se elimina satisfactoriamente.");
+            App.eliminarCliente(clienteSeleccionado.getCodigo());
+            limpiar(event);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "El cliente se eliminó satisfocriamente.");
+            alert.show();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "El cliente no se puede eliminar, porque ya está facturado.");
             alert.show();

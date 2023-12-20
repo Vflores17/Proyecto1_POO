@@ -107,7 +107,6 @@ public class cargarArchivo {
                 return new ArrayList<>();
             }
             List<Cliente> clientes = objectMapper.readValue(file, new TypeReference<List<Cliente>>() {});
-            System.out.println("Clientes leídos desde archivoscliente.json");
             return clientes;
         } catch (IOException e) {
             e.printStackTrace();
