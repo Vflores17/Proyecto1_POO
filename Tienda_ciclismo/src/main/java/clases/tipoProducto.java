@@ -16,6 +16,12 @@ public class tipoProducto {
     private String nombreProducto;
 
     /**
+     * constructor vacio
+     */
+    public tipoProducto() {
+    }
+    
+    /**
      * *
      * Método constructor del objeto.
      *

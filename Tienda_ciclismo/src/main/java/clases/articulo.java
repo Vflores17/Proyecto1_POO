@@ -19,6 +19,12 @@ public class articulo extends tipoProducto {
     private int precio;
     private int cantidad;
 
+    /**
+     * constructor vacio con los parametros de la superclase
+     */
+    public articulo() {
+    }
+
     /***
      * Método constructor para generar un nuevo objeto.
      * 

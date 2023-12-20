@@ -29,6 +29,8 @@ public class registroFacturaController implements Initializable {
     private Button botonAgregar;
     @FXML
     private Button botRegresar;
+    @FXML
+    private Button botonBuscarFecha;
 
     /**
      * Initializes the controller class.
@@ -38,14 +40,7 @@ public class registroFacturaController implements Initializable {
         // TODO
     }    
 
-    @FXML
-    private void opcionBuscarFactura(ActionEvent event) throws IOException {
-        List<Factura> factura = App.getFactura();
-        for(Factura facturass : factura){
-            System.out.println(facturass.toString());
-        }
-    }
-
+    
     @FXML
     private void opcionAgregarFactura(ActionEvent event) throws IOException {
         App.cambiarVista(App.getStage(botRegresar), "agregarFactura");
@@ -54,6 +49,16 @@ public class registroFacturaController implements Initializable {
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(App.getStage(botRegresar), "ventanaPrincipal");
+    }
+
+    @FXML
+    private void opcionBuscarPorCodigo(ActionEvent event) throws IOException {
+        App.cambiarVista(App.getStage(botonBuscar), "buscarFacturaCodigoNombre");
+    }
+
+    @FXML
+    private void opcionBuscarPorFecha(ActionEvent event) throws IOException {
+        App.cambiarVista(App.getStage(botonBuscar), "buscarFacturaCodigoNombre");
     }
     
 }

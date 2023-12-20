@@ -1,1 +1,1 @@
-[{"numeroFactura":0,"codigoCliente":1,"codigoServicio":[4],"fechaFactura":[2023,12,19],"estado":"Válida","total":122282,"codigoArticulo":[1]},{"numeroFactura":1,"codigoCliente":3,"codigoServicio":[1],"fechaFactura":[2023,12,19],"estado":"Válida","total":63845,"codigoArticulo":[1]}]
+[{"numeroFactura":1,"codigoCliente":1,"codigoServicio":[4],"fechaFactura":[2023,12,19],"estado":"Válida","total":122282,"codigoArticulo":[1,2,3]},{"numeroFactura":2,"codigoCliente":3,"codigoServicio":[1],"fechaFactura":[2023,12,19],"estado":"Válida","total":63845,"codigoArticulo":[1]}]

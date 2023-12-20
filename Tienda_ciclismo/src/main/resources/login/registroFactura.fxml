@@ -12,35 +12,45 @@
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Text>
-      <Button fx:id="botonBuscar" layoutX="300.0" layoutY="89.0" mnemonicParsing="false" onAction="#opcionBuscarFactura" prefHeight="30.0" prefWidth="92.0" text="  Buscar  ">
+      <Button fx:id="botonBuscar" layoutX="300.0" layoutY="89.0" mnemonicParsing="false" onAction="#opcionBuscarPorCodigo" prefHeight="30.0" prefWidth="92.0" text="  Buscar  ">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="botonAgregar" layoutX="300.0" layoutY="151.0" mnemonicParsing="false" onAction="#opcionAgregarFactura" prefHeight="30.0" prefWidth="92.0" text="  Agregar">
+      <Button fx:id="botonAgregar" layoutX="299.0" layoutY="254.0" mnemonicParsing="false" onAction="#opcionAgregarFactura" prefHeight="30.0" prefWidth="92.0" text="  Agregar">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Text layoutX="60.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; Buscar factura">
+      <Text layoutX="43.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; Buscar factura por fecha" wrappingWidth="147.6171875">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Text layoutX="59.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; Agregar factura">
+      <Text layoutX="43.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; Agregar factura">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Button fx:id="botRegresar" layoutX="299.0" layoutY="324.0" mnemonicParsing="false" onAction="#regresar" prefHeight="21.0" prefWidth="92.0" text="Regresar">
+      <Button fx:id="botRegresar" layoutX="299.0" layoutY="323.0" mnemonicParsing="false" onAction="#regresar" prefHeight="21.0" prefWidth="92.0" text="Regresar">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Text layoutX="59.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; Salir del submenú">
+      <Text layoutX="43.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; Salir del submenú">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
+      <Text layoutX="43.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; Buscar factura por Nombre o codigo de facturacion" wrappingWidth="162.6171875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Button fx:id="botonBuscarFecha" layoutX="299.0" layoutY="178.0" mnemonicParsing="false" onAction="#opcionBuscarPorFecha" prefHeight="30.0" prefWidth="92.0" text="  Buscar  ">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

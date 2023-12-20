@@ -88,40 +88,10 @@ public class App extends Application {
 
         infoClientes = cargarArchivo.leerClientes();
         infoFactura = cargarArchivo.leerFactura();
-
-        tipoProducto newObjeto = new tipoProducto(1, "Zapatos");
-        tipoProducto newObjeto1 = new tipoProducto(2, "Frenos");
-        tipoProducto newObjeto2 = new tipoProducto(3, "Transmisiones");
-        tipoProducto newObjeto3 = new tipoProducto(4, "Marcos");
-        tipoProducto newObjeto4 = new tipoProducto(5, "Alimentos");
-        infoProductos.add(newObjeto);
-        infoProductos.add(newObjeto1);
-        infoProductos.add(newObjeto2);
-        infoProductos.add(newObjeto3);
-        infoProductos.add(newObjeto4);
-
-        articulo newarticulo = new articulo(1, "Upline", "Accesorios", "0", "Upline", 44000, 5, 1, "Zapatos");
-        articulo newarticulo1 = new articulo(2, "FLR", "Accesorios", "0", "FLR mtb", 33300, 6, 1, "Zapatos");
-        articulo newarticulo2 = new articulo(3, "Sponser Competition", "Suplementos", "0", "Sponser", 20100, 3, 5, "Alimentos");
-        articulo newarticulo3 = new articulo(4, "XDS", "Bicicletas", "27", "LTW00 R9", 570000, 5, 4, "Marcos");
-        articulo newarticulo4 = new articulo(5, "Pasador Deore", "Accesorios", "0", "Shimano", 37800, 4, 3, "Transmisiones");
-        infoArticulos.add(newarticulo);
-        infoArticulos.add(newarticulo1);
-        infoArticulos.add(newarticulo2);
-        infoArticulos.add(newarticulo3);
-        infoArticulos.add(newarticulo4);
-
-        servicio newServicio = new servicio(1, 1, "shimano", "bici casi nueva", 12500, LocalDate.now(), LocalDate.now(), "Sin observaciones", true);
-        servicio newServicio1 = new servicio(2, 2, "totem", "bici vieja", 159700, LocalDate.now(), LocalDate.now(), "Bici toda rallada", true);
-        servicio newServicio2 = new servicio(3, 1, "trek", "bici color azul", 13240, LocalDate.now(), LocalDate.now(), "Sin observaciones", true);
-        servicio newServicio3 = new servicio(4, 1, "giant", "bici color naranja", 74915, LocalDate.now(), LocalDate.now(), "Sin observaciones", true);
-        servicio newServicio4 = new servicio(5, 2, "scott", "bici recien estrenada", 25000, LocalDate.now(), LocalDate.now(), "Sin observaciones", true);
-        infoServicios.add(newServicio);
-        infoServicios.add(newServicio1);
-        infoServicios.add(newServicio2);
-        infoServicios.add(newServicio3);
-        infoServicios.add(newServicio4);
-
+        infoProductos = cargarArchivo.leerProducto();
+        infoArticulos = cargarArchivo.leerArticulo();
+        infoServicios = cargarArchivo.leerServicio();
+        
         launch();
 
     }
@@ -153,6 +123,8 @@ public class App extends Application {
      */
     public static void guardarProducto(tipoProducto objeto) {
         infoProductos.add(objeto);
+        System.out.println(objeto.infoProducto());
+        guardarArchivo.guardarProducto(infoProductos);
     }
 
     /**
@@ -162,6 +134,8 @@ public class App extends Application {
      */
     public static void guardarArticulo(articulo objeto) {
         infoArticulos.add(objeto);
+        System.out.println(objeto.mostrarTodo());
+        guardarArchivo.guardarArticulo(infoArticulos);
     }
 
     /**
@@ -265,6 +239,8 @@ public class App extends Application {
      */
     public static void guardarServicio(servicio newServicio) {
         infoServicios.add(newServicio);
+        System.out.println(newServicio.mostrarTodo());
+        guardarArchivo.guardarServicios(infoServicios);
     }
 
     /**

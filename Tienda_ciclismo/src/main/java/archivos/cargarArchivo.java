@@ -3,6 +3,9 @@ package archivos;
 //Módulo de importaciones
 import clases.Cliente;
 import clases.Factura;
+import clases.articulo;
+import clases.servicio;
+import clases.tipoProducto;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -115,6 +118,11 @@ public class cargarArchivo {
         }  
     }
     
+    /**
+     * Lee la información de facturas desde un archivo JSON.
+     *
+     * @return Una lista de objetos Factura leídos desde el archivo JSON.
+     */
     public static List<Factura> leerFactura() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
@@ -129,6 +137,81 @@ public class cargarArchivo {
             List<Factura> factura = objectMapper.readValue(file, new TypeReference<List<Factura>>() {});
             System.out.println("Facturas leídas desde archivosfacturas.json");
             return factura;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }  
+    }
+    
+    /**
+     * Lee la información de articulos desde un archivo JSON.
+     *
+     * @return Una lista de objetos articulo leídos desde el archivo JSON.
+     */
+    public static ArrayList<articulo> leerArticulo() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        try {
+            File file = new File("src/main/java/archivos/archivosArticulo.json");
+
+            if (!file.exists()) {
+                System.out.println("El archivo no existe. Devolviendo una lista vacía.");
+                return new ArrayList<>();
+            }
+            ArrayList<articulo> Articulo = objectMapper.readValue(file, new TypeReference<ArrayList<articulo>>() {});
+            System.out.println("Articulos leídos desde archivosArticulo.json");
+            return Articulo;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }  
+    }
+    
+    /**
+     * Lee la información de productos desde un archivo JSON.
+     *
+     * @return Una lista de objetos tipoProducto leídos desde el archivo JSON.
+     */
+    public static ArrayList<tipoProducto> leerProducto() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        try {
+            File file = new File("src/main/java/archivos/archivosProducto.json");
+
+            if (!file.exists()) {
+                System.out.println("El archivo no existe. Devolviendo una lista vacía.");
+                return new ArrayList<>();
+            }
+            ArrayList<tipoProducto> Producto = objectMapper.readValue(file, new TypeReference<ArrayList<tipoProducto>>() {});
+            System.out.println("Productos leídos desde archivosProducto.json");
+            return Producto;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }  
+    }
+    
+    /**
+     * Lee la información de servicios desde un archivo JSON.
+     *
+     * @return Una lista de objetos servicio leídos desde el archivo JSON.
+     */
+    public static ArrayList<servicio> leerServicio() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        try {
+            File file = new File("src/main/java/archivos/archivosServicio.json");
+
+            if (!file.exists()) {
+                System.out.println("El archivo no existe. Devolviendo una lista vacía.");
+                return new ArrayList<>();
+            }
+            ArrayList<servicio> Servicio = objectMapper.readValue(file, new TypeReference<ArrayList<servicio>>() {});
+            System.out.println("Servicios leídos desde archivosServicio.json");
+            return Servicio;
         } catch (IOException e) {
             e.printStackTrace();
             return null;

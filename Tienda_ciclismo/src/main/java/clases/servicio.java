@@ -22,6 +22,12 @@ public class servicio {
     private boolean estado;
 
     /**
+     * constructor vacio
+     */
+    public servicio() {
+    }
+    
+    /**
      * *
      * Método constructor para generar un nuevo objeto servicio
      *
