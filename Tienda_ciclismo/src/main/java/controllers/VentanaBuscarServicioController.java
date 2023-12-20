@@ -19,7 +19,9 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -287,9 +289,23 @@ public class VentanaBuscarServicioController implements Initializable {
             ArrayList facturados = App.getCodigosServiciosFacturados();
             if (esNumerico(input) && input != null) {
                 if (!facturados.contains(Integer.parseInt(input))) {
-                    App.eliminarServicio(Integer.parseInt(input));
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "El servicio se ha eliminado satisfactoriamente.");
-                    alert.show();
+                    Alert alerta = new Alert(AlertType.CONFIRMATION);
+                    alerta.setTitle("Confirmación");
+                    alerta.setHeaderText("¿Está seguro de eliminar el servicio?");
+
+                    alerta.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+                    alerta.showAndWait().ifPresent(response -> {
+                        if (response == ButtonType.YES) {
+                            App.eliminarServicio(Integer.parseInt(input));
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION, "El servicio se ha eliminado satisfactoriamente.");
+                            alert.show();
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.WARNING, "No se eliminó al servicio.");
+                            alert.show();
+                        }
+                    });
+
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "El servicio no se puede eliminar, porque ya está facturado.");
                     alert.show();

@@ -23,6 +23,8 @@ import static controllers.RegistroArticulosController.esNumerico;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.ColumnConstraints;
@@ -264,10 +266,22 @@ public class VentanaBuscarProductoController implements Initializable {
                 ArrayList facturados = App.getArticulosCodFacturados();
                 System.out.println(facturados);
                 if (!facturados.contains(Integer.parseInt(input))) {
+                    Alert alerta = new Alert(AlertType.CONFIRMATION);
+                    alerta.setTitle("Confirmación");
+                    alerta.setHeaderText("¿Está seguro de eliminar el artículo?");
 
-                    App.eliminarArticuloCodigo(Integer.parseInt(input));
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "El artículo ha sido eliminado satisfactoriamente.");
-                    alert.show();
+                    alerta.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+                    alerta.showAndWait().ifPresent(response -> {
+                        if (response == ButtonType.YES) {
+                            App.eliminarArticuloCodigo(Integer.parseInt(input));
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION, "El artículo ha sido eliminado satisfactoriamente.");
+                            alert.show();
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.WARNING, "No se eliminó al artículo.");
+                            alert.show();
+                        }
+                    });
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo no se puede eliminar, porque se encuentra facturado.");
                     alert.show();
@@ -294,10 +308,22 @@ public class VentanaBuscarProductoController implements Initializable {
                 ArrayList facturados = App.getNombArticulosFacturados();
                 System.out.println(facturados);
                 if (!facturados.contains(input)) {
+                    Alert alerta = new Alert(AlertType.CONFIRMATION);
+                    alerta.setTitle("Confirmación");
+                    alerta.setHeaderText("¿Está seguro de eliminar el artículo?");
 
-                    App.eliminarArticuloNombre(input);
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo ha sido eliminado satisfactoriamente.");
-                    alert.show();
+                    alerta.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+                    alerta.showAndWait().ifPresent(response -> {
+                        if (response == ButtonType.YES) {
+                            App.eliminarArticuloNombre(input);
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION, "El artículo ha sido eliminado satisfactoriamente.");
+                            alert.show();
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.WARNING, "No se eliminó al artículo.");
+                            alert.show();
+                        }
+                    });
 
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo no se puede eliminar, porque se encuentra facturado.");

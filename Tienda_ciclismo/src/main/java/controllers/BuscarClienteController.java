@@ -12,8 +12,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -132,10 +134,28 @@ public class BuscarClienteController implements Initializable {
         System.out.println(codigos);
         System.out.println(clienteSeleccionado.getCodigo());
         if (!codigos.contains(clienteSeleccionado.getCodigo())) {
-            App.eliminarCliente(clienteSeleccionado.getCodigo());
+            Alert alerta = new Alert(AlertType.CONFIRMATION);
+            alerta.setTitle("Confirmación");
+            alerta.setHeaderText("¿Estás seguro de eliminar el cliente?");
+
+            alerta.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+            alerta.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.YES) {
+                    App.eliminarCliente(clienteSeleccionado.getCodigo());
+                    limpiar(event);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "El cliente se eliminó satisfactoriamente.");
+                    alert.show();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "No se eliminó al cliente.");
+                    alert.show();
+                }
+            });
+
+            /*App.eliminarCliente(clienteSeleccionado.getCodigo());
             limpiar(event);
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "El cliente se eliminó satisfocriamente.");
-            alert.show();
+            alert.show();*/
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "El cliente no se puede eliminar, porque ya está facturado.");
             alert.show();
