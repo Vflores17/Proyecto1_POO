@@ -58,6 +58,8 @@ public class AgregarFacturaController implements Initializable {
     private ArrayList<servicio> listServicio = App.getServicios();
     private ArrayList<Integer> listaCodigosArticulos = new ArrayList();
     private List<Integer> listaCodigosServicios = new ArrayList();
+    
+    private List<List> listArticuloCant = new ArrayList();
     private int j = 1;
     private int subtotal = 0;
     private int iva = 0;
@@ -120,7 +122,7 @@ public class AgregarFacturaController implements Initializable {
                         }
 
                     }
-                    Factura new_factura = new Factura(App.buscarCodigoDisponible((ArrayList) App.getFactura()),cliente.getCodigo(),getFecha(), "Válida", total, listaCodigosArticulos,listaCodigosServicios);
+                    Factura new_factura = new Factura(App.buscarCodigoDisponible((ArrayList) App.getFactura()),cliente.getCodigo(),getFecha(), "Válida", total, listaCodigosArticulos,listaCodigosServicios,listArticuloCant);
                     App.guardarFactura(new_factura);
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Se ha generado la factura correctamente");
                     alert.show();
@@ -137,6 +139,12 @@ public class AgregarFacturaController implements Initializable {
         if (comboProducto.getValue() != null && cantidadProducto.getText() != null && !cantidadProducto.getText().isEmpty()) {
             for (articulo Articulo : listArticulo) {
                 if (App.obtenerNombre(comboProducto.getValue(), 1).equals(Articulo.getNombreArticulo())) {
+                    List<Integer> articuloXcantidad = new ArrayList();
+                    articuloXcantidad.add(Articulo.getCodigoArticulo());
+                    articuloXcantidad.add(Integer.parseInt(cantidadProducto.getText()));
+                    
+                    listArticuloCant.add(articuloXcantidad);
+                    
                     ArrayList mostrar = new ArrayList();
                     mostrar.add(Articulo.getNombreProducto() + " " + Articulo.getNombreArticulo());
                     mostrar.add(cantidadProducto.getText());
@@ -155,7 +163,7 @@ public class AgregarFacturaController implements Initializable {
                         GridPane.setValignment(newLabel, VPos.CENTER);
                         gridPaneProductos.getChildren().add(newLabel);
                     }
-                    listaCodigosArticulos.add(Articulo.getCodigo());
+                    listaCodigosArticulos.add(Articulo.getCodigoArticulo());
                     j++;
                     break;
                 }

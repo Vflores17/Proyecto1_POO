@@ -15,18 +15,28 @@ public class Factura {
     private String estado; //Valido Anulado
     private int total;
     private List<Integer> codigoArticulo;
+    private List<List> articuloXcantidad;
 
     public Factura() {
     }
 
-    public Factura(int numeroFactura, int codigoCliente, LocalDate fechaFactura, String estado, int total, List<Integer> codigoArticulo,List<Integer> codigoServicios) {
+    public Factura(int numeroFactura, int codigoCliente, LocalDate fechaFactura, String estado, int total, List<Integer> codigoArticulo,List<Integer> codigoServicios, List<List> articuloXcantidad) {
         this.numeroFactura = numeroFactura;
         this.codigoCliente = codigoCliente;
         this.fechaFactura = fechaFactura;
         this.estado = estado;
         this.total = total;
         this.codigoArticulo = (List<Integer>) codigoArticulo;
-        this.codigoServicio= (List<Integer>) codigoServicios;
+        this.codigoServicio = (List<Integer>) codigoServicios;
+        this.articuloXcantidad = (List<List>) articuloXcantidad;
+    }
+
+    public List<List> getArticuloXcantidad() {
+        return articuloXcantidad;
+    }
+
+    public void setArticuloXcantidad(List<List> articuloXcantidad) {
+        this.articuloXcantidad = articuloXcantidad;
     }
 
     public List<Integer> getCodigoServicio() {

@@ -45,6 +45,9 @@ public class BuscarFacturaCodigoNombreController implements Initializable {
     private Label total;
 
     private int j = 1;
+    private int precioTotal = 0;
+    private int codigoFactura;
+
     /**
      * Initializes the controller class.
      */
@@ -94,56 +97,39 @@ public class BuscarFacturaCodigoNombreController implements Initializable {
             ArrayList<articulo> Articulos = App.devolverArticulos();
 
             try {
-                for(Factura factura : facturas) {
+                for (Factura factura : facturas) {
                     if(factura.getNumeroFactura() == Integer.parseInt(dato.strip())) {
-                        for(Cliente cliente : clientes){
-                            if (cliente.getCodigo() == factura.getCodigoCliente()) {
-                                nombre.setText("Nombre de cliente: " + cliente.getNombre()+ " " + cliente.getApellido());
+                        btBuscar.setDisable(true);
+                        codigoFactura = factura.getNumeroFactura();
+                        montarInfo(factura,Articulos,Servicios);
+                        for(Cliente cliente : clientes) {
+                            if(cliente.getCodigo() == factura.getCodigoCliente()) {
+                                existe = true;
+                                nombre.setText("Nombre de cliente: " + cliente.getNombre() + " " + cliente.getApellido());
+                                total.setText("Total: " + precioTotal);
                                 break;
                             }
                         }
-                        existe = true;
-                        List<Integer> codigosArticulos = factura.getCodigoArticulo();
-                        List<Integer> codigosServicios = factura.getCodigoServicio();
-                        for(Integer codigo : codigosArticulos) {
-                            for(articulo elementoArticulo : Articulos) {
-                                if(codigo.equals(elementoArticulo.getCodigoArticulo())) {
-                                    System.out.println(elementoArticulo.getNombreProducto() + elementoArticulo.getNombreArticulo());
-                                    //Todo lo demas para montar el articulo en el gridPane
-                                }
-                            }
-                        }
-                        for(Integer codigo : codigosServicios) {
-                            for(servicio elementoServicio : Servicios){
-                                if(codigo.equals(elementoServicio.getCodigoServicio())){
-                                    ArrayList mostrar = new ArrayList();
-                                    mostrar.add("Servicio de mantenimiento:" + elementoServicio.getMarcaBici());
-                                    mostrar.add(1);
-                                    mostrar.add(elementoServicio.getPrecio());
-                                    for (int i = 0; i < 3; i++) {
-                                        Label newLabel = new Label(mostrar.get(i).toString());
-                                        GridPane.setConstraints(newLabel, i, j);
-                                        GridPane.setHalignment(newLabel, HPos.CENTER);
-                                        GridPane.setValignment(newLabel, VPos.CENTER);
-                                        descripcionProducto.getChildren().add(newLabel);
-                                    }
-                                    j++;
-                                    break;
-                                }
-                            }
-                        }
+                    break;
                     }
-
                 }
-            } catch (NumberFormatException e) {
-                for(Cliente cliente : clientes){
+            } catch(NumberFormatException e) {
+                for(Cliente cliente : clientes) {
                     if(cliente.getNombre().equals(dato.strip())) {
+                        for(Factura factura : facturas) {
+                            if(factura.getCodigoCliente() == cliente.getCodigo()){
+                                codigoFactura = factura.getNumeroFactura();
+                                montarInfo(factura,Articulos,Servicios);
+                            }
+                        }
+                        btBuscar.setDisable(true);
                         existe = true;
-                        nombre.setText("Nombre de cliente: " + cliente.getNombre()+ " " + cliente.getApellido());    
+                        nombre.setText("Nombre de cliente: " + cliente.getNombre() + " " + cliente.getApellido());
+                        total.setText("Total: " + precioTotal);
                     }
                 }
             }
-            if(!existe) {
+            if (!existe) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Factura no encontrada.");
                 alert.show();
             }
@@ -158,6 +144,7 @@ public class BuscarFacturaCodigoNombreController implements Initializable {
      */
     @FXML
     private void limpiar(ActionEvent event) {
+        btBuscar.setDisable(false);
     }
 
     /**
@@ -169,4 +156,52 @@ public class BuscarFacturaCodigoNombreController implements Initializable {
     private void anularFactura(ActionEvent event) {
     }
 
+    private void montarInfo(Factura factura, ArrayList<articulo> Articulos,ArrayList<servicio> Servicios) {
+        List<List> codigosArticulos = factura.getArticuloXcantidad();
+        List<Integer> codigosServicios = factura.getCodigoServicio();
+        for (List<Integer> codigo : codigosArticulos) {
+            for (articulo elementoArticulo : Articulos) {
+                if (codigo.get(0).equals(elementoArticulo.getCodigoArticulo())) {
+                    String nombreArticulo = elementoArticulo.getNombreProducto() + " " + elementoArticulo.getNombreArticulo();
+                    Integer cantidad = codigo.get(1);
+                    Integer total = elementoArticulo.getPrecio() * codigo.get(1);
+
+                    ArrayList mostrar = new ArrayList();
+                    mostrar.add(nombreArticulo);
+                    mostrar.add(cantidad);
+                    mostrar.add(total);
+                    precioTotal += total;
+                    for (int i = 0; i < 3; i++) {
+                        Label newLabel = new Label(mostrar.get(i).toString());
+                        GridPane.setConstraints(newLabel, i, j);
+                        GridPane.setHalignment(newLabel, HPos.CENTER);
+                        GridPane.setValignment(newLabel, VPos.CENTER);
+                        descripcionProducto.getChildren().add(newLabel);
+                    }
+                    j++;
+                    break;
+                }
+            }
+        }
+        for (Integer codigo : codigosServicios) {
+            for (servicio elementoServicio : Servicios) {
+                if (codigo.equals(elementoServicio.getCodigoServicio())) {
+                    ArrayList mostrar = new ArrayList();
+                    mostrar.add("Servicio de mantenimiento:" + elementoServicio.getMarcaBici());
+                    mostrar.add(1);
+                    mostrar.add(elementoServicio.getPrecio());
+                    precioTotal += elementoServicio.getPrecio();
+                    for (int i = 0; i < 3; i++) {
+                        Label newLabel = new Label(mostrar.get(i).toString());
+                        GridPane.setConstraints(newLabel, i, j);
+                        GridPane.setHalignment(newLabel, HPos.CENTER);
+                        GridPane.setValignment(newLabel, VPos.CENTER);
+                        descripcionProducto.getChildren().add(newLabel);
+                    }
+                    j++;
+                    break;
+                }
+            }
+        }
+    }
 }
