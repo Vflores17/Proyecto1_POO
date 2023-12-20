@@ -109,6 +109,7 @@ public class BuscarFacturaCodigoNombreController implements Initializable {
                             for(articulo elementoArticulo : Articulos) {
                                 if(codigo.equals(elementoArticulo.getCodigoArticulo())) {
                                     System.out.println(elementoArticulo.getNombreProducto() + elementoArticulo.getNombreArticulo());
+                                    //Todo lo demas para montar el articulo en el gridPane
                                 }
                             }
                         }
