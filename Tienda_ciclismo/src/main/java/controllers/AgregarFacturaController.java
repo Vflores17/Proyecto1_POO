@@ -5,6 +5,7 @@ import clases.Factura;
 import clases.articulo;
 import clases.servicio;
 import clases.tipoProducto;
+import static controllers.RegistroArticulosController.esNumerico;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -58,12 +60,14 @@ public class AgregarFacturaController implements Initializable {
     private ArrayList<servicio> listServicio = App.getServicios();
     private ArrayList<Integer> listaCodigosArticulos = new ArrayList();
     private List<Integer> listaCodigosServicios = new ArrayList();
-    
+
     private List<List> listArticuloCant = new ArrayList();
     private int j = 1;
     private int subtotal = 0;
     private int iva = 0;
     private int total = 0;
+    @FXML
+    private Button regresar;
 
     /**
      * Initializes the controller class.
@@ -113,6 +117,7 @@ public class AgregarFacturaController implements Initializable {
     private void generarFactura(ActionEvent event) {
         if (comboCliente.getValue() != null && (!listaCodigosArticulos.isEmpty() || !listaCodigosServicios.isEmpty())) {
             for (Cliente cliente : listClientes) {
+                System.out.println("entra");
                 if (cliente.getCodigo() == App.obtenerCodigoCliente(comboCliente.getValue())) {
                     for (servicio Servicio : listServicio) {
                         for (Integer codigos : listaCodigosServicios) {
@@ -122,12 +127,14 @@ public class AgregarFacturaController implements Initializable {
                         }
 
                     }
-                    Factura new_factura = new Factura(App.buscarCodigoDisponible((ArrayList) App.getFactura()),cliente.getCodigo(),getFecha(), "Valida", total, listaCodigosArticulos,listaCodigosServicios,listArticuloCant);
+                    Factura new_factura = new Factura(App.buscarCodigoDisponible((ArrayList) App.getFactura()), cliente.getCodigo(), getFecha(), "Valida", total, listaCodigosArticulos, listaCodigosServicios, listArticuloCant);
                     App.guardarFactura(new_factura);
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Se ha generado la factura correctamente");
                     alert.show();
+                    
                 }
             }
+            limpiar();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Elija un cliente.");
             alert.show();
@@ -137,36 +144,41 @@ public class AgregarFacturaController implements Initializable {
     @FXML
     private void agregarArticulos(ActionEvent event) {
         if (comboProducto.getValue() != null && cantidadProducto.getText() != null && !cantidadProducto.getText().isEmpty()) {
-            for (articulo Articulo : listArticulo) {
-                if (App.obtenerNombre(comboProducto.getValue(), 1).equals(Articulo.getNombreArticulo())) {
-                    List<Integer> articuloXcantidad = new ArrayList();
-                    articuloXcantidad.add(Articulo.getCodigoArticulo());
-                    articuloXcantidad.add(Integer.parseInt(cantidadProducto.getText()));
-                    
-                    listArticuloCant.add(articuloXcantidad);
-                    
-                    ArrayList mostrar = new ArrayList();
-                    mostrar.add(Articulo.getNombreProducto() + " " + Articulo.getNombreArticulo());
-                    mostrar.add(cantidadProducto.getText());
-                    mostrar.add(Integer.valueOf(Articulo.getPrecio()));
-                    mostrar.add(Integer.parseInt(cantidadProducto.getText()) * Articulo.getPrecio());
-                    subtotal += (int) Integer.parseInt(cantidadProducto.getText()) * Articulo.getPrecio();
-                    iva = (int) ((subtotal * 13) / 100);
-                    total = iva + subtotal;
-                    labelSubTotal.setText("Subtotal:" + subtotal);
-                    IVA.setText("IVA:" + iva);
-                    labelTotal.setText("Total:" + total);
-                    for (int i = 0; i < 4; i++) {
-                        Label newLabel = new Label(mostrar.get(i).toString());
-                        GridPane.setConstraints(newLabel, i, j);
-                        GridPane.setHalignment(newLabel, HPos.CENTER);
-                        GridPane.setValignment(newLabel, VPos.CENTER);
-                        gridPaneProductos.getChildren().add(newLabel);
+            if (esNumerico(cantidadProducto.getText())) {
+                for (articulo Articulo : listArticulo) {
+                    if (App.obtenerNombre(comboProducto.getValue(), 1).equals(Articulo.getNombreArticulo())) {
+                        List<Integer> articuloXcantidad = new ArrayList();
+                        articuloXcantidad.add(Articulo.getCodigoArticulo());
+                        articuloXcantidad.add(Integer.parseInt(cantidadProducto.getText()));
+
+                        listArticuloCant.add(articuloXcantidad);
+
+                        ArrayList mostrar = new ArrayList();
+                        mostrar.add(Articulo.getNombreProducto() + " " + Articulo.getNombreArticulo());
+                        mostrar.add(cantidadProducto.getText());
+                        mostrar.add(Integer.valueOf(Articulo.getPrecio()));
+                        mostrar.add(Integer.parseInt(cantidadProducto.getText()) * Articulo.getPrecio());
+                        subtotal += (int) Integer.parseInt(cantidadProducto.getText()) * Articulo.getPrecio();
+                        iva = (int) ((subtotal * 13) / 100);
+                        total = iva + subtotal;
+                        labelSubTotal.setText("Subtotal: " + subtotal);
+                        IVA.setText("IVA: " + iva);
+                        labelTotal.setText("Total: " + total);
+                        for (int i = 0; i < 4; i++) {
+                            Label newLabel = new Label(mostrar.get(i).toString());
+                            GridPane.setConstraints(newLabel, i, j);
+                            GridPane.setHalignment(newLabel, HPos.CENTER);
+                            GridPane.setValignment(newLabel, VPos.CENTER);
+                            gridPaneProductos.getChildren().add(newLabel);
+                        }
+                        listaCodigosArticulos.add(Articulo.getCodigoArticulo());
+                        j++;
+                        break;
                     }
-                    listaCodigosArticulos.add(Articulo.getCodigoArticulo());
-                    j++;
-                    break;
                 }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debes ingresar solamente números enteros.");
+                alert.show();
             }
         }
     }
@@ -206,23 +218,24 @@ public class AgregarFacturaController implements Initializable {
 
     @FXML
     private void regresar(ActionEvent event) throws IOException {
-        App.cambiarVista(getStage(), "registroFactura");
+        App.cambiarVista(App.getStage(regresar), "registroFactura");
     }
 
-    /**
-     * *
-     * Método para obtener el stage actual de la ventana.
-     *
-     * @return stage de la ventana actual
-     */
-    private Stage getStage() {
-        Stage stage = (Stage) cantidadProducto.getScene().getWindow();
-        return stage;
-    }
-    
     private LocalDate getFecha() {
         LocalDate fecha = fechaFactura.getValue();
         return fecha;
+    }
+
+    private void limpiar() {
+        fechaFactura.setValue(null);
+        comboCliente.setValue(null);
+        comboProducto.setValue(null);
+        comboServicio.setValue(null);
+        cantidadProducto.setText(" ");
+        labelSubTotal.setText("Subtotal: ");
+        IVA.setText("IVA: ");
+        labelTotal.setText("Total: ");
+        gridPaneProductos.getChildren().clear();
     }
 
 }

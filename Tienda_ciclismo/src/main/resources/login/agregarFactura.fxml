@@ -15,7 +15,7 @@
    <children>
       <ComboBox fx:id="comboCliente" layoutX="14.0" layoutY="40.0" prefHeight="25.0" prefWidth="174.0" />
       <DatePicker fx:id="fechaFactura" layoutX="14.0" layoutY="104.0" />
-      <Button layoutX="460.0" layoutY="395.0" mnemonicParsing="false" onAction="#regresar" prefHeight="39.0" prefWidth="131.0" text="Regresar">
+      <Button fx:id="regresar" layoutX="460.0" layoutY="395.0" mnemonicParsing="false" onAction="#regresar" prefHeight="39.0" prefWidth="131.0" text="Regresar">
          <font>
             <Font size="15.0" />
          </font></Button>
