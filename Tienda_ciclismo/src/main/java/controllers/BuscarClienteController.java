@@ -133,8 +133,6 @@ public class BuscarClienteController implements Initializable {
     @FXML
     private void eliminar(ActionEvent event) {
         ArrayList codigos = App.getArticulosCodFacturados();
-        System.out.println(codigos);
-        System.out.println(clienteSeleccionado.getCodigo());
         if (!codigos.contains(clienteSeleccionado.getCodigo())) {
             Alert alerta = new Alert(AlertType.CONFIRMATION);
             alerta.setTitle("Confirmación");
@@ -176,6 +174,7 @@ public class BuscarClienteController implements Initializable {
         fechaN.setText("Fecha de nacimiento: ");
         botEliminar.setDisable(false);
         clienteSeleccionado = null;
+        obtenerDato.clear();
 
     }
 

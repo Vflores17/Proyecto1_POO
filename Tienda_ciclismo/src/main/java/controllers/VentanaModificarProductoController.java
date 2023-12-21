@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.text.Text;
@@ -71,6 +72,8 @@ public class VentanaModificarProductoController implements Initializable {
     private List<String> productosDisponibles;
     private String[] categorias = {"Bicicletas", "Suplementos", "Accesorios"};
     private String[] tamannos = {"12", "16", "22", "26", "27", "27.5", "29"};
+    @FXML
+    private Menu menuModificar;
 
     /**
      * Inializador del controlador.
@@ -114,6 +117,7 @@ public class VentanaModificarProductoController implements Initializable {
                 //objetoModificar = infoMostrar;
                 objetoModificar = infoMostrar;
                 completarLabels(infoMostrar);
+                menuModificar.setDisable(false);
             } else {
                 objetoModificar = null;
                 Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo ingresado no existe.");
@@ -156,6 +160,7 @@ public class VentanaModificarProductoController implements Initializable {
         textPrecio.setText(String.valueOf(" "));
         textCant.setText(String.valueOf(" "));
         objetoModificar = null;
+        menuModificar.setDisable(true);
 
     }
 

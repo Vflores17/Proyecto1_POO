@@ -298,6 +298,7 @@ public class VentanaBuscarServicioController implements Initializable {
                     alerta.showAndWait().ifPresent(response -> {
                         if (response == ButtonType.YES) {
                             App.eliminarServicio(Integer.parseInt(input));
+                            gridInformacion.getChildren().clear();
                             Alert alert = new Alert(Alert.AlertType.INFORMATION, "El servicio se ha eliminado satisfactoriamente.");
                             alert.show();
                         } else {

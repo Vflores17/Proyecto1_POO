@@ -261,36 +261,40 @@ public class VentanaBuscarProductoController implements Initializable {
         Optional<String> result = dialog.showAndWait();
 
         result.ifPresent(input -> {
-            ArrayList codigos = App.getCodigosArticulos();
-            if (codigos.contains(Integer.parseInt(input))) {
-                ArrayList facturados = App.getArticulosCodFacturados();
-                System.out.println(facturados);
-                if (!facturados.contains(Integer.parseInt(input))) {
-                    Alert alerta = new Alert(AlertType.CONFIRMATION);
-                    alerta.setTitle("Confirmación");
-                    alerta.setHeaderText("¿Está seguro de eliminar el artículo?");
+            if (esNumerico(input)) {
+                ArrayList codigos = App.getCodigosArticulos();
+                if (codigos.contains(Integer.parseInt(input))) {
+                    ArrayList facturados = App.getArticulosCodFacturados();
+                    System.out.println(facturados);
+                    if (!facturados.contains(Integer.parseInt(input))) {
+                        Alert alerta = new Alert(AlertType.CONFIRMATION);
+                        alerta.setTitle("Confirmación");
+                        alerta.setHeaderText("¿Está seguro de eliminar el artículo?");
 
-                    alerta.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+                        alerta.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 
-                    alerta.showAndWait().ifPresent(response -> {
-                        if (response == ButtonType.YES) {
-                            App.eliminarArticuloCodigo(Integer.parseInt(input));
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION, "El artículo ha sido eliminado satisfactoriamente.");
-                            alert.show();
-                        } else {
-                            Alert alert = new Alert(Alert.AlertType.WARNING, "No se eliminó al artículo.");
-                            alert.show();
-                        }
-                    });
+                        alerta.showAndWait().ifPresent(response -> {
+                            if (response == ButtonType.YES) {
+                                App.eliminarArticuloCodigo(Integer.parseInt(input));
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION, "El artículo ha sido eliminado satisfactoriamente.");
+                                alert.show();
+                            } else {
+                                Alert alert = new Alert(Alert.AlertType.WARNING, "No se eliminó al artículo.");
+                                alert.show();
+                            }
+                        });
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo no se puede eliminar, porque se encuentra facturado.");
+                        alert.show();
+                    }
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "El artículo no se puede eliminar, porque se encuentra facturado.");
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "No hay ningún artículo con el código ingresado.");
                     alert.show();
                 }
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "No hay ningún artículo con el código ingresado.");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar solamente números enteros.");
                 alert.show();
             }
-
         });
     }
 
