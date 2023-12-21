@@ -80,7 +80,11 @@ public class BuscarFacturaFechaController implements Initializable{
         }
     }
 
-    
+    /**
+     * Metodo para anular la factura encontrada
+     * 
+     * @param event Al hacer click
+     */
     @FXML
     void anularFactura(ActionEvent event) {
         if(codigoFactura == 0){
@@ -110,11 +114,15 @@ public class BuscarFacturaFechaController implements Initializable{
         }
     }
 
+    /**
+     * Obtiene la fecha seleccionada del dataPicker
+     * 
+     * @param event al seleccionar una fecha
+     */
     @FXML
     void buscarFecha(ActionEvent event) {
         for(Factura factura:facturas){
-            System.out.println("Bucle de factura");
-            if(factura.getFechaFactura().equals(fecha.getValue())){
+            if(factura.getFechaFactura().equals(fecha.getValue()) && factura.getEstado().equals("Valida")){
                 System.out.println("Encontro la factura");
                 for(Cliente cliente : clientes){
                     System.out.println("Bucle cliente");
@@ -133,6 +141,11 @@ public class BuscarFacturaFechaController implements Initializable{
         }
     }
 
+    /**
+     * Limpia la informacion mostrada en pantalla
+     * 
+     * @param event Al hacer click
+     */
     @FXML
     void limpiar(ActionEvent event) {
         fecha.setVisible(true);
@@ -159,29 +172,53 @@ public class BuscarFacturaFechaController implements Initializable{
         }
     }
 
+    /**
+     * Muestra la opcion seleccionada del comboBox
+     * 
+     * @param event Al hacer click
+     */
     @FXML
     void mostrarBusqueda(ActionEvent event) {
-        btBuscar.setDisable(true);
-        String[] partes = comboFactura.getValue().split(" ");
-        String codigo = partes[2].trim();
-        String dato = String.valueOf(fecha.getValue());
-        boolean existe = false;
-        if (dato != null && !dato.isEmpty()) {
-            for (Factura factura : facturas) {
-                if(factura.getNumeroFactura() == Integer.parseInt(codigo)) {
-                    codigoFactura = factura.getNumeroFactura();
-                    montarInfo(factura,Articulos,Servicios);
-                    total.setText("Total: "+precioTotal);
+        if(comboFactura.getValue()!=null){
+            btBuscar.setDisable(true);
+            String[] partes = comboFactura.getValue().split(" ");
+            String codigo = partes[2].trim();
+            String dato = String.valueOf(fecha.getValue());
+            boolean existe = false;
+            if(dato != null && !dato.isEmpty()) {
+                for (Factura factura : facturas) {
+                    if(factura.getNumeroFactura() == Integer.parseInt(codigo)) {
+                        codigoFactura = factura.getNumeroFactura();
+                        montarInfo(factura,Articulos,Servicios);
+                        total.setText("Total: "+precioTotal);
+                    }
                 }
             }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR, "No se a seleccionado ninguna facturas");
+            alert.show();
         }
+        
     }
     
+    /**
+     * Metodo para regresar a la ventana anterior
+     * 
+     * @param event Al hacer click
+     * @throws IOException 
+     */
     @FXML
     void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(App.getStage(btBuscar), "registroFactura");
     }
 
+    /**
+     * Metodo para mostrar la informacion en pantalla
+     * 
+     * @param factura Objeto factura encontrada
+     * @param Articulos De articulos
+     * @param Servicios Lista de servicios
+     */
     private void montarInfo(Factura factura, ArrayList<articulo> Articulos,ArrayList<servicio> Servicios) {
         List<List> codigosArticulos = factura.getArticuloXcantidad();
         List<Integer> codigosServicios = factura.getCodigoServicio();

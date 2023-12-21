@@ -14,10 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import login.App;
-import static login.App.devolverInfo;
-import controllers.RegistroArticulosController;
 import static controllers.RegistroArticulosController.esNumerico;
 
 /**

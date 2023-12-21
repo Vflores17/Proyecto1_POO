@@ -1,10 +1,10 @@
 package controllers;
 
+//Modulos importados
 import clases.Cliente;
 import clases.Factura;
 import clases.articulo;
 import clases.servicio;
-import clases.tipoProducto;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -99,7 +99,7 @@ public class BuscarFacturaCodigoNombreController implements Initializable {
 
             try {
                 for (Factura factura : facturas) {
-                    if(factura.getNumeroFactura() == Integer.parseInt(dato.strip())) {
+                    if(factura.getNumeroFactura() == Integer.parseInt(dato.strip()) && factura.getEstado().equals("Valida")) {
                         btBuscar.setDisable(true);
                         codigoFactura = factura.getNumeroFactura();
                         montarInfo(factura,Articulos,Servicios);
@@ -201,6 +201,13 @@ public class BuscarFacturaCodigoNombreController implements Initializable {
         }
     }
 
+    /**
+     * Metodo para mostrar la informacion en pantalla
+     * 
+     * @param factura Objeto factura encontrada
+     * @param Articulos De articulos
+     * @param Servicios Lista de servicios
+     */
     private void montarInfo(Factura factura, ArrayList<articulo> Articulos,ArrayList<servicio> Servicios) {
         List<List> codigosArticulos = factura.getArticuloXcantidad();
         List<Integer> codigosServicios = factura.getCodigoServicio();

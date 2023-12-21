@@ -1,7 +1,6 @@
 package controllers;
 
 //Módulo de importaciones
-import archivos.cargarArchivo;
 import clases.Cliente;
 import java.io.IOException;
 import java.net.URL;
@@ -18,8 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import login.App;
 
 /**

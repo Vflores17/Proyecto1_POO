@@ -326,10 +326,17 @@ public class App extends Application {
         return nombreBuscado;
     }
 
+    /**
+     * Obtiene la ventana
+     * 
+     * @param boton elemento de la ventana
+     * @return ventana actual donde se encuentra el boton
+     */
     public static Stage getStage(Button boton) {
         Stage stage = (Stage) boton.getScene().getWindow();
         return stage;
     }
+
 
     public static ArrayList getArticulosCodFacturados() {
         ArrayList facturados = new ArrayList();
@@ -479,6 +486,9 @@ public class App extends Application {
         }
     }
     
+    /**
+     * Actualiza la factura con el valor Anulado
+     */
     public static void actualizarFactura() {
         guardarArchivo.guardarFactura(infoFactura);
     }

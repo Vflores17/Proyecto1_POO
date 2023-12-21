@@ -1,5 +1,6 @@
 package controllers;
 
+//Módulo de importaciones
 import clases.Cliente;
 import clases.Factura;
 import clases.articulo;
@@ -25,16 +26,16 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import login.App;
 
 /**
  * FXML Controller class
  *
- * @author Dilan
+ * @author Dylan Meza
  */
 public class AgregarFacturaController implements Initializable {
 
+    //Definición de variables y elementos gráficos a utilizar.
     @FXML
     private DatePicker fechaFactura;
     @FXML
@@ -113,6 +114,11 @@ public class AgregarFacturaController implements Initializable {
 
     }
 
+    /**
+     * Genera la factura
+     * 
+     * @param event al hacer click al boton
+     */
     @FXML
     private void generarFactura(ActionEvent event) {
         if (comboCliente.getValue() != null && (!listaCodigosArticulos.isEmpty() || !listaCodigosServicios.isEmpty())) {
@@ -141,6 +147,11 @@ public class AgregarFacturaController implements Initializable {
         }
     }
 
+    /**
+     * Agrega un articulo a la factura
+     * 
+     * @param event Al hacer click
+     */
     @FXML
     private void agregarArticulos(ActionEvent event) {
         if (comboProducto.getValue() != null && cantidadProducto.getText() != null && !cantidadProducto.getText().isEmpty()) {
@@ -183,6 +194,11 @@ public class AgregarFacturaController implements Initializable {
         }
     }
 
+    /**
+     * Agrega un servicio a la factura
+     * 
+     * @param event al hacer click
+     */
     @FXML
     private void agregarServicio(ActionEvent event) {
         if (comboServicio.getValue() != null) {
@@ -216,16 +232,30 @@ public class AgregarFacturaController implements Initializable {
         }
     }
 
+    /**
+     * regresa a la ventana anterior
+     * 
+     * @param event al hacer click
+     * @throws IOException 
+     */
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         App.cambiarVista(App.getStage(regresar), "registroFactura");
     }
 
+    /**
+     * Obtiene la fecha de facturacion
+     * 
+     * @return fecha
+     */
     private LocalDate getFecha() {
         LocalDate fecha = fechaFactura.getValue();
         return fecha;
     }
 
+    /**
+     * Limpia la ventana luego de que se agrega una factua
+     */
     private void limpiar() {
         fechaFactura.setValue(null);
         comboCliente.setValue(null);

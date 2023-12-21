@@ -1,13 +1,10 @@
 package controllers;
 
 //Módulo de importaciones
-import archivos.cargarArchivo;
-import archivos.guardarArchivo;
 import clases.Cliente;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,7 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import login.App;
 
 /**
