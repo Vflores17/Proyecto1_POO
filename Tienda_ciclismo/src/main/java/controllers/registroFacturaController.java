@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package controllers;
 
 import java.io.IOException;
@@ -19,7 +15,7 @@ import login.App;
 /**
  * FXML Controller class
  *
- * @author Dilan
+ * @author Dylan Meza
  */
 public class registroFacturaController implements Initializable {
 
@@ -58,7 +54,7 @@ public class registroFacturaController implements Initializable {
 
     @FXML
     private void opcionBuscarPorFecha(ActionEvent event) throws IOException {
-        App.cambiarVista(App.getStage(botonBuscar), "buscarFacturaCodigoNombre");
+        App.cambiarVista(App.getStage(botonBuscar), "buscarFacturaFecha");
     }
     
 }

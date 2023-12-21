@@ -4,7 +4,6 @@ import clases.Cliente;
 import clases.Factura;
 import clases.articulo;
 import clases.servicio;
-import clases.tipoProducto;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,43 +17,54 @@ import javafx.geometry.VPos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import login.App;
 
 /**
- * FXML Controller class
  *
  * @author Dylan Meza
  */
-public class BuscarFacturaCodigoNombreController implements Initializable {
+public class BuscarFacturaFechaController implements Initializable{
+
+    @FXML
+    private Button botAnular;
+
+    @FXML
+    private Button botLimpiar;
+
+    @FXML
+    private Button btBuscar;
+
+    @FXML
+    private ComboBox<String> comboFactura;
+
+    @FXML
+    private GridPane descripcionProducto;
+
+    @FXML
+    private DatePicker fecha;
 
     @FXML
     private Label nombre;
-    @FXML
-    private Button btBuscar;
-    @FXML
-    private TextField obtenerDato;
-    @FXML
-    private Button botLimpiar;
-    @FXML
-    private Button botAnular;
-    @FXML
-    private GridPane descripcionProducto;
+
     @FXML
     private Label total;
 
+    List<Cliente> clientes = App.getClientes();
+    List<Factura> facturas = App.getFactura();
+    ArrayList<servicio> Servicios = App.getServicios();
+    ArrayList<articulo> Articulos = App.devolverArticulos();
     private int j = 1;
     private int precioTotal = 0;
     private int codigoFactura = 0;
-
-    /**
-     * Initializes the controller class.
-     */
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        comboFactura.setVisible(false);
         ArrayList etiquetas = new ArrayList();
 
         etiquetas.add("Descripción");
@@ -70,110 +80,9 @@ public class BuscarFacturaCodigoNombreController implements Initializable {
         }
     }
 
-    /**
-     * Metodo para regresar a la ventana anterior
-     *
-     * @param event
-     * @throws IOException Excepciones en el caso de que falle alguna llamada a
-     * otros métodos
-     */
+    
     @FXML
-    private void regresar(ActionEvent event) throws IOException {
-        App.cambiarVista(App.getStage(botAnular), "registroFactura");
-    }
-
-    /**
-     * Metodo que se encarga de realizar la busqueda
-     *
-     * @param event
-     */
-    @FXML
-    private void mostrarBusqueda(ActionEvent event) {
-        String dato = obtenerDato.getText();
-        boolean existe = false;
-        if (dato != null && !dato.isEmpty()) {
-            List<Cliente> clientes = App.getClientes();
-            List<Factura> facturas = App.getFactura();
-            ArrayList<servicio> Servicios = App.getServicios();
-            ArrayList<articulo> Articulos = App.devolverArticulos();
-
-            try {
-                for (Factura factura : facturas) {
-                    if(factura.getNumeroFactura() == Integer.parseInt(dato.strip())) {
-                        btBuscar.setDisable(true);
-                        codigoFactura = factura.getNumeroFactura();
-                        montarInfo(factura,Articulos,Servicios);
-                        for(Cliente cliente : clientes) {
-                            if(cliente.getCodigo() == factura.getCodigoCliente()) {
-                                existe = true;
-                                nombre.setText("Nombre de cliente: " + cliente.getNombre() + " " + cliente.getApellido());
-                                total.setText("Total: " + precioTotal);
-                                break;
-                            }
-                        }
-                    break;
-                    }
-                }
-            } catch(NumberFormatException e) {
-                for(Cliente cliente : clientes) {
-                    if(cliente.getNombre().equals(dato.strip())) {
-                        for(Factura factura : facturas) {
-                            if(factura.getCodigoCliente() == cliente.getCodigo()){
-                                codigoFactura = factura.getNumeroFactura();
-                                montarInfo(factura,Articulos,Servicios);
-                            }
-                        }
-                        btBuscar.setDisable(true);
-                        existe = true;
-                        nombre.setText("Nombre de cliente: " + cliente.getNombre() + " " + cliente.getApellido());
-                        total.setText("Total: " + precioTotal);
-                    }
-                }
-            }
-            if (!existe) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Factura no encontrada.");
-                alert.show();
-            }
-
-        }
-    }
-
-    /**
-     * Metodo para limpiar la informacion en pantalla
-     *
-     * @param event
-     */
-    @FXML
-    private void limpiar(ActionEvent event) {
-        
-        btBuscar.setDisable(false);
-        descripcionProducto.getChildren().clear();
-        nombre.setText("Nombre de cliente: ");
-        total.setText("Total: ");
-        j = 1;
-        codigoFactura = 0;
-        
-        ArrayList etiquetas = new ArrayList();
-
-        etiquetas.add("Descripción");
-        etiquetas.add("Cantidad");
-        etiquetas.add("Precio");
-        for (int i = 0; i < 3; i++) {
-            Label newLabel = new Label(etiquetas.get(i).toString());
-            GridPane.setConstraints(newLabel, i, 0);
-            GridPane.setHalignment(newLabel, HPos.CENTER);
-            GridPane.setValignment(newLabel, VPos.CENTER);
-            descripcionProducto.getChildren().add(newLabel);
-        }
-    }
-
-    /**
-     * Metodo para anular una factura
-     *
-     * @param event
-     */
-    @FXML
-    private void anularFactura(ActionEvent event) {
+    void anularFactura(ActionEvent event) {
         if(codigoFactura == 0){
             Alert alert = new Alert(Alert.AlertType.ERROR, "No ha seleccionado una factura");
             alert.show();
@@ -199,6 +108,78 @@ public class BuscarFacturaCodigoNombreController implements Initializable {
                 }
             });
         }
+    }
+
+    @FXML
+    void buscarFecha(ActionEvent event) {
+        for(Factura factura:facturas){
+            System.out.println("Bucle de factura");
+            if(factura.getFechaFactura().equals(fecha.getValue())){
+                System.out.println("Encontro la factura");
+                for(Cliente cliente : clientes){
+                    System.out.println("Bucle cliente");
+                    if(cliente.getCodigo() == factura.getCodigoCliente()){
+                        System.out.println("Encontro el cliente en factura");
+                        comboFactura.getItems().add("Números factura: "+factura.getNumeroFactura()+" Cliente: "+cliente.getNombre()+" "+cliente.getApellido());
+                    }
+                }
+                fecha.setVisible(false);
+                comboFactura.setVisible(true);
+            }
+        }
+        if(comboFactura.getItems().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "No se han encontrado facturas del dia seleccionado");
+            alert.show();
+        }
+    }
+
+    @FXML
+    void limpiar(ActionEvent event) {
+        fecha.setVisible(true);
+        comboFactura.setVisible(false);
+        comboFactura.getItems().clear();
+        btBuscar.setDisable(false);
+        descripcionProducto.getChildren().clear();
+        nombre.setText("Nombre de cliente: ");
+        total.setText("Total: ");
+        j = 1;
+        codigoFactura = 0;
+        
+        ArrayList etiquetas = new ArrayList();
+
+        etiquetas.add("Descripción");
+        etiquetas.add("Cantidad");
+        etiquetas.add("Precio");
+        for (int i = 0; i < 3; i++) {
+            Label newLabel = new Label(etiquetas.get(i).toString());
+            GridPane.setConstraints(newLabel, i, 0);
+            GridPane.setHalignment(newLabel, HPos.CENTER);
+            GridPane.setValignment(newLabel, VPos.CENTER);
+            descripcionProducto.getChildren().add(newLabel);
+        }
+    }
+
+    @FXML
+    void mostrarBusqueda(ActionEvent event) {
+        btBuscar.setDisable(true);
+        String[] partes = comboFactura.getValue().split(" ");
+        String codigo = partes[2].trim();
+        String dato = String.valueOf(fecha.getValue());
+        boolean existe = false;
+        if (dato != null && !dato.isEmpty()) {
+            for (Factura factura : facturas) {
+                if(factura.getNumeroFactura() == Integer.parseInt(codigo)) {
+                    codigoFactura = factura.getNumeroFactura();
+                    montarInfo(factura,Articulos,Servicios);
+                    total.setText("Total: "+precioTotal);
+                }
+            }
+        }
+    }
+    
+    @FXML
+    void regresar(ActionEvent event) throws IOException {
+        App.cambiarVista(App.getStage(btBuscar), "registroFactura");
     }
 
     private void montarInfo(Factura factura, ArrayList<articulo> Articulos,ArrayList<servicio> Servicios) {

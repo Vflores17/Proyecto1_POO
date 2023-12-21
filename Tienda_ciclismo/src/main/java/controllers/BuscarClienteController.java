@@ -54,6 +54,7 @@ public class BuscarClienteController implements Initializable {
     private Button botEliminar;
     @FXML
     private Button botLimpiar;
+    
     private Cliente clienteSeleccionado;
 
     /**

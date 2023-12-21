@@ -122,7 +122,7 @@ public class AgregarFacturaController implements Initializable {
                         }
 
                     }
-                    Factura new_factura = new Factura(App.buscarCodigoDisponible((ArrayList) App.getFactura()),cliente.getCodigo(),getFecha(), "Válida", total, listaCodigosArticulos,listaCodigosServicios,listArticuloCant);
+                    Factura new_factura = new Factura(App.buscarCodigoDisponible((ArrayList) App.getFactura()),cliente.getCodigo(),getFecha(), "Valida", total, listaCodigosArticulos,listaCodigosServicios,listArticuloCant);
                     App.guardarFactura(new_factura);
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Se ha generado la factura correctamente");
                     alert.show();

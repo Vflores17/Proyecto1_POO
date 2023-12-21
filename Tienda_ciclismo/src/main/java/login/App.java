@@ -479,6 +479,8 @@ public class App extends Application {
         }
     }
     
-    
+    public static void actualizarFactura() {
+        guardarArchivo.guardarFactura(infoFactura);
+    }
 
 }
