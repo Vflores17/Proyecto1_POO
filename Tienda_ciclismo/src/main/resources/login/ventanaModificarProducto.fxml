@@ -22,7 +22,7 @@
       </Button>
       <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="563.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Modificar producto">
+          <Menu fx:id="menuModificar" disable="true" mnemonicParsing="false" text="Modificar producto">
             <items>
               <MenuItem fx:id="botTipoProducto" mnemonicParsing="false" onAction="#cambiarTipoProducto" text="Modificar tipo de producto" />
                   <MenuItem fx:id="botNombre" mnemonicParsing="false" onAction="#cambiarNombre" text="Modificar nombre del artículo" />
