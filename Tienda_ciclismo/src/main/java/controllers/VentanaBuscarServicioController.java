@@ -286,30 +286,35 @@ public class VentanaBuscarServicioController implements Initializable {
         Optional<String> result = dialog.showAndWait();
 
         result.ifPresent(input -> {
+            ArrayList<servicio> listaServicios = App.getServicios();
             ArrayList facturados = App.getCodigosServiciosFacturados();
             if (esNumerico(input) && input != null) {
-                if (!facturados.contains(Integer.parseInt(input))) {
-                    Alert alerta = new Alert(AlertType.CONFIRMATION);
-                    alerta.setTitle("Confirmación");
-                    alerta.setHeaderText("¿Está seguro de eliminar el servicio?");
+                for (servicio elementoServicio : listaServicios) {
+                    if (elementoServicio.getCodigoServicio() == Integer.parseInt(input)) {
+                        if (!elementoServicio.isEstado()) {
+                            Alert alerta = new Alert(AlertType.CONFIRMATION);
+                            alerta.setTitle("Confirmación");
+                            alerta.setHeaderText("¿Está seguro de eliminar el servicio?");
 
-                    alerta.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+                            alerta.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 
-                    alerta.showAndWait().ifPresent(response -> {
-                        if (response == ButtonType.YES) {
-                            App.eliminarServicio(Integer.parseInt(input));
-                            gridInformacion.getChildren().clear();
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION, "El servicio se ha eliminado satisfactoriamente.");
-                            alert.show();
-                        } else {
-                            Alert alert = new Alert(Alert.AlertType.WARNING, "No se eliminó al servicio.");
-                            alert.show();
-                        }
-                    });
-
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "El servicio no se puede eliminar, porque ya está facturado.");
-                    alert.show();
+                            alerta.showAndWait().ifPresent(response -> {
+                                if (response == ButtonType.YES) {
+                                    App.eliminarServicio(Integer.parseInt(input));
+                                    gridInformacion.getChildren().clear();
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "El servicio se ha eliminado satisfactoriamente.");
+                                    alert.show();
+                                } else {
+                                    Alert alert = new Alert(Alert.AlertType.WARNING, "No se eliminó al servicio.");
+                                    alert.show();
+                                }
+                            });
+                        }else{
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "El servicio no se puede eliminar, porque ya está facturado.");
+                        alert.show();
+                        break;
+                        } 
+                    }
                 }
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Debe ingresar carácteres válidos.");

@@ -218,7 +218,7 @@ public class App extends Application {
      *
      * @return ArrayList con los objetos servicio.
      */
-    public static ArrayList getServicios() {
+    public static ArrayList<servicio> getServicios() {
         return infoServicios;
     }
 
@@ -492,5 +492,18 @@ public class App extends Application {
     public static void actualizarFactura() {
         guardarArchivo.guardarFactura(infoFactura);
     }
-
+    
+    /**
+     * Actualiza los valores de los articulos
+     */
+    public static void actualizarArticulo() {
+        guardarArchivo.guardarArticulo(infoArticulos);
+    }
+    
+    /**
+     * Actualiza los valores de los servicios
+     */
+    public static void actualizarServicio() {
+        guardarArchivo.guardarServicios(infoServicios);
+    }
 }

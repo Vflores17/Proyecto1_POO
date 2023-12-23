@@ -129,6 +129,7 @@ public class AgregarFacturaController implements Initializable {
                         for (Integer codigos : listaCodigosServicios) {
                             if (Servicio.getCodigoServicio() == codigos) {
                                 Servicio.setEstado(false);
+                                App.actualizarServicio();
                             }
                         }
 

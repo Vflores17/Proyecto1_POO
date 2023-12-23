@@ -185,6 +185,7 @@ public class VentanaModificarProductoController implements Initializable {
             if (objetoModificar != null && !opcion.equals(" ")) {
                 objetoModificar.setNombreProducto(opcion);
                 completarLabels(objetoModificar);
+                App.actualizarArticulo();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Se cambió exitosamente el tipo de producto.");
                 alert.show();
             } else {
@@ -215,6 +216,7 @@ public class VentanaModificarProductoController implements Initializable {
             if (infoMostrar != null) {
                 objetoModificar.setNombreArticulo(input);
                 completarLabels(infoMostrar);
+                App.actualizarArticulo();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "El nombre del artículo ha sido modificado satisfactoriamente.");
                 alert.show();
             } else {
@@ -262,6 +264,7 @@ public class VentanaModificarProductoController implements Initializable {
                         if (!opcionUser.equals(" ")) {
                             objetoModificar.setTipo(opcion);
                             objetoModificar.setTamanno(opcionUser);
+                            App.actualizarArticulo();
                             completarLabels(objetoModificar);
                             Alert alert = new Alert(Alert.AlertType.INFORMATION, "La categoría y el tamaño han sido modificados exitosamente.");
                             alert.show();
@@ -278,6 +281,7 @@ public class VentanaModificarProductoController implements Initializable {
 
                     objetoModificar.setTipo(opcion);
                     objetoModificar.setTamanno("0");
+                    App.actualizarArticulo();
                     completarLabels(objetoModificar);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "La categoría ha sido modificada exitosamente.");
                     alert.show();
@@ -310,6 +314,7 @@ public class VentanaModificarProductoController implements Initializable {
             input.ifPresent(opcionUser -> {
                 if (!opcionUser.equals(" ")) {
                     objetoModificar.setTamanno(opcionUser);
+                    App.actualizarArticulo();
                     completarLabels(objetoModificar);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "El tamaño del artículo ha sido modificado exitosamente.");
                     alert.show();
@@ -341,6 +346,7 @@ public class VentanaModificarProductoController implements Initializable {
         result.ifPresent(input -> {
             if (!input.isEmpty()) {
                 objetoModificar.setMarca(input);
+                App.actualizarArticulo();
                 completarLabels(objetoModificar);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "La marca del artículo ha sido modificada exitosamente.");
                 alert.show();
@@ -370,6 +376,7 @@ public class VentanaModificarProductoController implements Initializable {
             if (!input.isEmpty()) {
                 if (esNumerico(input)) {
                     objetoModificar.setPrecio(Integer.parseInt(input));
+                    App.actualizarArticulo();
                     completarLabels(objetoModificar);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "El precio del artículo ha sido modificado exitosamente.");
                     alert.show();
@@ -403,6 +410,7 @@ public class VentanaModificarProductoController implements Initializable {
             if (!input.isEmpty()) {
                 if (esNumerico(input)) {
                     objetoModificar.setCantidad(Integer.parseInt(input));
+                    App.actualizarArticulo();
                     completarLabels(objetoModificar);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "La cantidad de artículos ha sido modificada exitosamente.");
                     alert.show();

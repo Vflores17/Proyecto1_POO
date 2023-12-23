@@ -47,7 +47,6 @@ public class ventanaLogin {
      */
     public ventanaLogin(){
         credenciales = infoVentanaLogin();
-        System.out.println(credenciales);
     }
     
     /**
